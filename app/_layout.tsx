@@ -8,10 +8,17 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
 
+import { Poppins_400Regular, Poppins_700Bold } from '@expo-google-fonts/poppins';
+
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+  });
+
+  const [fontsLoaded] = useFonts({
+    Poppins_400Regular,
+    Poppins_700Bold,
   });
 
   const [isReady, setIsReady] = useState(false);
@@ -29,7 +36,7 @@ export default function RootLayout() {
 
   if (!loaded || !isReady) {
     return (
-      <View className="flex-1 items-center justify-center">
+      <View className="flex-1 items-center justify-center bg-[#5d198a]">
         <ActivityIndicator size="large" />
       </View>
     );

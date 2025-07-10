@@ -8,8 +8,8 @@ export default function WelcomeScreen() {
 
   return (
     <View className="flex-1 justify-center items-center px-6" style={{ backgroundColor: '#5d198a' }}>
-      <Text className="text-white text-4xl font-bold mb-4">Welcome</Text>
-      <Text className="text-white text-base text-center mb-8">
+      <Text className="font-poppins text-white text-4xl font-bold mb-4">Welcome</Text>
+      <Text className="font-poppins text-white text-base text-center mb-8">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque nec justo in quam pulvinar sagittis.
       </Text>
 
@@ -17,7 +17,7 @@ export default function WelcomeScreen() {
         onPress={() => router.replace('/(onboarding)/choose-role')}
         className="bg-white rounded-full px-6 py-3"
       >
-        <Text className="text-[#5d198a] font-semibold text-base">Next</Text>
+        <Text className="font-poppins text-[#5d198a] font-semibold text-base">Next</Text>
       </TouchableOpacity>
 
     </View>
