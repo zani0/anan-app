@@ -1,7 +1,15 @@
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Link, useRouter } from 'expo-router';
-import "global.css";      
+import { Stack } from 'expo-router';
+import "global.css";
 
+export const unstable_settings = {
+  initialRouteName: 'welcome',
+};
+
+export const options = {
+  headerShown: false,
+};
 
 export default function WelcomeScreen() {
   const router = useRouter();
@@ -19,7 +27,6 @@ export default function WelcomeScreen() {
       >
         <Text className="font-poppins text-[#5d198a] font-semibold text-base">Next</Text>
       </TouchableOpacity>
-
     </View>
   );
 }
