@@ -7,21 +7,43 @@ import {
   Image,
   Platform,
 } from "react-native";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "expo-router";
 import Toast from "react-native-toast-message";
 import { Ionicons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import Checkbox from "expo-checkbox";
 
 export default function SignIn() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
   const [form, setForm] = useState({ email: "", password: "" });
+
+  // Load saved credentials
+  useEffect(() => {
+    const loadSaved = async () => {
+      try {
+        const email = await AsyncStorage.getItem("email");
+        const password = await AsyncStorage.getItem("password");
+
+        if (email && password) {
+          setForm({ email, password });
+          setRememberMe(true);
+        }
+      } catch (err) {
+        console.error("Failed to load credentials", err);
+      }
+    };
+
+    loadSaved();
+  }, []);
 
   const handleChange = (field: keyof typeof form, value: string) => {
     setForm((prev) => ({ ...prev, [field]: value }));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!form.email || !form.password) {
       Toast.show({
         type: "error",
@@ -39,6 +61,17 @@ export default function SignIn() {
         text2: "Please enter a valid email address",
       });
       return;
+    }
+
+    try {
+      if (rememberMe) {
+        await AsyncStorage.setItem("email", form.email);
+        await AsyncStorage.setItem("password", form.password);
+      } else {
+        await AsyncStorage.multiRemove(["email", "password"]);
+      }
+    } catch (err) {
+      console.error("Failed to save login info", err);
     }
 
     Toast.show({
@@ -87,13 +120,13 @@ export default function SignIn() {
             placeholderTextColor="#888"
             keyboardType="email-address"
             autoCapitalize="none"
-            className="border border-gray-300 rounded-lg px-4 py-3 mb-4 font-poppins"
+            className="border border-gray-300 rounded-lg px-4 py-3 font-poppins mb-4"
             value={form.email}
             onChangeText={(text) => handleChange("email", text)}
           />
 
           {/* Password Field with Icon */}
-          <View className="mb-4 border border-gray-300 rounded-lg flex-row items-center px-4">
+          <View className="border border-gray-300 rounded-lg flex-row items-center px-4 mb-4">
             <TextInput
               placeholder="Password"
               placeholderTextColor="#888"
@@ -111,12 +144,24 @@ export default function SignIn() {
             </TouchableOpacity>
           </View>
 
+          {/* Checkbox */}
+          <View className="flex-row items-center mb-2 mt-1">
+            <Checkbox
+              value={rememberMe}
+              onValueChange={setRememberMe}
+              color={rememberMe ? "#5d198a" : undefined}
+            />
+            <Text className="ml-2 text-sm font-poppins text-gray-700">Remember me</Text>
+          </View>
+
           {/* Proceed */}
           <TouchableOpacity
             onPress={handleSubmit}
-            className="bg-[#D0EE30] py-3 rounded-xl mt-6 mb-6"
+            className="bg-[#D0EE30] py-3 rounded-xl mt-3 mb-6"
           >
-            <Text className="text-[#5d198a] text-center font-poppinsBold text-[18px]">Sign In</Text>
+            <Text className="text-[#5d198a] text-center font-poppinsBold text-[18px]">
+              Sign In
+            </Text>
           </TouchableOpacity>
 
           {/* Create Account */}
@@ -146,7 +191,7 @@ export default function SignIn() {
         </View>
       </ScrollView>
 
-      {/* Popup Component */}
+      {/* Toast Popup */}
       <Toast />
     </View>
   );

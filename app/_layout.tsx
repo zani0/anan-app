@@ -25,22 +25,28 @@ export default function RootLayout() {
   const [progress, setProgress] = useState(0);
   const [initialRoute, setInitialRoute] = useState<'(tabs)' | '(onboarding)' | null>(null);
 
-  // Check onboarding status from AsyncStorage
+  // Check onboarding + login status
   useEffect(() => {
-    const checkOnboardingStatus = async () => {
+    const checkAuthStatus = async () => {
       try {
+        const isLoggedIn = await AsyncStorage.getItem('isLoggedIn');
         const hasOnboarded = await AsyncStorage.getItem('hasOnboarded');
-        setInitialRoute(hasOnboarded === 'true' ? '(tabs)' : '(onboarding)');
+
+        if (isLoggedIn === 'true') {
+          setInitialRoute('(tabs)');
+        } else {
+          setInitialRoute(hasOnboarded === 'true' ? '(tabs)' : '(onboarding)');
+        }
       } catch (error) {
-        console.error('Failed to read onboarding status:', error);
+        console.error('Error checking auth state:', error);
         setInitialRoute('(onboarding)'); // fallback
       }
     };
 
-    checkOnboardingStatus();
+    checkAuthStatus();
   }, []);
 
-  // Animate progress loader after fonts & route decision
+  // Animate splash screen loader
   useEffect(() => {
     if (fontsLoaded && initialRoute) {
       const timer = setInterval(() => {
@@ -56,7 +62,7 @@ export default function RootLayout() {
     }
   }, [fontsLoaded, initialRoute]);
 
-  // Splash loader
+  // Splash screen while loading
   if (!fontsLoaded || !initialRoute || progress < 100) {
     return (
       <View className="flex-1 items-center justify-center bg-[#5d198a] px-8">
@@ -70,10 +76,7 @@ export default function RootLayout() {
         </View>
 
         <View className="w-full h-3 bg-white/30 rounded-full my-6 overflow-hidden">
-          <View
-            className="h-full bg-white"
-            style={{ width: `${progress}%` }}
-          />
+          <View className="h-full bg-white" style={{ width: `${progress}%` }} />
         </View>
 
         <Text className="text-white font-[Poppins_400Regular]">{Math.floor(progress)}%</Text>
@@ -81,7 +84,7 @@ export default function RootLayout() {
     );
   }
 
-  // Main app layout
+  // Main layout after loading
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack initialRouteName={initialRoute}>
