@@ -52,49 +52,51 @@ export default function AccountType() {
   );
 
   return (
-    <View className="flex-1 bg-[#5d198a] px-6 py-12">
+    <View className="flex-1 bg-[#5d198a] px-6">
       <ScrollView
-        contentContainerStyle={{ flexGrow: 1 }}
+        contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }}
         showsVerticalScrollIndicator={false}
       >
-        {/* Title */}
-        <Text className="text-[30px] text-[#D0EE30] font-poppinsBold text-center mb-2">
-          How do you want to proceed?
-        </Text>
-
-        {/* Subtitle */}
-        <Text className="text-white text-center font-poppins mb-6">
-          You can either go ahead with your own profile or create a profile for your child.
-        </Text>
-
-        {/* Options */}
         <View>
-          <OptionCard
-            type="parent"
-            title="Use Parent Account"
-            subtitle="Continue with your account and manage parental controls."
-            image={require("@/assets/images/parent-icon.png")} // Replace with your own image
-          />
-          <OptionCard
-            type="child"
-            title="Create Child Profile"
-            subtitle="Set up a dedicated account for your child to access content."
-            image={require("@/assets/images/child-icon.png")} // Replace with your own image
-          />
-        </View>
-
-        {/* Next Button */}
-        <TouchableOpacity
-          disabled={!selected}
-          onPress={handleNext}
-          className={`mt-8 py-3 rounded-xl ${
-            selected ? "bg-[#D0EE30]" : "bg-[#D0EE30]/50"
-          }`}
-        >
-          <Text className="text-center text-[#5d198a] font-poppinsBold text-[18px]">
-            Next
+          {/* Title */}
+          <Text className="text-[30px] text-[#D0EE30] font-poppins text-center mb-2">
+            How do you want to proceed?
           </Text>
-        </TouchableOpacity>
+
+          {/* Subtitle */}
+          <Text className="text-white text-center font-poppins mb-6">
+            You can either go ahead with your own profile or create a profile for your child.
+          </Text>
+
+          {/* Options */}
+          <View>
+            <OptionCard
+              type="parent"
+              title="Use Parent Account"
+              subtitle="Continue with your account and manage parental controls."
+              image={require("@/assets/images/oops-illustration.png")}
+            />
+            <OptionCard
+              type="child"
+              title="Create Child Profile"
+              subtitle="Set up a dedicated account for your child to access content."
+              image={require("@/assets/images/oops-illustration.png")}
+            />
+          </View>
+
+          {/* Next Button */}
+          <TouchableOpacity
+            disabled={!selected}
+            onPress={handleNext}
+            className={`mt-8 py-3 rounded-xl ${
+              selected ? "bg-[#D0EE30]" : "bg-[#D0EE30]/50"
+            }`}
+          >
+            <Text className="text-center text-[#5d198a] font-poppinsBold text-[18px]">
+              Next
+            </Text>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
     </View>
   );

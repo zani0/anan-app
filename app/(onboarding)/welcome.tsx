@@ -49,6 +49,11 @@ export default function WelcomeScreen() {
       >
         <Text className="font-poppinsBold text-[#5d198a] text-base text-center">Next</Text>
       </TouchableOpacity>
+      <TouchableOpacity onPress={() => router.push("/(onboarding)/sign-in")}>
+        <Text className="text-center text-white text-[12px] font-poppins mt-9 underline">
+          Already have an account? Sign In
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 }
