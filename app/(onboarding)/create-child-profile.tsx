@@ -55,7 +55,7 @@ export default function CreateChildProfile() {
       case 1:
         return (
           <>
-            <Text className="text-[#5d198a] text-[18px] font-poppins text-center mb-6">
+            <Text className="text-[#5d198a] text-[18px] font-poppins text-center mb-3">
               What’s your child’s name?
             </Text>
             <TextInput
@@ -63,15 +63,11 @@ export default function CreateChildProfile() {
               onChangeText={(text) => handleChange("name", text)}
               placeholder="Name here"
               placeholderTextColor="#aaa"
-              className="text-center font-poppins text-gray-800 px-4 py-2 mb-2"
-              style={{
-                borderBottomWidth: 1.5,
-                borderColor: "#5d198a",
-                borderStyle: "dotted",
-              }}
+              className="bg-transparent border-b border-dotted border-[#5d198a] px-4 py-3 font-poppins text-white text-center w-full mb-2"
             />
           </>
         );
+
       case 2:
         const ageGroups = [
           {
@@ -99,59 +95,66 @@ export default function CreateChildProfile() {
             <Text className="text-white font-poppins text-lg text-center mb-6">
               How old is your child?
             </Text>
-            <View className="flex-row flex-wrap justify-between gap-4">
+            <View className="space-y-4">
               {ageGroups.map((item) => (
                 <TouchableOpacity
                   key={item.value}
                   onPress={() => handleChange("age", item.value)}
-                  className={`w-[30%] bg-white rounded-xl p-2 items-center ${
+                  className={`flex-row items-center bg-white rounded-xl p-4 mb-4 ${
                     form.age === item.value
                       ? "border-4 border-[#D0EE30]"
-                      : "border-2 border-transparent"
+                      : "border border-transparent"
                   }`}
                 >
                   <Image
                     source={item.image}
-                    className="w-14 h-14 mb-2"
+                    className="w-14 h-14 mr-4"
                     resizeMode="contain"
                   />
-                  <Text className="text-sm font-poppinsBold text-[#5d198a] text-center">
-                    {item.label}
-                  </Text>
-                  <Text className="text-xs text-gray-500 text-center">
-                    {item.description}
-                  </Text>
+                  <View>
+                    <Text className="text-base font-poppinsBold text-[#5d198a]">
+                      {item.label}
+                    </Text>
+                    <Text className="text-sm text-gray-500">
+                      {item.description}
+                    </Text>
+                  </View>
                 </TouchableOpacity>
               ))}
             </View>
           </>
         );
+
       case 3:
+        const genderOptions = [
+          { label: "Boy", value: "boy" },
+          { label: "Girl", value: "girl" },
+          { label: "I’d rather not say", value: "unspecified" },
+        ];
+
         return (
           <>
             <Text className="text-white font-poppins text-lg text-center mb-6">
               What’s your child’s gender?
             </Text>
-            <View className="flex-row justify-between gap-4">
-              <TouchableOpacity
-                className={`flex-1 bg-white rounded-xl py-3 items-center ${
-                  form.gender === "boy" ? "border-4 border-[#D0EE30]" : ""
-                }`}
-                onPress={() => handleChange("gender", "boy")}
-              >
-                <Text className="font-poppins text-black">Boy</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                className={`flex-1 bg-white rounded-xl py-3 items-center ${
-                  form.gender === "girl" ? "border-4 border-[#D0EE30]" : ""
-                }`}
-                onPress={() => handleChange("gender", "girl")}
-              >
-                <Text className="font-poppins text-black">Girl</Text>
-              </TouchableOpacity>
+            <View className="space-y-4">
+              {genderOptions.map((option) => (
+                <TouchableOpacity
+                  key={option.value}
+                  onPress={() => handleChange("gender", option.value)}
+                  className={`bg-white rounded-xl py-3 px-4 items-center ${
+                    form.gender === option.value
+                      ? "border-4 border-[#D0EE30]"
+                      : "border border-transparent"
+                  }`}
+                >
+                  <Text className="font-poppins text-black">{option.label}</Text>
+                </TouchableOpacity>
+              ))}
             </View>
           </>
         );
+
       default:
         return null;
     }
@@ -174,19 +177,17 @@ export default function CreateChildProfile() {
         />
 
         {/* Title */}
-        <Text className="text-[30px] font-poppins text-[#D0EE30] text-center mb-3">
+        <Text className="text-[30px] font-poppins text-[#D0EE30] text-center mb-4">
           Create a profile for your child
         </Text>
 
-        <Text className="font-poppins text-white text-center text-base mb-8">
+        <Text className="font-poppins text-white text-base text-center mb-8">
           We only use this to curate the kind of videos suitable for your child
         </Text>
 
-        {/* Card */}
-        <View className="bg-white p-6 rounded-2xl space-y-4">
+        <View className="bg-white/20 p-6 rounded-2xl w-full space-y-4">
           {renderStep()}
 
-          {/* Next Button */}
           <TouchableOpacity
             onPress={handleNext}
             className="bg-[#D0EE30] py-3 mt-6 rounded-xl"
