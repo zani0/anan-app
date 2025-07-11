@@ -102,7 +102,7 @@ export default function VerifyAge() {
                                 : "border-white bg-white/10"
                                 }`}
                         >
-                            <Text className="text-white text-xl font-bold">
+                            <Text className="text-white text-xl font-poppinsBold">
                                 {digit}
                             </Text>
                         </TouchableOpacity>

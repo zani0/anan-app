@@ -49,14 +49,12 @@ export default function ParentalConsent() {
 
                 {/* Consent Text */}
                 <View className="bg-white rounded-2xl p-6 shadow-md mb-6">
-                    <Text className="uppercase font-poppins mb-5">Important Parental Notice</Text>
+                    <Text className="uppercase font-poppins text-[17px] mb-5">Important Parental Notice</Text>
                     <Text className="font-poppins text-gray-800 text-base text-left">
                         By accepting this agreement, you confirm that you are the parent or legal guardian of
                         the child and consent to the creation and use of the Anansesem account for learning,
                         interaction, and content tracking purposes.
-                        <br></br>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita, animi molestias. 
-                        <br></br>
                         Numquam veritatis eligendi aspernatur tenetur commodi doloremque odit, molestias, harum in neque maiores, doloribus magnam! Obcaecati dolor voluptas doloribus.
                     </Text>
                 </View>
