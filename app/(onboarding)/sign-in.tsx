@@ -3,8 +3,8 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  Image,
   ScrollView,
+  Image,
   Platform,
 } from "react-native";
 import { useState } from "react";
@@ -21,20 +21,30 @@ export default function SignIn() {
     setForm((prev) => ({ ...prev, [field]: value }));
   };
 
-  const handleLogin = () => {
+  const handleSubmit = () => {
     if (!form.email || !form.password) {
       Toast.show({
         type: "error",
-        text1: "Missing Info",
-        text2: "Please enter your email and password",
+        text1: "Oops!",
+        text2: "Please fill in all the fields 😊",
+      });
+      return;
+    }
+
+    const emailRegex = /\S+@\S+\.\S+/;
+    if (!emailRegex.test(form.email)) {
+      Toast.show({
+        type: "error",
+        text1: "Invalid Email",
+        text2: "Please enter a valid email address",
       });
       return;
     }
 
     Toast.show({
       type: "success",
-      text1: "Welcome back!",
-      text2: "You're now signed in 🚀",
+      text1: "Login Successful!",
+      text2: "Welcome back to Anansesem 💫",
     });
 
     setTimeout(() => router.replace("/welcome"), 1500);
@@ -42,30 +52,48 @@ export default function SignIn() {
 
   return (
     <View className="flex-1 justify-center items-center bg-[#5d198a] px-6">
+      {/* Top Right Spiderweb */}
+      <Image
+        source={require('@/assets/images/spider-web-1.png')}
+        className="w-[150px] h-[120px] absolute top-[-20] right-[-30]"
+        resizeMode="cover"
+      />
+
+      {/* Bottom Left Spiderweb */}
+      <Image
+        source={require('@/assets/images/spider-web-2.png')}
+        className="w-[170px] h-[80px] absolute bottom-0 left-0"
+        resizeMode="cover"
+      />
+
       <ScrollView
         contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }}
         showsVerticalScrollIndicator={false}
       >
-        <Text className="text-[35px] font-caprasimo text-[#D0EE30] text-center mb-2">
+        {/* Title */}
+        <Text className="text-[35px] font-poppins text-[#D0EE30] text-center mb-2">
           Sign In
         </Text>
 
+        {/* Subtitle */}
         <Text className="text-white font-poppins text-center mb-6">
-          Log into your Anansesem account
+          Enter your account details to log in and continue setting up parental controls.
         </Text>
 
+        {/* Form Card */}
         <View className="bg-white rounded-2xl p-6 shadow-md space-y-4">
           <TextInput
             placeholder="Email Address"
             placeholderTextColor="#888"
             keyboardType="email-address"
             autoCapitalize="none"
-            className="border border-gray-300 rounded-lg px-4 py-3 font-poppins"
+            className="border border-gray-300 rounded-lg px-4 py-3 mb-4 font-poppins"
             value={form.email}
             onChangeText={(text) => handleChange("email", text)}
           />
 
-          <View className="border border-gray-300 rounded-lg flex-row items-center px-4">
+          {/* Password Field with Icon */}
+          <View className="mb-4 border border-gray-300 rounded-lg flex-row items-center px-4">
             <TextInput
               placeholder="Password"
               placeholderTextColor="#888"
@@ -83,34 +111,42 @@ export default function SignIn() {
             </TouchableOpacity>
           </View>
 
-          <TouchableOpacity onPress={handleLogin} className="bg-[#5d198a] py-3 rounded-xl mt-2">
-            <Text className="text-white text-center font-poppinsBold">Sign In</Text>
+          {/* Proceed */}
+          <TouchableOpacity
+            onPress={handleSubmit}
+            className="bg-[#D0EE30] py-3 rounded-xl mt-6 mb-6"
+          >
+            <Text className="text-[#5d198a] text-center font-poppinsBold text-[18px]">Sign In</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => router.replace("/(onboarding)/sign-up")}>
+          {/* Create Account */}
+          <TouchableOpacity onPress={() => router.push("/(onboarding)/sign-up")}>
             <Text className="text-center text-[#5d198a] font-poppins mt-2 underline">
               Don’t have an account? Create one
             </Text>
           </TouchableOpacity>
         </View>
 
+        {/* Divider */}
         <Text className="text-white font-poppins text-center my-6">OR</Text>
 
+        {/* Social Buttons Row */}
         <View className="flex-row justify-center gap-6">
           <TouchableOpacity className="w-14 h-14 bg-white rounded-lg items-center justify-center">
-            <Image source={{ uri: "" }} className="w-6 h-6" />
+            <Image source={require("@/assets/images/facebook.png")} className="w-6 h-6" />
           </TouchableOpacity>
           <TouchableOpacity className="w-14 h-14 bg-white rounded-lg items-center justify-center">
-            <Image source={{ uri: "" }} className="w-6 h-6" />
+            <Image source={require("@/assets/images/google.png")} className="w-6 h-6" />
           </TouchableOpacity>
           {Platform.OS === "ios" && (
             <TouchableOpacity className="w-14 h-14 bg-white rounded-lg items-center justify-center">
-              <Image source={{ uri: "" }} className="w-6 h-6" />
+              <Image source={require("@/assets/images/apple.png")} className="w-6 h-6" resizeMode="contain" />
             </TouchableOpacity>
           )}
         </View>
       </ScrollView>
 
+      {/* Popup Component */}
       <Toast />
     </View>
   );

@@ -47,7 +47,7 @@ export default function WelcomeScreen() {
         onPress={() => router.replace('/(onboarding)/sign-up')}
         className="bg-[#D0EE30] rounded-xl px-6 py-3 w-full"
       >
-        <Text className="font-poppins text-[#5d198a] font-semibold text-base text-center">Next</Text>
+        <Text className="font-poppinsBold text-[#5d198a] text-base text-center">Next</Text>
       </TouchableOpacity>
     </View>
   );
