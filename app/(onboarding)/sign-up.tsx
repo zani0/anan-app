@@ -49,7 +49,7 @@ export default function SignUp() {
             text2: "Welcome to Anansesem 💫",
         });
 
-        setTimeout(() => router.replace("/welcome"), 1500);
+        setTimeout(() => router.replace("/(onboarding)/parental-consent"), 1500);
     };
 
     return (
@@ -171,7 +171,6 @@ export default function SignUp() {
                 </View>
             </ScrollView>
 
-            {/* Popup Component */}
             <Toast />
         </View>
     );
