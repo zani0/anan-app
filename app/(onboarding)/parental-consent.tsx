@@ -12,7 +12,7 @@ export default function ParentalConsent() {
                 text1: "Consent Accepted",
                 text2: "You're all set! 💫",
             });
-            setTimeout(() => router.replace("/welcome"), 1500);
+            setTimeout(() => router.replace("/account-type"), 1500);
         } else {
             Toast.show({
                 type: "error",
