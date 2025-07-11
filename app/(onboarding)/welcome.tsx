@@ -15,6 +15,20 @@ export default function WelcomeScreen() {
   return (
     <View className="flex-1 justify-center items-center px-6 bg-[#5d198a]">
 
+      {/* Top Right Spiderweb */}
+      <Image
+        source={require('@/assets/images/spider-web-1.png')}
+        className="w-[150px] h-[120px] absolute top-[-20] right-[-30]"
+        resizeMode="cover"
+      />
+
+      {/* Bottom Left Spiderweb */}
+      <Image
+        source={require('@/assets/images/spider-web-2.png')}
+        className="w-[170px] h-[80px] absolute bottom-0 left-0"
+        resizeMode="cover"
+      />
+
       {/* <View className="items-center mb-20">
         <Image
           source={require('@/assets/images/anansesem-logo-white.png')}
@@ -30,7 +44,7 @@ export default function WelcomeScreen() {
       </Text>
 
       <TouchableOpacity
-        onPress={() => router.replace('/(onboarding)/choose-role')}
+        onPress={() => router.replace('/(onboarding)/sign-up')}
         className="bg-[#D0EE30] rounded-xl px-6 py-3 w-full"
       >
         <Text className="font-poppins text-[#5d198a] font-semibold text-base text-center">Next</Text>

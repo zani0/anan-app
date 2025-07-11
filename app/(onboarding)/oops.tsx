@@ -2,34 +2,53 @@ import { View, Text, Image, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
 
 export default function OopsScreen() {
-  const router = useRouter();
+    const router = useRouter();
 
-  return (
-    <View className="flex-1 justify-center items-center bg-[#5d198a] px-6">
-      {/* Top Image */}
-      <Image
-        source={require("@/assets/images/oops-illustration.png")} // replace with your image
-        className="w-60 h-60 mb-6"
-        resizeMode="contain"
-      />
+    return (
+        <View className="flex-1 justify-center items-center bg-[#5d198a] px-6">
+            {/* Top Right Spiderweb */}
+            <Image
+                source={require('@/assets/images/spider-web-1.png')}
+                className="w-[150px] h-[120px] absolute top-[-20] right-[-30]"
+                resizeMode="cover"
+            />
 
-      {/* Title */}
-      <Text className="text-[#D0EE30] text-[35px] font-caprasimo mb-2">Oops!</Text>
+            {/* Bottom Left Spiderweb */}
+            <Image
+                source={require('@/assets/images/spider-web-2.png')}
+                className="w-[170px] h-[80px] absolute bottom-0 left-0"
+                resizeMode="cover"
+            />
 
-      {/* Subtitle */}
-      <Text className="text-white text-center font-poppins text-base mb-12">
-        You're not old enough to use this app.{"\n"}Ask your parent to set up an account for you.
-      </Text>
+            {/* Ananse oops image */}
+            <Image
+                source={require("@/assets/images/oops-illustration.png")}
+                className="h-[85px] mb-6"
+                resizeMode="contain"
+            />
 
-      {/* Okay Button */}
-      <View className="w-full px-6 absolute bottom-12">
-        <TouchableOpacity
-          onPress={() => router.replace("/welcome")}
-          className="bg-[#D0EE30] py-3 rounded-xl"
-        >
-          <Text className="text-[#5d198a] text-center font-poppinsBold">Okay</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
-  );
+            {/* Title */}
+            <Text className="font-poppins text-[#D0EE30] text-4xl mb-4">Ananse says oops!</Text>
+
+            {/* Subtitle */}
+            <Text className="text-white text-center font-poppins text-base mb-12">
+                Ask your parent to set up an account for you.
+            </Text>
+
+            {/* Okay Button */}
+            <View className="w-full px-6">
+                <TouchableOpacity
+                    onPress={() => router.push("/")}
+                    className="bg-[#D0EE30] py-3 rounded-xl"
+                >
+                    <Text className="text-[#5d198a] text-center font-poppinsBold">Okay</Text>
+                </TouchableOpacity>
+            </View>
+            <TouchableOpacity className="mt-20">
+                <Text className="text-white font-poppins underline underline-offset-[5px]">
+                    Learn more about Anansesem accounts
+                </Text>
+            </TouchableOpacity>
+        </View>
+    );
 }
