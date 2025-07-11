@@ -28,7 +28,7 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/anansesem-logo.png",
+          "image": "./assets/images/anansesem-logo-white.png",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#5d198a"

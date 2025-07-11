@@ -4,9 +4,11 @@ import { SplashScreen, Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import { View, Text, Image } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { Poppins_400Regular, Poppins_700Bold } from '@expo-google-fonts/poppins';
+import { Caprasimo_400Regular } from '@expo-google-fonts/caprasimo';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -16,14 +18,31 @@ export default function RootLayout() {
   const [fontsLoaded] = useFonts({
     Poppins_400Regular,
     Poppins_700Bold,
+    Caprasimo_400Regular,
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
 
   const [progress, setProgress] = useState(0);
-  const [initialRoute, setInitialRoute] = useState<'(tabs)' | '(onboarding)/choose-role'>('(tabs)');
+  const [initialRoute, setInitialRoute] = useState<'(tabs)' | '(onboarding)' | null>(null);
 
+  // Check onboarding status from AsyncStorage
   useEffect(() => {
-    if (fontsLoaded) {
+    const checkOnboardingStatus = async () => {
+      try {
+        const hasOnboarded = await AsyncStorage.getItem('hasOnboarded');
+        setInitialRoute(hasOnboarded === 'true' ? '(tabs)' : '(onboarding)');
+      } catch (error) {
+        console.error('Failed to read onboarding status:', error);
+        setInitialRoute('(onboarding)'); // fallback
+      }
+    };
+
+    checkOnboardingStatus();
+  }, []);
+
+  // Animate progress loader after fonts & route decision
+  useEffect(() => {
+    if (fontsLoaded && initialRoute) {
       const timer = setInterval(() => {
         setProgress((prev) => {
           if (prev >= 100) {
@@ -35,30 +54,34 @@ export default function RootLayout() {
         });
       }, 40);
     }
-  }, [fontsLoaded]);
+  }, [fontsLoaded, initialRoute]);
 
-  if (!fontsLoaded || progress < 100) {
+  // Splash loader
+  if (!fontsLoaded || !initialRoute || progress < 100) {
     return (
       <View className="flex-1 items-center justify-center bg-[#5d198a] px-8">
-        <Image
-          source={require('../assets/images/anansesem-logo.png')} 
-          className="w-24 h-24 mb-6"
-          resizeMode="contain"
-        />
-        <Text className="text-white text-xl font-[Poppins_700Bold] mb-6">Anansesem</Text>
+        <View className="items-center mb-20">
+          <Image
+            source={require('@/assets/images/anansesem-logo-white.png')}
+            className="h-[100px]"
+            resizeMode="center"
+          />
+          <Text className="text-[35px] font-caprasimo text-[#D0EE30]">Anansesem</Text>
+        </View>
 
-        <View className="w-full h-3 bg-white/30 rounded-full mb-3 overflow-hidden">
+        <View className="w-full h-3 bg-white/30 rounded-full my-6 overflow-hidden">
           <View
             className="h-full bg-white"
             style={{ width: `${progress}%` }}
           />
         </View>
 
-        <Text className="text-white font-[Poppins_400Regular]">{progress}%</Text>
+        <Text className="text-white font-[Poppins_400Regular]">{Math.floor(progress)}%</Text>
       </View>
     );
   }
 
+  // Main app layout
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack initialRouteName={initialRoute}>
@@ -68,7 +91,7 @@ export default function RootLayout() {
         <Stack.Screen name="(onboarding)/verify-age" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
       </Stack>
-      <StatusBar style="auto" />
+      <StatusBar hidden />
     </ThemeProvider>
   );
 }

@@ -10,6 +10,7 @@ module.exports = {
       fontFamily: {
         poppins: ['Poppins_400Regular', 'sans-serif'],
         poppinsBold: ['Poppins_700Bold', 'sans-serif'],
+        caprasimo: ['Caprasimo_400Regular']
       },
     },
   },
