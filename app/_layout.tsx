@@ -58,7 +58,7 @@ export default function RootLayout() {
           }
           return prev + 1;
         });
-      }, 40);
+      }, 60);
     }
   }, [fontsLoaded, initialRoute]);
 
