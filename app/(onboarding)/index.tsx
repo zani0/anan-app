@@ -26,7 +26,7 @@ export default function ChooseRole() {
           <Image
             source={require('@/assets/images/anansesem-logo-white.png')}
             className="h-[100px]"
-            resizeMode="center"
+            resizeMode="contain"
           />
           <Text className="text-[35px] font-caprasimo text-[#D0EE30]">Anansesem</Text>
         </View>

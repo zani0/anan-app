@@ -58,7 +58,7 @@ export default function CreateChildProfile() {
         text1: "Profile created!",
         text2: "You're all set 🎉",
       });
-      setTimeout(() => router.replace("/welcome"), 1500);
+      setTimeout(() => router.replace("/(tabs)"), 1500);
     }
   };
 
@@ -77,7 +77,7 @@ export default function CreateChildProfile() {
                   <Text className="text-sm text-gray-700">
                     Welcome to the Anansesem experience! This short video is for you,
                     the parent. We want to ensure your child is safe while having fun.
-                    Please take a moment to learn how to set up the best experience.
+                    Please take a moment to learn how to set up the best experience. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ducimus molestiae, quas voluptatibus sed, itaque quos qui ad a id sit at quae sequi nostrum, repellat dicta reprehenderit ab voluptates sint.
                   </Text>
                 </View>
                 <TouchableOpacity onPress={() => setShowText(false)}>
@@ -91,7 +91,7 @@ export default function CreateChildProfile() {
                 <YoutubePlayer
                   height={200}
                   play={false}
-                  videoId={"XqZsoesa55w"} 
+                  videoId={"XqZsoesa55w"}
                 />
                 <TouchableOpacity onPress={() => setShowText(true)}>
                   <Text className="text-sm text-[#5d198a] underline text-center mt-4">
@@ -124,19 +124,19 @@ export default function CreateChildProfile() {
             label: "Pre-school",
             value: "preschool",
             description: "Age 4 and under",
-            image: require("@/assets/images/oops-illustration.png"),
+            image: require("@/assets/images/icon.png"),
           },
           {
             label: "Younger",
             value: "younger",
             description: "Ages 5-8",
-            image: require("@/assets/images/oops-illustration.png"),
+            image: require("@/assets/images/icon.png"),
           },
           {
             label: "Older",
             value: "older",
             description: "Ages 9-12",
-            image: require("@/assets/images/oops-illustration.png"),
+            image: require("@/assets/images/icon.png"),
           },
         ];
         return (
@@ -188,7 +188,7 @@ export default function CreateChildProfile() {
                     }`}
                 >
                   <Image
-                    source={require("@/assets/images/oops-illustration.png")}
+                    source={require("@/assets/images/icon.png")}
                     className="w-10 h-10 mr-4"
                     resizeMode="contain"
                   />
@@ -210,17 +210,17 @@ export default function CreateChildProfile() {
             <View className="space-y-4">
               <TouchableOpacity
                 onPress={() => handleChange("search", "off")}
-                className={`bg-white rounded-xl py-3 px-4 items-center ${form.search === "off" ? "border-4 border-[#D0EE30]" : "border border-transparent"
+                className={`bg-[#cfee30] rounded-xl py-3 px-4 items-center mb-2 ${form.search === "off" ? "border-4 border-[#D0EE30]" : "border border-transparent"
                   }`}
               >
-                <Text className="font-poppins text-black">Turn Search Off</Text>
+                <Text className="font-poppins text-[#5d198a]">Turn Search Off</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => handleChange("search", "on")}
-                className={`bg-white rounded-xl py-3 px-4 items-center ${form.search === "on" ? "border-4 border-[#D0EE30]" : "border border-transparent"
+                className={`bg-[#cfee30] rounded-xl py-3 px-4 items-center ${form.search === "on" ? "border-4 border-[#D0EE30]" : "border border-transparent"
                   }`}
               >
-                <Text className="font-poppins text-black">Turn Search On</Text>
+                <Text className="font-poppins text-[#5d198a]">Turn Search On</Text>
               </TouchableOpacity>
             </View>
           </>

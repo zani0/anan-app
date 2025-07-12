@@ -80,7 +80,7 @@ export default function SignIn() {
       text2: "Welcome back to Anansesem 💫",
     });
 
-    setTimeout(() => router.replace("/welcome"), 1500);
+    setTimeout(() => router.replace("/(tabs)"), 1500);
   };
 
   return (

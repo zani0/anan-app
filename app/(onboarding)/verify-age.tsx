@@ -79,7 +79,7 @@ export default function VerifyAge() {
             />
 
             {/* Title */}
-            <Text className="font-poppins text-[#D0EE30] text-4xl mb-4 text-center">Please enter your age to proceed</Text>
+            <Text className="font-poppins text-[#D0EE30] text-4xl mb-4 text-center">Please enter your birth year to proceed</Text>
 
 
             {/* Subtitle */}
