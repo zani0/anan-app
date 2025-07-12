@@ -70,12 +70,28 @@ export default function CreateChildProfile() {
             <Text className="text-[#5d198a] text-[18px] font-poppins text-center mb-3">
               Watch this video to learn more
             </Text>
-            {!showText ? (
+
+            {showText ? (
+              <>
+                <View className="bg-white p-4 rounded-xl">
+                  <Text className="text-sm text-gray-700">
+                    Welcome to the Anansesem experience! This short video is for you,
+                    the parent. We want to ensure your child is safe while having fun.
+                    Please take a moment to learn how to set up the best experience.
+                  </Text>
+                </View>
+                <TouchableOpacity onPress={() => setShowText(false)}>
+                  <Text className="text-sm text-[#5d198a] underline text-center mt-4">
+                    Watch video instead
+                  </Text>
+                </TouchableOpacity>
+              </>
+            ) : (
               <>
                 <YoutubePlayer
                   height={200}
                   play={false}
-                  videoId={"Tt-xoWDYSJI"} // children-friendly video
+                  videoId={"XqZsoesa55w"} 
                 />
                 <TouchableOpacity onPress={() => setShowText(true)}>
                   <Text className="text-sm text-[#5d198a] underline text-center mt-4">
@@ -83,17 +99,10 @@ export default function CreateChildProfile() {
                   </Text>
                 </TouchableOpacity>
               </>
-            ) : (
-              <View className="bg-[#fff] p-4 rounded-xl">
-                <Text className="text-sm text-gray-700">
-                  Welcome to the Anansesem experience! This short video is for you,
-                  the parent. We want to ensure your child is safe while having fun.
-                  Please take a moment to learn how to set up the best experience.
-                </Text>
-              </View>
             )}
           </>
         );
+
       case 2:
         return (
           <>
