@@ -1,75 +1,83 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { ScrollView, Text, View, FlatList, Image, Pressable } from 'react-native'
+import { useEffect, useState } from 'react'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+const categories = ['History', 'Science', 'Folklore', 'Culture', 'Wildlife', 'Legends']
+
+const featuredStories = [
+  { id: '1', title: 'The Ashanti Kingdom', image: 'https://placehold.co/150x100' },
+  { id: '2', title: 'Rainforest Wonders', image: 'https://placehold.co/150x100' },
+  { id: '3', title: 'How the Spider Saved the Village', image: 'https://placehold.co/150x100' },
+]
 
 export default function HomeScreen() {
-  return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
-  );
-}
+  const insets = useSafeAreaInsets()
+  const [greeting, setGreeting] = useState('')
 
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});
+  useEffect(() => {
+    const hour = new Date().getHours()
+    if (hour < 12) setGreeting('Good morning!')
+    else if (hour < 18) setGreeting('Good afternoon!')
+    else setGreeting('Good evening!')
+  }, [])
+
+  return (
+    <ScrollView
+      className="flex-1 bg-white px-4"
+      contentContainerStyle={{ paddingTop: insets.top + 20, paddingBottom: 80 }}
+    >
+      {/* Greeting */}
+      <View className="mb-6">
+        <Text className="text-2xl font-bold text-gray-800">Hello Zoe 👋</Text>
+        <Text className="text-base text-gray-500">{greeting}</Text>
+      </View>
+
+      {/* Info Card */}
+      <View className="bg-lime-100 rounded-2xl p-4 mb-6">
+        <Text className="text-lg font-semibold text-gray-800">Explore New Adventures</Text>
+        <Text className="text-sm text-gray-600">Discover fun stories and legends every day.</Text>
+      </View>
+
+      {/* Categories */}
+      <Text className="text-base font-semibold text-gray-800 mb-2">Categories</Text>
+      <FlatList
+        data={categories}
+        keyExtractor={(item) => item}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{ gap: 12, paddingBottom: 16 }}
+        renderItem={({ item }) => (
+          <View className="bg-lime-200 px-4 py-2 rounded-full">
+            <Text className="text-sm font-medium text-gray-800">{item}</Text>
+          </View>
+        )}
+      />
+
+      {/* Featured Stories */}
+      <View className="flex-row justify-between items-center mb-2">
+        <Text className="text-base font-semibold text-gray-800">Featured Stories</Text>
+        <Pressable onPress={() => console.log('See more pressed')}>
+          <Text className="text-sm text-lime-600 font-medium">See more</Text>
+        </Pressable>
+      </View>
+
+      <FlatList
+        data={featuredStories}
+        keyExtractor={(item) => item.id}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{ gap: 12 }}
+        renderItem={({ item }) => (
+          <View className="w-40">
+            <Image
+              source={{ uri: item.image }}
+              className="w-full h-24 rounded-xl mb-2"
+              resizeMode="cover"
+            />
+            <Text className="text-sm font-medium text-gray-700">{item.title}</Text>
+          </View>
+        )}
+      />
+    </ScrollView>
+  )
+}

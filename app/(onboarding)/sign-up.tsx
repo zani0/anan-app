@@ -96,7 +96,7 @@ export default function SignUp() {
           Sign in with your own account to set up a profile and get more parental controls.
         </Text>
 
-        <View className="bg-white rounded-2xl p-6 shadow-md space-y-4">
+        <View className="bg-white rounded-2xl p-6 shadow-md">
           <TextInput
             placeholder="Full Name"
             placeholderTextColor="#888"
