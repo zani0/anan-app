@@ -1,16 +1,43 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
-import { Image, Platform, Text, View } from 'react-native';
+import { Image, Text, View } from 'react-native';
 import { HapticTab } from '@/components/HapticTab';
 
+const ACTIVE_BG = '#4B8B3B'; // dark green
+
 const TabIcon = ({ focused, label, icon }: { focused: boolean; label: string; icon: any }) => (
-  <View className="flex-row items-center justify-center space-x-1">
+  <View
+    className={`items-center justify-center rounded-full px-3 py-2 ${
+      focused ? 'bg-[#4B8B3B]' : ''
+    }`}
+    style={{
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      minWidth: 60,
+    }}
+  >
     <Image
       source={icon}
-      style={{ width: 24, height: 24, tintColor: focused ? '#ffffff' : '#5d198a' }}
+      style={{
+        width: 24,
+        height: 24,
+        tintColor: focused ? '#ffffff' : '#5d198a',
+        marginBottom: focused ? 4 : 0,
+      }}
       resizeMode="contain"
     />
-    {focused && <Text className="text-white font-poppins text-sm">{label}</Text>}
+    <Text
+      style={{
+        color: focused ? '#ffffff' : 'transparent',
+        fontSize: 12,
+        fontFamily: 'Poppins-Medium',
+        height: 16,
+        lineHeight: 16,
+      }}
+    >
+      {label}
+    </Text>
   </View>
 );
 
@@ -24,23 +51,24 @@ export default function TabLayout() {
         tabBarButton: HapticTab,
         tabBarStyle: {
           position: 'absolute',
-          backgroundColor: 'rgba(207, 238, 48, 0.9)', // Slightly transparent lime
+          backgroundColor: 'rgba(207, 238, 48, 0.9)',
           borderTopWidth: 0,
           borderRadius: 60,
           marginHorizontal: 16,
           marginBottom: 10,
           height: 70,
-          // shadowColor: '#000',
-          // shadowOffset: { width: 0, height: 4 },
-          // shadowOpacity: 0.1,
-          // shadowRadius: 6,
           elevation: 10,
         },
-        tabBarIconStyle: {
-          marginBottom: 0,
+        tabBarItemStyle: {
+          justifyContent: 'center',
+          alignItems: 'center',
         },
         tabBarLabelStyle: {
-          display: 'none', // We'll show it manually when focused
+          display: 'none',
+        },
+        tabBarIconStyle: {
+          justifyContent: 'center',
+          alignItems: 'center',
         },
       }}
     >
@@ -49,11 +77,7 @@ export default function TabLayout() {
         options={{
           title: 'Home',
           tabBarIcon: ({ focused }) => (
-            <TabIcon
-              focused={focused}
-              label="Home"
-              icon={require('@/assets/icons/home.png')}
-            />
+            <TabIcon focused={focused} label="Home" icon={require('@/assets/icons/home.png')} />
           ),
         }}
       />
@@ -62,11 +86,7 @@ export default function TabLayout() {
         options={{
           title: 'Library',
           tabBarIcon: ({ focused }) => (
-            <TabIcon
-              focused={focused}
-              label="Library"
-              icon={require('@/assets/icons/library.png')}
-            />
+            <TabIcon focused={focused} label="Library" icon={require('@/assets/icons/library.png')} />
           ),
         }}
       />
@@ -75,11 +95,7 @@ export default function TabLayout() {
         options={{
           title: 'Stats',
           tabBarIcon: ({ focused }) => (
-            <TabIcon
-              focused={focused}
-              label="Stats"
-              icon={require('@/assets/icons/stats.png')}
-            />
+            <TabIcon focused={focused} label="Stats" icon={require('@/assets/icons/stats.png')} />
           ),
         }}
       />
@@ -88,11 +104,7 @@ export default function TabLayout() {
         options={{
           title: 'Settings',
           tabBarIcon: ({ focused }) => (
-            <TabIcon
-              focused={focused}
-              label="Settings"
-              icon={require('@/assets/icons/settings.png')}
-            />
+            <TabIcon focused={focused} label="Settings" icon={require('@/assets/icons/settings.png')} />
           ),
         }}
       />

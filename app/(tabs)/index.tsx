@@ -4,28 +4,48 @@ import {
   View,
   FlatList,
   Image,
-  Pressable,
   TouchableOpacity,
 } from 'react-native'
 import { useEffect, useState } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { Bell } from 'lucide-react-native' 
+import Header from '@/components/Header'
 
 const categories = [
-  { label: 'History', icon: require('@/assets/icons/history.png') },
-  { label: 'Science', icon: require('@/assets/icons/science.png') },
-  { label: 'Folklore', icon: require('@/assets/icons/book.png') },
-  { label: 'Culture', icon: require('@/assets/icons/world.png') },
-  { label: 'Wildlife', icon: require('@/assets/icons/elephant.png') },
-  { label: 'Legends', icon: require('@/assets/icons/torch.png') },
+  { label: 'History', icon: require('@/assets/icons/history.png'), bgColor: '#FEE2E2' },
+  { label: 'Science', icon: require('@/assets/icons/science.png'), bgColor: '#D1FAE5' },
+  { label: 'Folklore', icon: require('@/assets/icons/book.png'), bgColor: '#E0E7FF' },
+  { label: 'Culture', icon: require('@/assets/icons/world.png'), bgColor: '#FFF7CD' },
+  { label: 'Wildlife', icon: require('@/assets/icons/elephant.png'), bgColor: '#DCFCE7' },
+  { label: 'Legends', icon: require('@/assets/icons/torch.png'), bgColor: '#EDE9FE' },
 ]
 
 const featuredStories = [
-  { id: '1', title: 'The Ashanti Kingdom', image: 'https://placehold.co/150x150/blue/white' },
-  { id: '2', title: 'Rainforest Wonders', image: 'https://placehold.co/150x150/green/white' },
-  { id: '3', title: 'How the Spider Saved the Village', image: 'https://placehold.co/150x150/purple/white' },
-  { id: '4', title: 'How the Spider Saved the Village', image: 'https://placehold.co/150x150/purple/white' },
+  {
+    id: '1',
+    title: 'The Lorem Ipsum',
+    image: 'https://images.unsplash.com/photo-1628260412297-a3377e45006f?q=80&w=1074&auto=format&fit=crop',
+    category: 'Adventure',
+  },
+  {
+    id: '2',
+    title: 'Rainforest Wonders',
+    image: 'https://images.unsplash.com/photo-1631582053308-40f482e7ace5?q=80&w=1631&auto=format&fit=crop',
+    category: 'Wildlife',
+  },
+  {
+    id: '3',
+    title: 'How the Spider Saved the Village',
+    image: 'https://plus.unsplash.com/premium_photo-1681426478241-11b262dd1d21?q=80&w=880&auto=format&fit=crop',
+    category: 'Folklore',
+  },
+  {
+    id: '4',
+    title: 'The Talking Drum',
+    image: 'https://images.unsplash.com/photo-1616098063625-65f32186e609?w=500&auto=format&fit=crop&q=60',
+    category: 'Culture',
+  },
 ]
+
 
 export default function HomeScreen() {
   const insets = useSafeAreaInsets()
@@ -43,53 +63,43 @@ export default function HomeScreen() {
       className="flex-1 bg-white px-4"
       contentContainerStyle={{ paddingTop: insets.top + 20, paddingBottom: 80 }}
     >
-      {/* Greeting Section */}
-      <View className="flex-row justify-between items-center mb-6">
-        <View className="flex-row items-center gap-3">
-          <Image
-            source={require('@/assets/images/avatar.png')}
-            className="w-10 h-10 rounded-full"
-          />
-          <View>
-            <Text className="font-bold text-lg text-gray-800">Hello Zoe 👋</Text>
-            <Text className="text-base text-gray-500">{greeting}</Text>
-          </View>
-        </View>
-        <TouchableOpacity onPress={() => console.log('Notifications')}>
-          <Bell color="#5d198a" size={24} />
-        </TouchableOpacity>
-      </View>
+      <Header />
 
       {/* Info Card */}
-      <View className="bg-lime-100 rounded-2xl p-4 mb-6 h-[150px]">
-        <Text className="text-[30px] font-semibold text-gray-800">
+      <View className="bg-[#a0c000be] rounded-2xl mb-8 h-[150px] justify-center px-4">
+        <Text className="text-[26px] font-semibold text-white mb-1 text-left font-poppinsBold">
           Let's learn something new today!
         </Text>
-        <Text className="text-sm text-gray-600">Discover fun stories and legends every day.</Text>
+        <Text className="text-sm text-white text-left">
+          Learn through wonderful stories to keep you smart.
+        </Text>
       </View>
 
       {/* Categories */}
-      <Text className="text-base font-semibold text-gray-800 mb-2">Categories</Text>
+      <Text className="text-lg font-bold text-gray-800 mb-4 font-poppins">Categories</Text>
       <FlatList
         data={categories}
         keyExtractor={(item) => item.label}
         horizontal
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ gap: 12, paddingBottom: 16 }}
+        contentContainerStyle={{ gap: 12, paddingBottom: 24 }}
         renderItem={({ item }) => (
-          <TouchableOpacity className="w-32 h-32 bg-lime-200 rounded-xl items-center justify-center space-y-2">
-            <Image source={item.icon} className="w-24 h-10" resizeMode="contain" />
-            <Text className="text-xs text-gray-800 font-poppins text-center">{item.label}</Text>
+          <TouchableOpacity
+            style={{ backgroundColor: item.bgColor }}
+            className="w-32 h-32 rounded-xl items-center justify-center space-y-2"
+          >
+            <Image source={item.icon} className="w-28 h-12" resizeMode="contain" />
+            <Text className="text-md mt-5 text-gray-800 font-poppins text-center">{item.label}</Text>
           </TouchableOpacity>
         )}
       />
 
       {/* Featured Stories */}
-      <View className="flex-row justify-between items-center mb-2">
-        <Text className="text-base font-semibold text-gray-800">Featured Stories</Text>
-        <Pressable onPress={() => console.log('See more pressed')}>
-          <Text className="text-sm text-lime-600 font-medium">See more</Text>
-        </Pressable>
+      <View className="flex-row justify-between items-center mb-4">
+        <Text className="text-lg font-poppins text-gray-800">Featured Stories</Text>
+        <TouchableOpacity onPress={() => console.log('See more pressed')} className="bg-lime-600 px-4 py-1 rounded-full">
+          <Text className="text-sm text-white font-poppins">See All</Text>
+        </TouchableOpacity>
       </View>
 
       <FlatList
@@ -97,18 +107,24 @@ export default function HomeScreen() {
         keyExtractor={(item) => item.id}
         horizontal
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ gap: 12 }}
+        contentContainerStyle={{ gap: 10 }}
         renderItem={({ item }) => (
-          <View className="w-40">
-            <Image
-              source={{ uri: item.image }}
-              className="w-full h-[150px] rounded-xl mb-2"
-              resizeMode="cover"
-            />
-            <Text className="text-sm font-medium text-gray-700">{item.title}</Text>
+          <View className="w-60 h-60">
+            <View className="w-full h-full rounded-xl overflow-hidden relative mb-2">
+              <Image
+                source={{ uri: item.image }}
+                className="w-full h-full"
+                resizeMode="cover"
+              />
+              <View className="absolute bottom-0 left-0 right-0 bg-black/60 px-2 py-4">
+                <Text className="text-white text-md font-poppins mb-1">{item.title}</Text>
+                <Text className="text-lime-300 text-sm font-poppins">{item.category}</Text>
+              </View>
+            </View>
           </View>
         )}
       />
+
     </ScrollView>
   )
 }
