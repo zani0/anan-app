@@ -24,6 +24,7 @@ const featuredStories = [
   { id: '1', title: 'The Ashanti Kingdom', image: 'https://placehold.co/150x150/blue/white' },
   { id: '2', title: 'Rainforest Wonders', image: 'https://placehold.co/150x150/green/white' },
   { id: '3', title: 'How the Spider Saved the Village', image: 'https://placehold.co/150x150/purple/white' },
+  { id: '4', title: 'How the Spider Saved the Village', image: 'https://placehold.co/150x150/purple/white' },
 ]
 
 export default function HomeScreen() {
@@ -76,7 +77,7 @@ export default function HomeScreen() {
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{ gap: 12, paddingBottom: 16 }}
         renderItem={({ item }) => (
-          <TouchableOpacity className="w-20 h-24 bg-lime-200 rounded-xl items-center justify-center space-y-2">
+          <TouchableOpacity className="w-32 h-32 bg-lime-200 rounded-xl items-center justify-center space-y-2">
             <Image source={item.icon} className="w-24 h-10" resizeMode="contain" />
             <Text className="text-xs text-gray-800 font-poppins text-center">{item.label}</Text>
           </TouchableOpacity>
