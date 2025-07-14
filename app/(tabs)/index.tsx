@@ -70,7 +70,7 @@ export default function HomeScreen() {
         <Text className="text-[26px] font-semibold text-white mb-1 text-left font-poppinsBold">
           Let's learn something new today!
         </Text>
-        <Text className="text-sm text-white text-left">
+        <Text className="text-md text-white text-left">
           Learn through wonderful stories to keep you smart.
         </Text>
       </View>
