@@ -13,13 +13,16 @@ import Animated, {
   FadeIn,
   FadeOut,
   LinearTransition,
+  useSharedValue,
+  useAnimatedStyle,
+  withSpring,
 } from "react-native-reanimated";
 
 const AnimatedTouchableOpacity =
   Animated.createAnimatedComponent(TouchableOpacity);
 
-const PRIMARY_COLOR = "#4B8B3B"; // Green background
-const SECONDARY_COLOR = "#b4d823";  // Highlighted tab color
+const PRIMARY_COLOR = "#4B8B3B"; // Green
+const SECONDARY_COLOR = "#b4d823"; // Lime
 
 const routeLabels: Record<string, string> = {
   index: "Home",
@@ -33,12 +36,15 @@ const CustomNavBar: React.FC<BottomTabBarProps> = ({
   descriptors,
   navigation,
 }) => {
+  const orderedRoutes = ["index", "library", "stats", "settings"];
+  const sortedRoutes = [...state.routes].sort(
+    (a, b) => orderedRoutes.indexOf(a.name) - orderedRoutes.indexOf(b.name)
+  );
+
   return (
     <View style={styles.container}>
-      {state.routes.map((route, index) => {
-        if (["_sitemap", "+not-found"].includes(route.name)) return null;
-
-        const isFocused = state.index === index;
+      {sortedRoutes.map((route, index) => {
+        const isFocused = state.index === state.routes.indexOf(route);
         const label = routeLabels[route.name] ?? route.name;
 
         const onPress = () => {
@@ -65,10 +71,8 @@ const CustomNavBar: React.FC<BottomTabBarProps> = ({
             ]}
             layout={LinearTransition.springify().mass(0.5)}
           >
-            {getIconByRouteName(
-              route.name,
-              isFocused ? "#fff" : "#fff"
-            )}
+            <AnimatedIcon name={route.name} focused={isFocused} />
+
             {isFocused && (
               <Animated.Text
                 entering={FadeIn.duration(200)}
@@ -85,29 +89,47 @@ const CustomNavBar: React.FC<BottomTabBarProps> = ({
   );
 };
 
-function getIconByRouteName(routeName: string, color: string) {
-  const size = 26; // 🔍 Bigger icons
-  switch (routeName) {
+const AnimatedIcon = ({ name, focused }: { name: string; focused: boolean }) => {
+  const scale = useSharedValue(focused ? 1.2 : 1);
+
+  React.useEffect(() => {
+    scale.value = withSpring(focused ? 1.2 : 1);
+  }, [focused]);
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: scale.value }],
+  }));
+
+  const size = 26;
+  let IconComponent;
+
+  switch (name) {
     case "index":
-      return <Feather name="home" size={size} color={color} />;
+      IconComponent = <Feather name="home" size={size} color="#fff" />;
+      break;
     case "library":
-      return <Ionicons name="library-outline" size={size} color={color} />;
+      IconComponent = <Ionicons name="library-outline" size={size} color="#fff" />;
+      break;
     case "stats":
-      return <Feather name="bar-chart-2" size={size} color={color} />;
+      IconComponent = <Feather name="bar-chart-2" size={size} color="#fff" />;
+      break;
     case "settings":
-      return <Ionicons name="settings-outline" size={size} color={color} />;
+      IconComponent = <Ionicons name="settings-outline" size={size} color="#fff" />;
+      break;
     default:
-      return <Feather name="home" size={size} color={color} />;
+      IconComponent = <Feather name="home" size={size} color="#fff" />;
   }
-}
+
+  return <Animated.View style={animatedStyle}>{IconComponent}</Animated.View>;
+};
 
 const styles = StyleSheet.create({
   container: {
     position: "absolute",
     flexDirection: "row",
-    justifyContent: "space-between", 
+    justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "rgba(75, 139, 59, 0.9)", 
+    backgroundColor: "rgba(75, 139, 59, 0.9)", // translucent green
     width: "90%",
     alignSelf: "center",
     bottom: Platform.OS === "ios" ? 40 : 30,
