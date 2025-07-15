@@ -9,6 +9,8 @@ import {
 import { useEffect, useState } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import Header from '@/components/Header'
+import FloatingButton from '@/components/FloatingButton'
+
 
 const categories = [
   { label: 'History', icon: require('@/assets/icons/history.png'), bgColor: '#FEE2E2' },
@@ -64,6 +66,8 @@ export default function HomeScreen() {
       contentContainerStyle={{ paddingTop: insets.top + 20, paddingBottom: 80 }}
     >
       <Header />
+      <FloatingButton />
+
 
       {/* Info Card */}
       <View className="bg-[#a0c000be] rounded-2xl mb-8 h-[150px] justify-center px-4">

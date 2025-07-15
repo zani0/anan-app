@@ -5,41 +5,51 @@ import { HapticTab } from '@/components/HapticTab';
 
 const ACTIVE_BG = '#4B8B3B'; // dark green
 
-const TabIcon = ({ focused, label, icon }: { focused: boolean; label: string; icon: any }) => (
-  <View
-    className={`items-center justify-center rounded-full px-3 py-2 ${
-      focused ? 'bg-[#4B8B3B]' : ''
-    }`}
-    style={{
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      minWidth: 60,
-    }}
-  >
-    <Image
-      source={icon}
+const TabIcon = ({
+  focused,
+  label,
+  icon,
+}: {
+  focused: boolean;
+  label: string;
+  icon: any;
+}) => {
+  return (
+    <View
       style={{
-        width: 24,
-        height: 24,
-        tintColor: focused ? '#ffffff' : '#5d198a',
-        marginBottom: focused ? 4 : 0,
-      }}
-      resizeMode="contain"
-    />
-    <Text
-      style={{
-        color: focused ? '#ffffff' : 'transparent',
-        fontSize: 12,
-        fontFamily: 'Poppins-Medium',
-        height: 16,
-        lineHeight: 16,
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 6,
+        paddingHorizontal: 12,
+        borderRadius: 30,
+        backgroundColor: focused ? ACTIVE_BG : 'transparent',
       }}
     >
-      {label}
-    </Text>
-  </View>
-);
+      <Image
+        source={icon}
+        style={{
+          width: 24,
+          height: 24,
+          tintColor: focused ? '#fff' : '#5d198a',
+          marginBottom: focused ? 2 : 0,
+        }}
+        resizeMode="contain"
+      />
+      {focused && (
+        <Text
+          style={{
+            color: '#fff',
+            fontSize: 11,
+            marginTop: 2,
+            fontFamily: 'Poppins-Medium',
+          }}
+        >
+          {label}
+        </Text>
+      )}
+    </View>
+  );
+};
 
 export default function TabLayout() {
   return (
@@ -60,15 +70,16 @@ export default function TabLayout() {
           elevation: 10,
         },
         tabBarItemStyle: {
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+        },
+        tabBarIconStyle: {
           justifyContent: 'center',
           alignItems: 'center',
         },
         tabBarLabelStyle: {
           display: 'none',
-        },
-        tabBarIconStyle: {
-          justifyContent: 'center',
-          alignItems: 'center',
         },
       }}
     >
@@ -77,7 +88,11 @@ export default function TabLayout() {
         options={{
           title: 'Home',
           tabBarIcon: ({ focused }) => (
-            <TabIcon focused={focused} label="Home" icon={require('@/assets/icons/home.png')} />
+            <TabIcon
+              focused={focused}
+              label="Home"
+              icon={require('@/assets/icons/home.png')}
+            />
           ),
         }}
       />
@@ -86,7 +101,11 @@ export default function TabLayout() {
         options={{
           title: 'Library',
           tabBarIcon: ({ focused }) => (
-            <TabIcon focused={focused} label="Library" icon={require('@/assets/icons/library.png')} />
+            <TabIcon
+              focused={focused}
+              label="Library"
+              icon={require('@/assets/icons/library.png')}
+            />
           ),
         }}
       />
@@ -95,7 +114,11 @@ export default function TabLayout() {
         options={{
           title: 'Stats',
           tabBarIcon: ({ focused }) => (
-            <TabIcon focused={focused} label="Stats" icon={require('@/assets/icons/stats.png')} />
+            <TabIcon
+              focused={focused}
+              label="Stats"
+              icon={require('@/assets/icons/stats.png')}
+            />
           ),
         }}
       />
@@ -104,7 +127,11 @@ export default function TabLayout() {
         options={{
           title: 'Settings',
           tabBarIcon: ({ focused }) => (
-            <TabIcon focused={focused} label="Settings" icon={require('@/assets/icons/settings.png')} />
+            <TabIcon
+              focused={focused}
+              label="Settings"
+              icon={require('@/assets/icons/settings.png')}
+            />
           ),
         }}
       />

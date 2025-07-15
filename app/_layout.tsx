@@ -92,6 +92,7 @@ export default function RootLayout() {
         <Stack.Screen name="(onboarding)" options={{ headerShown: false }} />
         <Stack.Screen name="(onboarding)/choose-role" options={{ headerShown: false }} />
         <Stack.Screen name="(onboarding)/verify-age" options={{ headerShown: false }} />
+        <Stack.Screen name="(screens)" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
       </Stack>
       <StatusBar hidden />
