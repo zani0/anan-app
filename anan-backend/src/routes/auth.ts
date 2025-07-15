@@ -1,11 +1,29 @@
 import { Router } from 'express';
 import { v4 as uuidv4 } from 'uuid';
+import fs from 'fs';
+import path from 'path';
 
 const router = Router();
 
-// For now, let's use an in-memory array to simulate a database
-const users: any[] = [];
+const USERS_FILE = path.join(__dirname, '../data/users.json');
 
+// Helper to read users
+function readUsers(): any[] {
+  try {
+    const data = fs.readFileSync(USERS_FILE, 'utf-8');
+    return JSON.parse(data);
+  } catch (err) {
+    console.error('Failed to read users.json', err);
+    return [];
+  }
+}
+
+// Helper to write users
+function writeUsers(users: any[]) {
+  fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2), 'utf-8');
+}
+
+// Sign Up Route
 router.post('/signup', (req, res) => {
   const { name, email, password } = req.body;
 
@@ -13,7 +31,9 @@ router.post('/signup', (req, res) => {
     return res.status(400).json({ message: 'All fields are required.' });
   }
 
-  const existingUser = users.find(user => user.email === email);
+  const users = readUsers();
+
+  const existingUser = users.find((user) => user.email === email);
   if (existingUser) {
     return res.status(409).json({ message: 'User already exists.' });
   }
@@ -22,11 +42,13 @@ router.post('/signup', (req, res) => {
     id: uuidv4(),
     name,
     email,
-    password, // In real-world apps, always hash passwords!
+    password, // 🔒 Reminder: hash this in production
     profiles: [],
   };
 
   users.push(newUser);
+  writeUsers(users);
+
   return res.status(201).json({ message: 'User created successfully', user: newUser });
 });
 

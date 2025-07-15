@@ -64,7 +64,7 @@ export default function SignUp() {
   }
 
   try {
-    const response = await fetch("http:/192.168.100.2:3001/api/signup", {
+    const response = await fetch("http:/192.168.100.4:3001/api/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
