@@ -37,6 +37,20 @@ const savedStories = [
         category: 'Folklore',
         completed: true,
     },
+        {
+        id: '5',
+        title: 'Ananse and family',
+        image: 'https://images.unsplash.com/photo-1628260412297-a3377e45006f?q=80&w=1074&auto=format&fit=crop',
+        category: 'Folklore',
+        completed: true,
+    },
+        {
+        id: '6',
+        title: 'Ananse and family',
+        image: 'https://images.unsplash.com/photo-1628260412297-a3377e45006f?q=80&w=1074&auto=format&fit=crop',
+        category: 'Folklore',
+        completed: true,
+    },
 ]
 
 export default function Library() {
