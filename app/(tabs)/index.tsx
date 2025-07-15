@@ -66,7 +66,6 @@ export default function HomeScreen() {
       contentContainerStyle={{ paddingTop: insets.top + 20, paddingBottom: 80 }}
     >
       <Header />
-      <FloatingButton />
 
 
       {/* Info Card */}
@@ -128,6 +127,7 @@ export default function HomeScreen() {
           </View>
         )}
       />
+      <FloatingButton />
 
     </ScrollView>
   )
