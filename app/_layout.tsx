@@ -79,7 +79,7 @@ export default function RootLayout() {
           <View className="h-full bg-white" style={{ width: `${progress}%` }} />
         </View>
 
-        <Text className="text-white font-[Poppins_400Regular]">{Math.floor(progress)}%</Text>
+        <Text className="text-white font-poppinsBold">{Math.floor(progress)}%</Text>
       </View>
     );
   }
