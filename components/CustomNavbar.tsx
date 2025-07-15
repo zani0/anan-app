@@ -19,7 +19,7 @@ const AnimatedTouchableOpacity =
   Animated.createAnimatedComponent(TouchableOpacity);
 
 const PRIMARY_COLOR = "#4B8B3B"; // Green background
-const SECONDARY_COLOR = "#cfee30";  // Highlighted tab color
+const SECONDARY_COLOR = "#b4d823";  // Highlighted tab color
 
 const routeLabels: Record<string, string> = {
   index: "Home",
@@ -105,21 +105,21 @@ const styles = StyleSheet.create({
   container: {
     position: "absolute",
     flexDirection: "row",
-    justifyContent: "space-between", // ➡️ Pushes to edges
+    justifyContent: "space-between", 
     alignItems: "center",
-    backgroundColor: "rgba(75, 139, 59, 0.9)", // ✅ Green with transparency
+    backgroundColor: "rgba(75, 139, 59, 0.9)", 
     width: "90%",
     alignSelf: "center",
     bottom: Platform.OS === "ios" ? 40 : 30,
     borderRadius: 40,
-    paddingHorizontal: 20,
-    paddingVertical: 15,
+    paddingHorizontal: 8,
+    paddingVertical: 8,
     elevation: 10,
   },
   tabItem: {
     flexDirection: "row",
     alignItems: "center",
-    height: 42,
+    height: 52,
     paddingHorizontal: 16,
     borderRadius: 30,
   },
