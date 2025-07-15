@@ -38,7 +38,7 @@ export default function WelcomeScreen() {
         <Text className="text-[35px] font-caprasimo text-[#D0EE30]">Anansesem</Text>
       </View> */}
 
-      <Text className="font-poppins text-[#D0EE30] text-4xl mb-4">Welcome</Text>
+      <Text className="font-caprasimo text-[#D0EE30] text-5xl mb-4">Welcome</Text>
       <Text className="font-poppins text-white text-base text-center mb-8">
         Before letting your child explore Anansesem, take a few minutes to decide on important parental safety controls
       </Text>

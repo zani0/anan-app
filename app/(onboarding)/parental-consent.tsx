@@ -43,7 +43,7 @@ export default function ParentalConsent() {
                 showsVerticalScrollIndicator={false}
             >
                 {/* Title */}
-                <Text className="text-[35px] font-poppins text-[#D0EE30] text-center mb-4">
+                <Text className="text-[35px] font-caprasimo text-[#D0EE30] text-center mb-4">
                     Parental Consent
                 </Text>
 

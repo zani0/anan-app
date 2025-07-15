@@ -59,7 +59,7 @@ export default function AccountType() {
       >
         <View>
           {/* Title */}
-          <Text className="text-[30px] text-[#D0EE30] font-poppins text-center mb-2">
+          <Text className="text-[30px] text-[#D0EE30] font-caprasimo text-center mb-2">
             How do you want to proceed?
           </Text>
 

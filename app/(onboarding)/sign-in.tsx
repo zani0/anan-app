@@ -104,7 +104,7 @@ export default function SignIn() {
         showsVerticalScrollIndicator={false}
       >
         {/* Title */}
-        <Text className="text-[35px] font-poppins text-[#D0EE30] text-center mb-2">
+        <Text className="text-[35px] font-caprasimo text-[#D0EE30] text-center mb-2">
           Sign In
         </Text>
 

@@ -91,7 +91,7 @@ export default function SignUp() {
       <Image source={require('@/assets/images/spider-web-2.png')} className="w-[170px] h-[80px] absolute bottom-0 left-0" />
 
       <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }} showsVerticalScrollIndicator={false}>
-        <Text className="text-[35px] font-poppins text-[#D0EE30] text-center mb-2">Create an account</Text>
+        <Text className="text-[35px] font-caprasimo text-[#D0EE30] text-center mb-2">Create an account</Text>
         <Text className="text-white font-poppins text-center mb-6">
           Sign in with your own account to set up a profile and get more parental controls.
         </Text>

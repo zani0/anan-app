@@ -28,7 +28,7 @@ export default function OopsScreen() {
             />
 
             {/* Title */}
-            <Text className="font-poppins text-[#D0EE30] text-4xl mb-4">Ananse says oops!</Text>
+            <Text className="font-caprasimo text-[#D0EE30] text-4xl mb-4">Ananse says oops!</Text>
 
             {/* Subtitle */}
             <Text className="text-white text-center font-poppins text-base mb-12">

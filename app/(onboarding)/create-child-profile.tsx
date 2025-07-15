@@ -245,7 +245,7 @@ export default function CreateChildProfile() {
           className="w-[170px] h-[80px] absolute bottom-0 left-0"
         />
 
-        <Text className="text-[30px] font-poppins text-[#D0EE30] text-center mb-4">
+        <Text className="text-[30px] font-caprasimo text-[#D0EE30] text-center mb-4">
           Create a profile for your child
         </Text>
         <Text className="font-poppins text-white text-base text-center mb-8">
