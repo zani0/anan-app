@@ -44,35 +44,43 @@ export default function SignUp() {
   };
 
   const handleSubmit = async () => {
-    if (!form.name || !form.email || !form.password) {
-      Toast.show({
-        type: "error",
-        text1: "Oops!",
-        text2: "Please fill in all the fields 😊",
-      });
-      return;
+  if (!form.name || !form.email || !form.password) {
+    Toast.show({
+      type: "error",
+      text1: "Oops!",
+      text2: "Please fill in all the fields 😊",
+    });
+    return;
+  }
+
+  const emailRegex = /\S+@\S+\.\S+/;
+  if (!emailRegex.test(form.email)) {
+    Toast.show({
+      type: "error",
+      text1: "Invalid Email",
+      text2: "Please enter a valid email address",
+    });
+    return;
+  }
+
+  try {
+    const response = await fetch("http:/192.168.100.2:3001/api/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(form),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Something went wrong");
     }
 
-    const emailRegex = /\S+@\S+\.\S+/;
-    if (!emailRegex.test(form.email)) {
-      Toast.show({
-        type: "error",
-        text1: "Invalid Email",
-        text2: "Please enter a valid email address",
-      });
-      return;
-    }
-
-    try {
-      if (rememberMe) {
-        await AsyncStorage.setItem("name", form.name);
-        await AsyncStorage.setItem("email", form.email);
-        await AsyncStorage.setItem("password", form.password);
-      } else {
-        await AsyncStorage.multiRemove(["name", "email", "password"]);
-      }
-    } catch (err) {
-      console.error("Failed to save credentials", err);
+    // ✅ Save to AsyncStorage if rememberMe is true
+    if (rememberMe) {
+      await AsyncStorage.setItem("user", JSON.stringify(data.user));
     }
 
     Toast.show({
@@ -81,8 +89,19 @@ export default function SignUp() {
       text2: "Welcome to Anansesem 💫",
     });
 
-    setTimeout(() => router.replace("/(onboarding)/parental-consent"), 1500);
-  };
+    setTimeout(() => {
+      router.replace("/(onboarding)/parental-consent");
+    }, 1500);
+  } catch (error: any) {
+    console.error("Signup failed:", error.message);
+    Toast.show({
+      type: "error",
+      text1: "Signup Failed",
+      text2: error.message,
+    });
+  }
+};
+
 
   return (
     <View className="flex-1 justify-center items-center bg-[#5d198a] px-6">
