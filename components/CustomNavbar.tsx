@@ -19,9 +19,8 @@ const AnimatedTouchableOpacity =
   Animated.createAnimatedComponent(TouchableOpacity);
 
 const PRIMARY_COLOR = "#4B8B3B"; // Green background
-const SECONDARY_COLOR = "#cfee30";  // White tab when active
+const SECONDARY_COLOR = "#cfee30";  // Highlighted tab color
 
-// ✅ Custom labels for tabs
 const routeLabels: Record<string, string> = {
   index: "Home",
   library: "Library",
@@ -87,17 +86,18 @@ const CustomNavBar: React.FC<BottomTabBarProps> = ({
 };
 
 function getIconByRouteName(routeName: string, color: string) {
+  const size = 26; // 🔍 Bigger icons
   switch (routeName) {
     case "index":
-      return <Feather name="home" size={18} color={color} />; // 🏠 Home
+      return <Feather name="home" size={size} color={color} />;
     case "library":
-      return <Ionicons name="library-outline" size={18} color={color} />; // 📚 Library
+      return <Ionicons name="library-outline" size={size} color={color} />;
     case "stats":
-      return <Feather name="bar-chart-2" size={18} color={color} />; // 📊 Stats
+      return <Feather name="bar-chart-2" size={size} color={color} />;
     case "settings":
-      return <Ionicons name="settings-outline" size={18} color={color} />; // ⚙️ Settings
+      return <Ionicons name="settings-outline" size={size} color={color} />;
     default:
-      return <Feather name="home" size={18} color={color} />;
+      return <Feather name="home" size={size} color={color} />;
   }
 }
 
@@ -105,34 +105,29 @@ const styles = StyleSheet.create({
   container: {
     position: "absolute",
     flexDirection: "row",
-    justifyContent: "center",
+    justifyContent: "space-between", // ➡️ Pushes to edges
     alignItems: "center",
-    backgroundColor: PRIMARY_COLOR,
+    backgroundColor: "rgba(75, 139, 59, 0.9)", // ✅ Green with transparency
     width: "90%",
     alignSelf: "center",
     bottom: Platform.OS === "ios" ? 40 : 30,
     borderRadius: 40,
-    paddingHorizontal: 12,
+    paddingHorizontal: 20,
     paddingVertical: 15,
-    // shadowColor: "#000",
-    // shadowOffset: { width: 0, height: 5 },
-    // shadowOpacity: 0.25,
-    // shadowRadius: 6,
     elevation: 10,
   },
   tabItem: {
     flexDirection: "row",
-    justifyContent: "space-between",
     alignItems: "center",
-    height: 36,
-    paddingHorizontal: 14,
+    height: 42,
+    paddingHorizontal: 16,
     borderRadius: 30,
   },
   text: {
     color: "#fff",
     marginLeft: 8,
     fontWeight: "600",
-    fontSize: 12,
+    fontSize: 13,
   },
 });
 
