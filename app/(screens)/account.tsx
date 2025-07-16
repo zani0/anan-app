@@ -15,28 +15,29 @@ export default function ParentAccount() {
       contentContainerStyle={{ paddingTop: insets.top + 20 }}
     >
       {/* Header */}
-      <Text className="text-center text-xl font-poppinsBold text-purple-800">Profile</Text>
+      <Text className="text-center text-4xl font-caprasimo text-purple-800">Profile</Text>
 
       {/* Profile Image + Info */}
       <View className="items-center mt-6 mb-4">
-        <View className="w-28 h-28 rounded-full border-4 border-black bg-[#FF8661] items-center justify-center">
+        <View className="w-28 h-28 rounded-full border-4 border-black bg-[#FF8661] items-center justify-center mb-2">
           <Image
             source={require('@/assets/images/avatar.png')}
-            className="w-14 h-14"
+            className="w-16 h-16"
             resizeMode="contain"
           />
         </View>
-        <Text className="mt-2 text-2xl font-poppinsBold text-black">Elorm</Text>
-        <Text className="text-sm text-black">★234</Text>
+        <Text className="mt-2 mb-2 text-4xl font-caprasimo text-black">Zoe</Text>
+        <Text className="text-sm text-black mb-4">★234</Text>
       </View>
 
       {/* Menu Section */}
       <View
-        className="bg-white rounded-t-3xl px-6 pt-6 pb-10"
+        className="bg-white rounded-t-3xl px-8 pt-6 pb-10"
         style={{
-          minHeight: screenHeight - 250, // Adjust 250 if needed based on top content height
+          minHeight: screenHeight - 250, 
         }}
       >
+        <View className="space-y-6">
         {[
           { title: 'Edit my profile', screen: 'edit-profile' },
           { title: 'Reading history', screen: 'reading-history' },
@@ -46,7 +47,7 @@ export default function ParentAccount() {
           <TouchableOpacity
             key={index}
             // onPress={() => router.push(`/${item.screen}`)}
-            className="flex-row justify-between items-center mb-5"
+            className="flex-row justify-between items-center mb-5 space-y-6"
           >
             <View className="flex-row items-center space-x-3">
               <View className="w-4 h-4 bg-purple-400 rounded-full mr-3" />
@@ -55,7 +56,7 @@ export default function ParentAccount() {
             <ChevronRight size={18} color="#333" />
           </TouchableOpacity>
         ))}
-
+        </View>
         {/* Log Out Button */}
         <TouchableOpacity className="bg-yellow-400 mt-6 py-3 rounded-full items-center">
           <Text className="text-black text-lg font-poppinsBold">Log out</Text>
