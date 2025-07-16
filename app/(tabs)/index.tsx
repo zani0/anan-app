@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import Header from '@/components/Header'
 import FloatingButton from '@/components/FloatingButton'
-
+import { useRouter } from 'expo-router'
 
 const categories = [
   { label: 'History', icon: require('@/assets/icons/history.png'), bgColor: '#FEE2E2' },
@@ -50,6 +50,7 @@ const featuredStories = [
 
 
 export default function HomeScreen() {
+  const router = useRouter()
   const insets = useSafeAreaInsets()
   const [greeting, setGreeting] = useState('')
 
@@ -112,7 +113,10 @@ export default function HomeScreen() {
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{ gap: 10 }}
         renderItem={({ item }) => (
-          <View className="w-60 h-60">
+          <TouchableOpacity
+            className="w-60 h-60"
+            onPress={() => router.push({ pathname: '/story', params: { title: item.title, image: item.image, category: item.category } })}
+          >
             <View className="w-full h-full rounded-xl overflow-hidden relative mb-2">
               <Image
                 source={{ uri: item.image }}
@@ -124,9 +128,10 @@ export default function HomeScreen() {
                 <Text className="text-lime-300 text-sm font-poppins">{item.category}</Text>
               </View>
             </View>
-          </View>
+          </TouchableOpacity>
         )}
       />
+
       <FloatingButton />
 
     </ScrollView>

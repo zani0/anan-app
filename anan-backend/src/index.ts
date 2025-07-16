@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import authRoutes from './routes/auth';
 
 const app = express();
 app.use(cors());
@@ -19,6 +20,9 @@ app.post("/api/signup", (req, res) => {
 });
 
 const PORT = 3001;
-app.listen(PORT, () => {
-  console.log(`✅ Server running on http://localhost:${PORT}`);
+app.listen(3000, '0.0.0.0', () => {
+  console.log('Server running on http://0.0.0.0:3000');
 });
+
+
+app.use('/api', authRoutes);

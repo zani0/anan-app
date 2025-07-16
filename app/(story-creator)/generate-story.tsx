@@ -26,7 +26,6 @@ export default function StoryCreator() {
     //   #FFF4E6
     return (
         <View style={{ flex: 1, backgroundColor: '#fff', paddingTop: insets.top }}>
-            <Header />
             <View className="justify-between items-center px-8 py-3 bg-white rounded-b-3xl">
                 <Text className="text-[20px] text-purple-700 font-caprasimo">AI Story Creator</Text>
                 <Text className="text-base text-black font-poppins">Done</Text>

@@ -5,25 +5,24 @@ import path from 'path';
 
 const router = Router();
 
-const USERS_FILE = path.join(__dirname, '../data/users.json');
+// Path to your users.json file
+const usersFilePath = path.join(__dirname, '..', 'data', 'users.json');
 
 // Helper to read users
-function readUsers(): any[] {
+const readUsers = (): any[] => {
   try {
-    const data = fs.readFileSync(USERS_FILE, 'utf-8');
-    return JSON.parse(data);
+    const data = fs.readFileSync(usersFilePath, 'utf8');
+    return data ? JSON.parse(data) : [];
   } catch (err) {
-    console.error('Failed to read users.json', err);
-    return [];
+    return []; // If file doesn't exist or is invalid, return empty array
   }
-}
+};
 
 // Helper to write users
-function writeUsers(users: any[]) {
-  fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2), 'utf-8');
-}
+const writeUsers = (users: any[]) => {
+  fs.writeFileSync(usersFilePath, JSON.stringify(users, null, 2), 'utf8');
+};
 
-// Sign Up Route
 router.post('/signup', (req, res) => {
   const { name, email, password } = req.body;
 
@@ -32,8 +31,8 @@ router.post('/signup', (req, res) => {
   }
 
   const users = readUsers();
-
   const existingUser = users.find((user) => user.email === email);
+
   if (existingUser) {
     return res.status(409).json({ message: 'User already exists.' });
   }
@@ -42,14 +41,20 @@ router.post('/signup', (req, res) => {
     id: uuidv4(),
     name,
     email,
-    password, // 🔒 Reminder: hash this in production
+    password,
     profiles: [],
   };
 
   users.push(newUser);
   writeUsers(users);
 
-  return res.status(201).json({ message: 'User created successfully', user: newUser });
+  return res.status(201).json({
+    message: 'User created successfully',
+    user: {
+      name: newUser.name,
+      email: newUser.email,
+    },
+  });
 });
 
 export default router;
