@@ -1,7 +1,9 @@
-import { View, Text, TouchableOpacity, Image, ScrollView } from 'react-native'
+import { View, Text, TouchableOpacity, Image, ScrollView, Dimensions } from 'react-native'
 import { useRouter } from 'expo-router'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { LogOut, ChevronRight } from 'lucide-react-native'
+
+const screenHeight = Dimensions.get('window').height
 
 export default function ParentAccount() {
   const router = useRouter()
@@ -10,7 +12,7 @@ export default function ParentAccount() {
   return (
     <ScrollView
       className="flex-1 bg-[#FFF2DF]"
-      contentContainerStyle={{ paddingTop: insets.top + 20, paddingBottom: 40 }}
+      contentContainerStyle={{ paddingTop: insets.top + 20 }}
     >
       {/* Header */}
       <Text className="text-center text-xl font-poppinsBold text-purple-800">Profile</Text>
@@ -19,7 +21,7 @@ export default function ParentAccount() {
       <View className="items-center mt-6 mb-4">
         <View className="w-28 h-28 rounded-full border-4 border-black bg-[#FF8661] items-center justify-center">
           <Image
-            source={require('@/assets/icons/user.png')}
+            source={require('@/assets/images/avatar.png')}
             className="w-14 h-14"
             resizeMode="contain"
           />
@@ -29,7 +31,12 @@ export default function ParentAccount() {
       </View>
 
       {/* Menu Section */}
-      <View className="bg-white rounded-t-3xl px-6 pt-6 pb-10 mx-2 shadow-sm">
+      <View
+        className="bg-white rounded-t-3xl px-6 pt-6 pb-10"
+        style={{
+          minHeight: screenHeight - 250, // Adjust 250 if needed based on top content height
+        }}
+      >
         {[
           { title: 'Edit my profile', screen: 'edit-profile' },
           { title: 'Reading history', screen: 'reading-history' },
@@ -42,7 +49,7 @@ export default function ParentAccount() {
             className="flex-row justify-between items-center mb-5"
           >
             <View className="flex-row items-center space-x-3">
-              <View className="w-4 h-4 bg-purple-400 rounded-full" />
+              <View className="w-4 h-4 bg-purple-400 rounded-full mr-3" />
               <Text className="text-base text-black font-poppins">{item.title}</Text>
             </View>
             <ChevronRight size={18} color="#333" />
@@ -51,20 +58,7 @@ export default function ParentAccount() {
 
         {/* Log Out Button */}
         <TouchableOpacity className="bg-yellow-400 mt-6 py-3 rounded-full items-center">
-          <Text className="text-black text-lg font-poppinsBold">log out</Text>
-        </TouchableOpacity>
-      </View>
-
-      {/* Floating Nav */}
-      <View className="absolute bottom-4 left-5 right-5 rounded-full bg-lime-300 h-16 flex-row justify-around items-center border border-black">
-        <TouchableOpacity>
-          <Image source={require('@/assets/icons/sparkle.png')} className="w-6 h-6" />
-        </TouchableOpacity>
-        <View className="bg-white rounded-full p-3 border border-black">
-          <Image source={require('@/assets/icons/user.png')} className="w-6 h-6" />
-        </View>
-        <TouchableOpacity>
-          <Image source={require('@/assets/icons/book.png')} className="w-6 h-6" />
+          <Text className="text-black text-lg font-poppinsBold">Log out</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
