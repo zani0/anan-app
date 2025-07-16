@@ -1,0 +1,102 @@
+import {
+  ScrollView,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { ChevronLeft, Heart, Share2 } from 'lucide-react-native';
+import { useRouter } from 'expo-router';
+
+export default function FullStory() {
+  const insets = useSafeAreaInsets();
+  const router = useRouter();
+
+  return (
+    <ScrollView
+      style={{ paddingTop: insets.top }}
+      className="flex-1 bg-white px-4"
+      contentContainerStyle={{ paddingBottom: 100 }}
+    >
+      {/* Top Bar */}
+      <View className="relative flex-row items-center justify-center mb-4">
+        <TouchableOpacity
+          onPress={() => router.back()}
+          className="absolute left-0 bg-white rounded-full p-2 shadow"
+        >
+          <ChevronLeft size={24} color="#333" />
+        </TouchableOpacity>
+        <Text className="text-lg font-poppinsBold text-center">Detail</Text>
+      </View>
+
+      {/* Image */}
+      <View className="w-full h-48 mb-4 rounded-2xl overflow-hidden">
+        <Image
+          source={{ uri: 'https://images.unsplash.com/photo-1631582053308-40f482e7ace5?q=80&w=1631&auto=format&fit=crop' }}
+          className="w-full h-full"
+          resizeMode="cover"
+        />
+      </View>
+
+      {/* Story Titles */}
+      <Text className="text-xl font-poppinsBold text-purple-800 mb-2">
+        Why antelope lives in the bush
+      </Text>
+      <Text className="text-md font-poppins text-gray-800 mb-4">
+        Why Antelope lives in the bush
+      </Text>
+
+      {/* Meta Info */}
+      <View className="flex-row items-center flex-wrap gap-2 mb-4">
+        <Text className="text-sm font-poppins text-gray-600">👤 by Content Manager</Text>
+        <Text className="text-sm font-poppins text-gray-600">• 1 view</Text>
+        <Text className="text-sm font-poppins text-gray-600">• 0 likes</Text>
+      </View>
+
+      {/* Tags */}
+      <View className="flex-row gap-2 mb-4">
+        <Text className="bg-cyan-100 text-cyan-800 text-sm font-poppins px-3 py-1 rounded-md">ADVENTURE</Text>
+        <Text className="bg-sky-200 text-sky-800 text-sm font-poppins px-3 py-1 rounded-md">Intermediate</Text>
+      </View>
+
+      {/* Like & Share */}
+      <View className="flex-row gap-4 mb-6">
+        <TouchableOpacity className="flex-row items-center space-x-2 bg-gray-200 rounded-full px-4 py-2">
+          <Heart size={20} color="#555" />
+          <Text className="text-gray-700 font-poppins">Like</Text>
+        </TouchableOpacity>
+        <TouchableOpacity className="flex-row items-center space-x-2 bg-gray-200 rounded-full px-4 py-2">
+          <Share2 size={20} color="#555" />
+          <Text className="text-gray-700 font-poppins">Share</Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* Full Story Box */}
+      <View className="bg-teal-500 p-4 rounded-xl mb-6">
+        <Text className="text-white font-poppinsBold mb-2">
+          Read Story <Text className="text-xs font-poppins">in original</Text>
+        </Text>
+        <Text className="text-white text-sm font-poppins leading-relaxed">
+          Why Antelope Lives in the Bush? In an ancient community, goat and antelope once shared a home with an owner.
+          While they were being tamed, they were told not to tamper with their owner's food supply. Goat and antelope were
+          held to a high standard, but curiosity got the better of the goat. One day, while the owner was away, goat ate
+          some of the food. When the owner returned, only antelope was around, and he was blamed. Out of shame, antelope
+          ran away into the wild and has lived in the bush ever since.
+        </Text>
+      </View>
+
+      {/* Pagination Dots */}
+      <View className="flex-row justify-center items-center mb-6">
+        <View className="w-2 h-2 bg-purple-700 rounded-full mx-1" />
+        <View className="w-2 h-2 bg-gray-300 rounded-full mx-1" />
+        <View className="w-2 h-2 bg-gray-300 rounded-full mx-1" />
+      </View>
+
+      {/* Take Quiz Button */}
+      <TouchableOpacity className="bg-purple-700 py-4 rounded-full items-center absolute bottom-4 left-4 right-4">
+        <Text className="text-white font-poppinsBold text-lg">Take quiz</Text>
+      </TouchableOpacity>
+    </ScrollView>
+  );
+}
