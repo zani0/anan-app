@@ -23,7 +23,6 @@ export default function StoryCreator() {
         { label: 'Subscriptions' },
         { label: 'Help/Support' },
     ]
-    //   #FFF4E6
     return (
         <View style={{ flex: 1, backgroundColor: '#fff', paddingTop: insets.top }}>
             <View className="justify-between items-center px-8 py-3 bg-white rounded-b-3xl">
