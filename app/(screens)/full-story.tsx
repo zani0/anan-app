@@ -20,10 +20,10 @@ export default function FullStory() {
       contentContainerStyle={{ paddingBottom: 100 }}
     >
       {/* Top Bar */}
-      <View className="relative flex-row items-center justify-center mb-4">
+      <View className="relative flex-row items-center justify-center mb-6 mt-6">
         <TouchableOpacity
           onPress={() => router.back()}
-          className="absolute left-0 bg-white rounded-full p-2 shadow"
+          className="absolute left-0 bg-white rounded-full p-2"
         >
           <ChevronLeft size={24} color="#333" />
         </TouchableOpacity>
@@ -83,20 +83,14 @@ export default function FullStory() {
           held to a high standard, but curiosity got the better of the goat. One day, while the owner was away, goat ate
           some of the food. When the owner returned, only antelope was around, and he was blamed. Out of shame, antelope
           ran away into the wild and has lived in the bush ever since.
+
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias sint atque sequi tenetur. Autem nisi vero eius voluptatibus inventore. Consequuntur itaque at saepe eius odit ad delectus molestiae magni asperiores.
+
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet, porro harum. Doloribus suscipit ad eaque nobis laudantium quam velit possimus culpa eius, aut nemo impedit! At quisquam maiores quo harum.
+
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsa cum quasi facere maiores magni corrupti quam quae mollitia magnam eos porro, voluptate possimus, minus velit distinctio ex quibusdam laudantium omnis.
         </Text>
       </View>
-
-      {/* Pagination Dots */}
-      <View className="flex-row justify-center items-center mb-6">
-        <View className="w-2 h-2 bg-purple-700 rounded-full mx-1" />
-        <View className="w-2 h-2 bg-gray-300 rounded-full mx-1" />
-        <View className="w-2 h-2 bg-gray-300 rounded-full mx-1" />
-      </View>
-
-      {/* Take Quiz Button */}
-      <TouchableOpacity className="bg-purple-700 py-4 rounded-full items-center absolute bottom-4 left-4 right-4">
-        <Text className="text-white font-poppinsBold text-lg">Take quiz</Text>
-      </TouchableOpacity>
     </ScrollView>
   );
 }

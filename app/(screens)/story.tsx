@@ -20,10 +20,10 @@ export default function Story() {
       className="flex-1 bg-white px-4"
       contentContainerStyle={{ paddingBottom: 100 }}
     >
-      <View className="relative">
+      <View className="relative  flex-row items-center justify-center mb-6 mt-6">
         <TouchableOpacity
           onPress={() => router.back()}
-          className="absolute left-0 top-0 z-10 bg-white rounded-full p-2 shadow"
+          className="absolute left-0 bg-white rounded-full p-2"
         >
           <ChevronLeft size={24} color="#333" />
         </TouchableOpacity>
