@@ -1,1 +1,24 @@
-[]
+[
+  {
+    "id": "parent-123",
+    "name": "Jane Doe",
+    "email": "jane@example.com",
+    "password": "hashedpassword",
+    "profiles": [
+      {
+        "id": "profile-1",
+        "name": "Emma",
+        "age": 7,
+        "gender": "female",
+        "searchEnabled": true
+      },
+      {
+        "id": "profile-2",
+        "name": "Leo",
+        "age": 10,
+        "gender": "male",
+        "searchEnabled": false
+      }
+    ]
+  }
+]

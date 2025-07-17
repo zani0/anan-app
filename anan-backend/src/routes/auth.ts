@@ -1,60 +1,53 @@
 import { Router } from 'express';
-import { v4 as uuidv4 } from 'uuid';
 import fs from 'fs';
 import path from 'path';
 
 const router = Router();
 
-// Path to your users.json file
 const usersFilePath = path.join(__dirname, '..', 'data', 'users.json');
 
-// Helper to read users
 const readUsers = (): any[] => {
   try {
     const data = fs.readFileSync(usersFilePath, 'utf8');
     return data ? JSON.parse(data) : [];
   } catch (err) {
-    return []; // If file doesn't exist or is invalid, return empty array
+    return []; 
   }
 };
 
-// Helper to write users
 const writeUsers = (users: any[]) => {
   fs.writeFileSync(usersFilePath, JSON.stringify(users, null, 2), 'utf8');
 };
 
-router.post('/signup', (req, res) => {
-  const { name, email, password } = req.body;
+router.post('/login', (req, res) => {
+  const { email, password } = req.body;
 
-  if (!name || !email || !password) {
-    return res.status(400).json({ message: 'All fields are required.' });
+  if (!email || !password) {
+    return res.status(400).json({ message: 'Email and password are required.' });
   }
 
   const users = readUsers();
-  const existingUser = users.find((user) => user.email === email);
+  const user = users.find((u) => u.email === email);
 
-  if (existingUser) {
-    return res.status(409).json({ message: 'User already exists.' });
+  if (!user) {
+    return res.status(404).json({ message: 'User does not exist.' });
   }
 
-  const newUser = {
-    id: uuidv4(),
-    name,
-    email,
-    password,
-    profiles: [],
-  };
+  if (user.password !== password) {
+    return res.status(401).json({ message: 'Incorrect password.' });
+  }
 
-  users.push(newUser);
-  writeUsers(users);
-
-  return res.status(201).json({
-    message: 'User created successfully',
+  return res.status(200).json({
+    message: 'Login successful',
     user: {
-      name: newUser.name,
-      email: newUser.email,
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      profiles: user.profiles || [],
     },
   });
 });
+
+
 
 export default router;

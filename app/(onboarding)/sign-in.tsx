@@ -15,6 +15,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Checkbox from "expo-checkbox";
 import * as SecureStore from "expo-secure-store";
 
+const BASE_URL = 'https://zoe-test-api.onrender.com/api';
+
 export default function SignIn() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
@@ -65,7 +67,6 @@ export default function SignIn() {
     }
 
     try {
-      // Save credentials if remember me is checked
       if (rememberMe) {
         await AsyncStorage.setItem("email", form.email);
         await AsyncStorage.setItem("password", form.password);
@@ -73,47 +74,64 @@ export default function SignIn() {
         await AsyncStorage.multiRemove(["email", "password"]);
       }
 
-      // ✅ MOCK: Check if user has child profiles
-      const hasChildProfiles = false; // replace this with API or actual check
+      const res = await fetch("https://zoe-test-api.onrender.com/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
 
-      const destination =
-        hasChildProfiles ? "choose-profile" : "create-child-profile";
+      const data = await res.json();
 
-      // Set redirect source for age verification
+      if (!res.ok) {
+        Toast.show({
+          type: "error",
+          text1: "Login Failed",
+          text2: data.message || "Check your credentials",
+        });
+        return;
+      }
+
+      // ✅ Save user info in async storage
+      await AsyncStorage.setItem("user", JSON.stringify(data.user));
+
+      const hasProfiles = data.user.profiles && data.user.profiles.length > 0;
+      const destination = hasProfiles
+        ? "choose-profile"
+        : "create-child-profile";
+
+      // 👶 Send to age verification first
       await SecureStore.setItemAsync("age_verify_source", destination);
 
       Toast.show({
         type: "success",
         text1: "Login Successful!",
-        text2: "Redirecting... 💫",
+        text2: "Redirecting to profiles... 💫",
       });
 
-      // Send to verify-age
-      router.push("/(onboarding)/choose-profile");
-
+      // 🧭 Go to age gate
+      router.push("/(onboarding)/verify-age");
     } catch (err) {
       console.error("Login error", err);
       Toast.show({
         type: "error",
         text1: "Error",
-        text2: "Something went wrong",
+        text2: "Something went wrong, try again.",
       });
     }
   };
-
 
   return (
     <View className="flex-1 justify-center items-center bg-[#5d198a] px-6">
       {/* Top Right Spiderweb */}
       <Image
-        source={require('@/assets/images/spider-web-1.png')}
+        source={require("@/assets/images/spider-web-1.png")}
         className="w-[150px] h-[120px] absolute top-[-20] right-[-30]"
         resizeMode="cover"
       />
 
       {/* Bottom Left Spiderweb */}
       <Image
-        source={require('@/assets/images/spider-web-2.png')}
+        source={require("@/assets/images/spider-web-2.png")}
         className="w-[170px] h-[80px] absolute bottom-0 left-0"
         resizeMode="cover"
       />
@@ -129,7 +147,8 @@ export default function SignIn() {
 
         {/* Subtitle */}
         <Text className="text-white font-poppins text-center mb-6">
-          Enter your account details to log in and continue setting up parental controls.
+          Enter your account details to log in and continue setting up parental
+          controls.
         </Text>
 
         {/* Form Card */}
@@ -170,7 +189,9 @@ export default function SignIn() {
               onValueChange={setRememberMe}
               color={rememberMe ? "#5d198a" : undefined}
             />
-            <Text className="ml-2 text-sm font-poppins text-gray-700">Remember me</Text>
+            <Text className="ml-2 text-sm font-poppins text-gray-700">
+              Remember me
+            </Text>
           </View>
 
           {/* Proceed */}
@@ -184,7 +205,9 @@ export default function SignIn() {
           </TouchableOpacity>
 
           {/* Create Account */}
-          <TouchableOpacity onPress={() => router.push("/(onboarding)/sign-up")}>
+          <TouchableOpacity
+            onPress={() => router.push("/(onboarding)/sign-up")}
+          >
             <Text className="text-center text-[#5d198a] font-poppins mt-2 underline">
               Don’t have an account? Create one
             </Text>
@@ -197,14 +220,24 @@ export default function SignIn() {
         {/* Social Buttons Row */}
         <View className="flex-row justify-center gap-6">
           <TouchableOpacity className="w-14 h-14 bg-white rounded-lg items-center justify-center">
-            <Image source={require("@/assets/images/facebook.png")} className="w-6 h-6" />
+            <Image
+              source={require("@/assets/images/facebook.png")}
+              className="w-6 h-6"
+            />
           </TouchableOpacity>
           <TouchableOpacity className="w-14 h-14 bg-white rounded-lg items-center justify-center">
-            <Image source={require("@/assets/images/google.png")} className="w-6 h-6" />
+            <Image
+              source={require("@/assets/images/google.png")}
+              className="w-6 h-6"
+            />
           </TouchableOpacity>
           {Platform.OS === "ios" && (
             <TouchableOpacity className="w-14 h-14 bg-white rounded-lg items-center justify-center">
-              <Image source={require("@/assets/images/apple.png")} className="w-6 h-6" resizeMode="contain" />
+              <Image
+                source={require("@/assets/images/apple.png")}
+                className="w-6 h-6"
+                resizeMode="contain"
+              />
             </TouchableOpacity>
           )}
         </View>
