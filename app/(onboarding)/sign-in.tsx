@@ -13,6 +13,7 @@ import Toast from "react-native-toast-message";
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Checkbox from "expo-checkbox";
+import * as SecureStore from "expo-secure-store";
 
 export default function SignIn() {
   const router = useRouter();
@@ -64,24 +65,42 @@ export default function SignIn() {
     }
 
     try {
+      // Save credentials if remember me is checked
       if (rememberMe) {
         await AsyncStorage.setItem("email", form.email);
         await AsyncStorage.setItem("password", form.password);
       } else {
         await AsyncStorage.multiRemove(["email", "password"]);
       }
+
+      // ✅ MOCK: Check if user has child profiles
+      const hasChildProfiles = false; // replace this with API or actual check
+
+      const destination =
+        hasChildProfiles ? "choose-profile" : "create-child-profile";
+
+      // Set redirect source for age verification
+      await SecureStore.setItemAsync("age_verify_source", destination);
+
+      Toast.show({
+        type: "success",
+        text1: "Login Successful!",
+        text2: "Redirecting... 💫",
+      });
+
+      // Send to verify-age
+      router.push("/(onboarding)/choose-profile");
+
     } catch (err) {
-      console.error("Failed to save login info", err);
+      console.error("Login error", err);
+      Toast.show({
+        type: "error",
+        text1: "Error",
+        text2: "Something went wrong",
+      });
     }
-
-    Toast.show({
-      type: "success",
-      text1: "Login Successful!",
-      text2: "Welcome back to Anansesem 💫",
-    });
-
-    setTimeout(() => router.replace("/choose-profile"), 1500);
   };
+
 
   return (
     <View className="flex-1 justify-center items-center bg-[#5d198a] px-6">

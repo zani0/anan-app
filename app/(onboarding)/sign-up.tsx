@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Image,
+  ActivityIndicator,
   Platform,
 } from "react-native";
 import { useState, useEffect } from "react";
@@ -18,6 +19,7 @@ export default function SignUp() {
   const router = useRouter();
   const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // ✅ Loading state
   const [form, setForm] = useState({ name: "", email: "", password: "" });
 
   useEffect(() => {
@@ -44,64 +46,66 @@ export default function SignUp() {
   };
 
   const handleSubmit = async () => {
-  if (!form.name || !form.email || !form.password) {
-    Toast.show({
-      type: "error",
-      text1: "Oops!",
-      text2: "Please fill in all the fields 😊",
-    });
-    return;
-  }
-
-  const emailRegex = /\S+@\S+\.\S+/;
-  if (!emailRegex.test(form.email)) {
-    Toast.show({
-      type: "error",
-      text1: "Invalid Email",
-      text2: "Please enter a valid email address",
-    });
-    return;
-  }
-
-  try {
-    const response = await fetch("http:/192.168.100.4:3001/api/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(form),
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(data.message || "Something went wrong");
+    if (!form.name || !form.email || !form.password) {
+      Toast.show({
+        type: "error",
+        text1: "Oops!",
+        text2: "Please fill in all the fields 😊",
+      });
+      return;
     }
 
-    // ✅ Save to AsyncStorage if rememberMe is true
-    if (rememberMe) {
-      await AsyncStorage.setItem("user", JSON.stringify(data.user));
+    const emailRegex = /\S+@\S+\.\S+/;
+    if (!emailRegex.test(form.email)) {
+      Toast.show({
+        type: "error",
+        text1: "Invalid Email",
+        text2: "Please enter a valid email address",
+      });
+      return;
     }
 
-    Toast.show({
-      type: "success",
-      text1: "Account Created!",
-      text2: "Welcome to Anansesem 💫",
-    });
+    try {
+      setIsLoading(true); // ✅ Start loading
 
-    setTimeout(() => {
-      router.replace("/(onboarding)/parental-consent");
-    }, 1500);
-  } catch (error: any) {
-    console.error("Signup failed:", error.message);
-    Toast.show({
-      type: "error",
-      text1: "Signup Failed",
-      text2: error.message,
-    });
-  }
-};
+      const response = await fetch("http:/192.168.100.4:3001/api/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      });
 
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Something went wrong");
+      }
+
+      if (rememberMe) {
+        await AsyncStorage.setItem("user", JSON.stringify(data.user));
+      }
+
+      Toast.show({
+        type: "success",
+        text1: "Account Created!",
+        text2: "Welcome to Anansesem 💫",
+      });
+
+      setTimeout(() => {
+        router.replace("/(onboarding)/parental-consent");
+      }, 1500);
+    } catch (error: any) {
+      console.error("Signup failed:", error.message);
+      Toast.show({
+        type: "error",
+        text1: "Signup Failed",
+        text2: error.message,
+      });
+    } finally {
+      setIsLoading(false); // ✅ Stop loading
+    }
+  };
 
   return (
     <View className="flex-1 justify-center items-center bg-[#5d198a] px-6">
@@ -157,8 +161,16 @@ export default function SignUp() {
             </TouchableOpacity>
           </View>
 
-          <TouchableOpacity onPress={handleSubmit} className="bg-[#D0EE30] py-3 rounded-xl mt-6 mb-6">
-            <Text className="text-[#5d198a] text-center font-poppinsBold text-[18px]">Proceed</Text>
+          <TouchableOpacity
+            onPress={handleSubmit}
+            disabled={isLoading}
+            className={`py-3 rounded-xl mt-6 mb-6 ${isLoading ? 'bg-[#D0EE30]/70' : 'bg-[#D0EE30]'}`}
+          >
+            {isLoading ? (
+              <ActivityIndicator size="small" color="#5d198a" />
+            ) : (
+              <Text className="text-[#5d198a] text-center font-poppinsBold text-[18px]">Proceed</Text>
+            )}
           </TouchableOpacity>
 
           <TouchableOpacity onPress={() => router.push("/(onboarding)/sign-in")}>

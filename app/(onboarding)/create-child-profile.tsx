@@ -168,36 +168,47 @@ export default function CreateChildProfile() {
         );
       case 4:
         const genderOptions = [
-          { label: "Boy", value: "boy" },
-          { label: "Girl", value: "girl" },
-          { label: "I’d rather not say", value: "unspecified" },
+          {
+            label: "Boy",
+            value: "boy",
+            image: (require("@/assets/images/boy-gender.png")),
+          },
+          {
+            label: "Girl",
+            value: "girl",
+            image: (require("@/assets/images/girl-gender.png")),
+          },
+          {
+            label: "I'd rather not say",
+            value: "unspecified",
+            image: (require("@/assets/images/no-gender.png")), 
+          },
         ];
         return (
           <>
             <Text className="text-[#5d198a] font-poppins text-lg text-center mb-6">
               What’s your child’s gender?
             </Text>
-            <View className="space-y-4">
+            <View className="flex-row flex-wrap justify-between gap-y-4">
               {genderOptions.map((option) => (
                 <TouchableOpacity
                   key={option.value}
                   onPress={() => handleChange("gender", option.value)}
-                  className={`flex-row items-center bg-white rounded-xl py-3 px-4 mb-3 ${form.gender === option.value
-                    ? "border-4 border-[#D0EE30]"
-                    : "border border-transparent"
-                    }`}
+                  className={`w-[30%] items-center rounded-xl p-2 ${form.gender === option.value ? "border-4 border-[#D0EE30]" : "border border-gray-200"
+                    } bg-white`}
                 >
                   <Image
-                    source={require("@/assets/images/icon.png")}
-                    className="w-10 h-10 mr-4"
-                    resizeMode="contain"
+                    source={option.image}
+                    className="w-20 h-20 rounded-full mb-2"
+                    resizeMode="cover"
                   />
-                  <Text className="font-poppins text-black">{option.label}</Text>
+                  <Text className="text-sm font-poppins text-center text-[#5d198a]">{option.label}</Text>
                 </TouchableOpacity>
               ))}
             </View>
           </>
         );
+
       case 5:
         return (
           <>
