@@ -167,47 +167,76 @@ export default function CreateChildProfile() {
           </>
         );
       case 4:
-        const genderOptions = [
-          {
-            label: "Boy",
-            value: "boy",
-            image: (require("@/assets/images/boy-gender.png")),
-          },
-          {
-            label: "Girl",
-            value: "girl",
-            image: (require("@/assets/images/girl-gender.png")),
-          },
-          {
-            label: "I'd rather not say",
-            value: "unspecified",
-            image: (require("@/assets/images/no-gender.png")), 
-          },
-        ];
-        return (
-          <>
-            <Text className="text-[#5d198a] font-poppins text-lg text-center mb-6">
-              What’s your child’s gender?
+  const genderOptions = [
+    {
+      label: "Boy",
+      value: "boy",
+      image: require("@/assets/images/boy-gender.png"),
+    },
+    {
+      label: "Girl",
+      value: "girl",
+      image: require("@/assets/images/girl-gender.png"),
+    },
+    {
+      label: "I'd rather not say",
+      value: "unspecified",
+      image: require("@/assets/images/no-gender.png"),
+    },
+  ];
+
+  return (
+    <>
+      <Text className="text-[#5d198a] font-poppins text-lg text-center mb-6">
+        What’s your child’s gender?
+      </Text>
+
+      {/* Row with Boy and Girl */}
+      <View className="flex-row justify-between mb-4">
+        {genderOptions.slice(0, 2).map((option) => (
+          <TouchableOpacity
+            key={option.value}
+            onPress={() => handleChange("gender", option.value)}
+            className={`w-[48%] items-center rounded-xl p-3 ${
+              form.gender === option.value
+                ? "border-4 border-[#D0EE30]"
+                : "border border-white"
+            } bg-white`}
+          >
+            <Image
+              source={option.image}
+              className="w-16 h-16 rounded-full mb-2"
+              resizeMode="contain"
+            />
+            <Text className="text-sm font-poppins text-center text-[#5d198a]">
+              {option.label}
             </Text>
-            <View className="flex-row flex-wrap justify-between gap-y-4">
-              {genderOptions.map((option) => (
-                <TouchableOpacity
-                  key={option.value}
-                  onPress={() => handleChange("gender", option.value)}
-                  className={`w-[30%] items-center rounded-xl p-2 ${form.gender === option.value ? "border-4 border-[#D0EE30]" : "border border-gray-200"
-                    } bg-white`}
-                >
-                  <Image
-                    source={option.image}
-                    className="w-20 h-20 rounded-full mb-2"
-                    resizeMode="cover"
-                  />
-                  <Text className="text-sm font-poppins text-center text-[#5d198a]">{option.label}</Text>
-                </TouchableOpacity>
-              ))}
-            </View>
-          </>
-        );
+          </TouchableOpacity>
+        ))}
+      </View>
+
+      {/* Row with Unspecified */}
+      <View className="items-center">
+        <TouchableOpacity
+          onPress={() => handleChange("gender", "unspecified")}
+          className={`w-[80%] items-center rounded-xl p-3 ${
+            form.gender === "unspecified"
+              ? "border-4 border-[#D0EE30]"
+              : "border border-white"
+          } bg-white`}
+        >
+          <Image
+            source={genderOptions[2].image}
+            className="w-16 h-16 rounded-full mb-2"
+            resizeMode="contain"
+          />
+          <Text className="text-sm font-poppins text-center text-[#5d198a]">
+            {genderOptions[2].label}
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </>
+  );
 
       case 5:
         return (
@@ -221,17 +250,17 @@ export default function CreateChildProfile() {
             <View className="space-y-4">
               <TouchableOpacity
                 onPress={() => handleChange("search", "off")}
-                className={`bg-[#cfee30] rounded-xl py-3 px-4 items-center mb-2 ${form.search === "off" ? "border-4 border-[#D0EE30]" : "border border-transparent"
+                className={`bg-[#cfee30] rounded-xl py-3 px-4 items-center mb-2 ${form.search === "off" ? "border-4 border-[#5d198a]" : "border border-transparent"
                   }`}
               >
-                <Text className="font-poppins text-[#5d198a]">Turn Search Off</Text>
+                <Text className="font-poppinsBold text-[#5d198a]">Turn Search Off</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => handleChange("search", "on")}
-                className={`bg-[#cfee30] rounded-xl py-3 px-4 items-center ${form.search === "on" ? "border-4 border-[#D0EE30]" : "border border-transparent"
+                className={`bg-[#cfee30] rounded-xl py-3 px-4 items-center ${form.search === "on" ? "border-4 border-[#5d198a]" : "border border-transparent"
                   }`}
               >
-                <Text className="font-poppins text-[#5d198a]">Turn Search On</Text>
+                <Text className="font-poppinsBold text-[#5d198a]">Turn Search On</Text>
               </TouchableOpacity>
             </View>
           </>
