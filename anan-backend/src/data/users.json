@@ -27,5 +27,12 @@
     "email": "zoe@email.com",
     "password": "mypassword",
     "profiles": []
+  },
+  {
+    "id": "0e9aaa03-1b08-44f5-bcb4-56aa8c268b91",
+    "name": "Zoe",
+    "email": "zoanij0@gmail.com",
+    "password": "Chacha",
+    "profiles": []
   }
 ]
