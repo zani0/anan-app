@@ -6,7 +6,7 @@ import {
   ScrollView,
   Image,
   ActivityIndicator,
-  Platform,
+  Platform, 
 } from "react-native";
 import { useState, useEffect } from "react";
 import Checkbox from "expo-checkbox";
@@ -14,12 +14,13 @@ import { useRouter } from "expo-router";
 import Toast from "react-native-toast-message";
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { signup } from "@/anan-backend/src/api";
 
 export default function SignUp() {
   const router = useRouter();
   const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false); // ✅ Loading state
+  const [isLoading, setIsLoading] = useState(false); 
   const [form, setForm] = useState({ name: "", email: "", password: "" });
 
   useEffect(() => {
@@ -68,7 +69,7 @@ export default function SignUp() {
     try {
       setIsLoading(true); // ✅ Start loading
 
-      const response = await fetch("http:/192.168.100.4:3000/api/signup", {
+      const response = await fetch("http://192.168.100.25:3001/api/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

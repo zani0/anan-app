@@ -1,36 +1,37 @@
-import express from "express";
-import fs from "fs";
-import path from "path";
-import { v4 as uuidv4 } from "uuid";
+// src/routes/profiles.ts
+import { Router } from 'express';
+import fs from 'fs';
+import path from 'path';
+import { v4 as uuidv4 } from 'uuid';
 
-const router = express.Router();
-const usersFilePath = path.join(__dirname, "..", "data", "users.json");
+const router = Router();
+const usersFilePath = path.join(__dirname, '..', 'data', 'users.json');
 
 const readUsers = (): any[] => {
   try {
-    const data = fs.readFileSync(usersFilePath, "utf8");
+    const data = fs.readFileSync(usersFilePath, 'utf8');
     return data ? JSON.parse(data) : [];
-  } catch (err) {
+  } catch {
     return [];
   }
 };
 
 const writeUsers = (users: any[]) => {
-  fs.writeFileSync(usersFilePath, JSON.stringify(users, null, 2), "utf8");
+  fs.writeFileSync(usersFilePath, JSON.stringify(users, null, 2), 'utf8');
 };
 
-router.post("/", (req, res) => {
-  const { userId, name, age, gender, searchEnabled } = req.body;
+router.post('/create', (req, res) => {
+  const { userId, name, age, gender, search } = req.body;
 
-  if (!userId || !name || !age || !gender || searchEnabled === undefined) {
-    return res.status(400).json({ message: "All profile fields are required." });
+  if (!userId || !name || !age || !gender || search === undefined) {
+    return res.status(400).json({ message: 'All profile fields are required.' });
   }
 
   const users = readUsers();
   const user = users.find((u) => u.id === userId);
 
   if (!user) {
-    return res.status(404).json({ message: "User not found." });
+    return res.status(404).json({ message: 'Parent user not found.' });
   }
 
   const newProfile = {
@@ -38,16 +39,14 @@ router.post("/", (req, res) => {
     name,
     age,
     gender,
-    searchEnabled,
+    search,
   };
 
+  user.profiles = user.profiles || [];
   user.profiles.push(newProfile);
   writeUsers(users);
 
-  return res.status(201).json({
-    message: "Profile created successfully",
-    profile: newProfile,
-  });
+  return res.status(201).json({ message: 'Profile created', profile: newProfile });
 });
 
 export default router;

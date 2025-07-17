@@ -20,5 +20,12 @@
         "searchEnabled": false
       }
     ]
+  },
+  {
+    "id": "62b9d5f0-2c33-4f69-9a60-a9dad8de438b",
+    "name": "Zoe",
+    "email": "zoe@email.com",
+    "password": "mypassword",
+    "profiles": []
   }
 ]
