@@ -34,7 +34,7 @@ router.post('/create-profile', (req: Request, res: Response) => {
   }
 
   const users = readUsers();
-  const user = users.find((u) => u.id === userId);
+  const user = users.find((u) => u.id === userId); 
 
   if (!user) {
     return res.status(404).json({ message: 'User not found' });

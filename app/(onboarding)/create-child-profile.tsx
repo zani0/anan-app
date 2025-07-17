@@ -67,6 +67,7 @@ export default function CreateChildProfile() {
           "http://192.168.100.25:3001/api/create-profile",
           {
             method: "POST",
+            credentials: "include", 
             headers: {
               "Content-Type": "application/json",
             },
