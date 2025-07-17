@@ -16,7 +16,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Checkbox from "expo-checkbox";
 import * as SecureStore from "expo-secure-store";
 
-const BASE_URL = "http://192.168.100.35:3001/api";
+const BASE_URL = "http://192.168.100.25:3001/api";
 
 export default function SignIn() {
   const [isLoading, setIsLoading] = useState(false);
@@ -123,7 +123,7 @@ export default function SignIn() {
         text2: "Something went wrong, try again.",
       });
     } finally {
-      setIsLoading(false); // ✅ Stop loading
+      setIsLoading(false); 
     }
     
   };

@@ -70,5 +70,12 @@
         "avatar": "https://ui-avatars.com/api/?name=Glory"
       }
     ]
+  },
+  {
+    "id": "4e67679f-a7df-4fce-8c66-fcc781a5dfe1",
+    "name": "Alex",
+    "email": "alex@hello.com",
+    "password": "Hello",
+    "profiles": []
   }
 ]
