@@ -1,4 +1,3 @@
-// src/routes/profile.ts
 import { Router } from 'express';
 import fs from 'fs';
 import path from 'path';
@@ -8,7 +7,7 @@ const router = Router();
 const usersFilePath = path.join(__dirname, '..', 'data', 'users.json');
 
 // Helper functions
-const readUsers = (): any[] => {
+const readUsers = (): roperty 'session' does not exist on type 'Request<{}, any, any, ParsedQs, Record<string, any>>'.any[] => {
   try {
     const data = fs.readFileSync(usersFilePath, 'utf8');
     return data ? JSON.parse(data) : [];
@@ -21,39 +20,57 @@ const writeUsers = (users: any[]) => {
   fs.writeFileSync(usersFilePath, JSON.stringify(users, null, 2), 'utf8');
 };
 
-// POST /api/create-profile
+// POST /create-profile
 router.post('/create-profile', (req, res) => {
-  const { userId, name, avatar } = req.body;
+  const userId = req.session.userId;
+  const { name, age, gender, search, avatar } = req.body;
 
-  if (!userId || !name || !avatar) {
-    return res.status(400).json({ message: 'All fields are required.' });
+  if (!userId || !name || !age || !gender || typeof search === 'undefined') {
+    return res.status(400).json({ message: 'Missing profile fields' });
   }
 
   const users = readUsers();
   const user = users.find((u) => u.id === userId);
 
   if (!user) {
-    return res.status(404).json({ message: 'User not found.' });
+    return res.status(404).json({ message: 'User not found' });
   }
 
   const newProfile = {
     id: uuidv4(),
     name,
+    age,
+    gender,
+    search,
     avatar,
   };
 
-  if (!Array.isArray(user.profiles)) {
-    user.profiles = [];
-  }
-
+  user.profiles = user.profiles || [];
   user.profiles.push(newProfile);
   writeUsers(users);
 
   return res.status(201).json({
     message: 'Profile created',
-    profile: newProfile,
     profiles: user.profiles,
   });
+});
+
+// GET /profiles (no query needed)
+router.get('/profiles', (req, res) => {
+  const userId = req.session.userId;
+
+  if (!userId) {
+    return res.status(401).json({ message: 'Not authenticated' });
+  }
+
+  const users = readUsers();
+  const user = users.find((u) => u.id === userId);
+
+  if (!user) {
+    return res.status(404).json({ message: 'User not found' });
+  }
+
+  return res.status(200).json(user.profiles || []);
 });
 
 export default router;
