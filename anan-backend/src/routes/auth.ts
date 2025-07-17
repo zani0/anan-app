@@ -1,6 +1,5 @@
 // src/routes/auth.ts
 import { Router } from 'express';
-import express from 'express';
 import fs from 'fs';
 import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
@@ -27,12 +26,12 @@ router.post('/register', (req, res) => {
   const { name, email, password } = req.body;
 
   if (!name || !email || !password) {
-    return res.status(400).json({ message: 'All fields are required.' });
+    return res.status(400).json({ message: 'Oops! All fields are required.' });
   }
 
   const users = readUsers();
   if (users.find((u) => u.email === email)) {
-    return res.status(409).json({ message: 'User already exists.' });
+    return res.status(409).json({ message: 'Oops! User already exists.' });
   }
 
   const newUser = {

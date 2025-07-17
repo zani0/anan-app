@@ -6,6 +6,7 @@ import {
   ScrollView,
   Image,
   Platform,
+  ActivityIndicator,
 } from "react-native";
 import { useEffect, useState } from "react";
 import { useRouter } from "expo-router";
@@ -15,9 +16,11 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Checkbox from "expo-checkbox";
 import * as SecureStore from "expo-secure-store";
 
-const BASE_URL = 'https://zoe-test-api.onrender.com/api';
+const BASE_URL = "http://192.168.100.35:3001/api";
 
 export default function SignIn() {
+  const [isLoading, setIsLoading] = useState(false);
+
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
@@ -47,6 +50,9 @@ export default function SignIn() {
   };
 
   const handleSubmit = async () => {
+    console.log("Sending to:", `${BASE_URL}/login`);
+    console.log("Body:", form);
+
     if (!form.email || !form.password) {
       Toast.show({
         type: "error",
@@ -66,6 +72,8 @@ export default function SignIn() {
       return;
     }
 
+    setIsLoading(true); // 🌀 Start loading
+
     try {
       if (rememberMe) {
         await AsyncStorage.setItem("email", form.email);
@@ -74,7 +82,7 @@ export default function SignIn() {
         await AsyncStorage.multiRemove(["email", "password"]);
       }
 
-      const res = await fetch("https://zoe-test-api.onrender.com/api/login", {
+      const res = await fetch(`${BASE_URL}/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
@@ -91,7 +99,6 @@ export default function SignIn() {
         return;
       }
 
-      // ✅ Save user info in async storage
       await AsyncStorage.setItem("user", JSON.stringify(data.user));
 
       const hasProfiles = data.user.profiles && data.user.profiles.length > 0;
@@ -99,7 +106,6 @@ export default function SignIn() {
         ? "choose-profile"
         : "create-child-profile";
 
-      // 👶 Send to age verification first
       await SecureStore.setItemAsync("age_verify_source", destination);
 
       Toast.show({
@@ -108,7 +114,6 @@ export default function SignIn() {
         text2: "Redirecting to profiles... 💫",
       });
 
-      // 🧭 Go to age gate
       router.push("/(onboarding)/verify-age");
     } catch (err) {
       console.error("Login error", err);
@@ -117,7 +122,10 @@ export default function SignIn() {
         text1: "Error",
         text2: "Something went wrong, try again.",
       });
+    } finally {
+      setIsLoading(false); // ✅ Stop loading
     }
+    
   };
 
   return (
@@ -197,11 +205,16 @@ export default function SignIn() {
           {/* Proceed */}
           <TouchableOpacity
             onPress={handleSubmit}
-            className="bg-[#D0EE30] py-3 rounded-xl mt-3 mb-6"
+            disabled={isLoading}
+            className={`py-3 rounded-xl mt-3 mb-6 ${isLoading ? "bg-[#D0EE30]/70" : "bg-[#D0EE30]"}`}
           >
-            <Text className="text-[#5d198a] text-center font-poppinsBold text-[18px]">
-              Sign In
-            </Text>
+            {isLoading ? (
+              <ActivityIndicator size="small" color="#5d198a" />
+            ) : (
+              <Text className="text-[#5d198a] text-center font-poppinsBold text-[18px]">
+                Sign In
+              </Text>
+            )}
           </TouchableOpacity>
 
           {/* Create Account */}
