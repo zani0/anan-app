@@ -9,7 +9,7 @@ import session from 'express-session';
 const app = express();
 
 app.use(cors({
-  origin: 'http://localhost:3000', // your frontend port
+  origin: 'http://192.168.100.25:3001', 
   credentials: true,
 }));
 
@@ -35,8 +35,8 @@ const PORT = 3001;
 app.use(cors());
 app.use(express.json());
 
-app.use('/api', authRoutes);
-app.use('/api', profileRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/profiles', profileRoutes);
 
 
 app.get('/', (req, res) => {
@@ -44,5 +44,5 @@ app.get('/', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server is running on http://192.168.100.25:${PORT}`);
 });
