@@ -124,19 +124,19 @@ export default function CreateChildProfile() {
             label: "Pre-school",
             value: "preschool",
             description: "Age 4 and under",
-            image: require("@/assets/images/icon.png"),
+            image: require("@/assets/images/preschool.png"),
           },
           {
             label: "Younger",
             value: "younger",
             description: "Ages 5-8",
-            image: require("@/assets/images/icon.png"),
+            image: require("@/assets/images/younger.png"),
           },
           {
             label: "Older",
             value: "older",
             description: "Ages 9-12",
-            image: require("@/assets/images/icon.png"),
+            image: require("@/assets/images/older.png"),
           },
         ];
         return (
