@@ -1,13 +1,18 @@
-import { Router } from 'express';
+import { Router, Request, Response } from 'express';
 import fs from 'fs';
 import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
 
+declare module 'express-session' {
+  interface SessionData {
+    userId?: string;
+  }
+}
+
 const router = Router();
 const usersFilePath = path.join(__dirname, '..', 'data', 'users.json');
 
-// Helper functions
-const readUsers = (): roperty 'session' does not exist on type 'Request<{}, any, any, ParsedQs, Record<string, any>>'.any[] => {
+const readUsers = (): any[] => {
   try {
     const data = fs.readFileSync(usersFilePath, 'utf8');
     return data ? JSON.parse(data) : [];
@@ -20,8 +25,7 @@ const writeUsers = (users: any[]) => {
   fs.writeFileSync(usersFilePath, JSON.stringify(users, null, 2), 'utf8');
 };
 
-// POST /create-profile
-router.post('/create-profile', (req, res) => {
+router.post('/create-profile', (req: Request, res: Response) => {
   const userId = req.session.userId;
   const { name, age, gender, search, avatar } = req.body;
 
@@ -50,13 +54,12 @@ router.post('/create-profile', (req, res) => {
   writeUsers(users);
 
   return res.status(201).json({
-    message: 'Profile created',
+    message: 'Profile created successfully',
     profiles: user.profiles,
   });
 });
 
-// GET /profiles (no query needed)
-router.get('/profiles', (req, res) => {
+router.get('/', (req: Request, res: Response) => {
   const userId = req.session.userId;
 
   if (!userId) {

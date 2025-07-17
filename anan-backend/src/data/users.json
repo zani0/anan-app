@@ -70,21 +70,5 @@
         "avatar": "https://ui-avatars.com/api/?name=Glory"
       }
     ]
-  },
-  {
-    "id": "5508d8d9-c059-4254-a2af-96cb0d586028",
-    "name": "Alex",
-    "email": "alex@hello.com",
-    "password": "Hello",
-    "profiles": [
-      {
-        "id": "58a990b7-60e1-4700-98e0-139297721fed",
-        "name": "Glory",
-        "age": "younger",
-        "gender": "girl",
-        "search": "on",
-        "avatar": "https://ui-avatars.com/api/?name=Glory"
-      }
-    ]
   }
 ]
