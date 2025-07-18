@@ -19,6 +19,14 @@
         "gender": "boy",
         "search": "off",
         "avatar": "https://ui-avatars.com/api/?name=Haha"
+      },
+      {
+        "id": "08e574f3-6fc2-408d-a4c3-0061ac317cd6",
+        "name": "Belinda",
+        "age": "preschool",
+        "gender": "girl",
+        "search": "off",
+        "avatar": "https://ui-avatars.com/api/?name=Belinda"
       }
     ]
   },

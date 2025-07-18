@@ -12,6 +12,10 @@ import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function ChooseProfile() {
+  const handleSelectProfile = async (profile: any) => {
+  await AsyncStorage.setItem('selectedProfile', JSON.stringify(profile));
+  router.push('/(tabs)'); 
+};
   const getAvatarUrl = (profile: { name: string; avatar?: string }) =>
   profile.avatar?.startsWith('http')
     ? profile.avatar
