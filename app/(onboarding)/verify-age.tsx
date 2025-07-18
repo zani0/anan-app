@@ -21,13 +21,13 @@ export default function VerifyAge() {
   const hiddenInputRef = useRef<TextInput>(null);
   const [redirectSource, setRedirectSource] = useState<null | string>(null);
 
-  useEffect(() => {
-    const checkRedirectSource = async () => {
-      const source = await SecureStore.getItemAsync("age_verify_source");
-      setRedirectSource(source);
-    };
-    checkRedirectSource();
-  }, []);
+  // useEffect(() => {
+  //   const checkRedirectSource = async () => {
+  //     const source = await SecureStore.getItemAsync("age_verify_source");
+  //     setRedirectSource(source);
+  //   };
+  //   checkRedirectSource();
+  // }, []);
 
   const handleInput = (text: string) => {
     if (!/^\d*$/.test(text)) return;

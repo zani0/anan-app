@@ -15,16 +15,15 @@ app.use(cors({
 
 app.use(express.json());
 
-// 🟩 Session setup
 app.use(
   session({
-    secret: 'anan-secret', // change to something safe
+    secret: 'anan-secret', 
     resave: false,
     saveUninitialized: false,
     cookie: {
-      secure: false, // true if using HTTPS
+      secure: false, 
       httpOnly: true,
-      maxAge: 1000 * 60 * 60 * 24, // 1 day
+      maxAge: 1000 * 60 * 60 * 24, 
     },
   })
 );
