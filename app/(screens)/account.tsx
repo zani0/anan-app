@@ -12,11 +12,12 @@ import { useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ChevronRight } from "lucide-react-native";
 import VerifyAgePopup from "@/components/VerifyAgePopup";
+import { useUser } from "@/context/UserContext";
 
 const screenHeight = Dimensions.get("window").height;
 
-
 export default function ParentAccount() {
+  const { user } = useUser();
   const router = useRouter();
   const insets = useSafeAreaInsets();
 
@@ -35,7 +36,7 @@ export default function ParentAccount() {
   const handleVerifyComplete = (age: number) => {
     setShowVerifyAge(false);
 
-    if (age < 8) {
+    if (age < 18) {
       router.back(); // Go to the previous screen
     } else {
       // Stay on current screen (do nothing)
@@ -54,18 +55,31 @@ export default function ParentAccount() {
         </Text>
 
         {/* Profile Info */}
+        {/* Profile Info */}
         <View className="items-center mt-6 mb-4">
-          <View className="w-28 h-28 rounded-full border-4 border-black bg-[#FF8661] items-center justify-center mb-2">
-            <Image
-              source={require("@/assets/images/avatar.png")}
-              className="w-16 h-16"
-              resizeMode="contain"
-            />
+          <View className="w-28 h-28 rounded-full border-4 border-black bg-[#FF8661] items-center justify-center mb-2 overflow-hidden">
+            {user?.name ? (
+              <Image
+                source={{
+                  uri: `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}`,
+                }}
+                className="w-28 h-28 rounded-full"
+                resizeMode="cover"
+              />
+            ) : (
+              <Image
+                source={require("@/assets/images/avatar.png")}
+                className="w-16 h-16"
+                resizeMode="contain"
+              />
+            )}
           </View>
           <Text className="mt-2 mb-2 text-4xl font-caprasimo text-black">
-            Zoe
+            {user?.name || "User"}
           </Text>
-          <Text className="text-sm text-black mb-4">★234</Text>
+          <Text className="text-sm text-black mb-4">
+            ★{user?.points ?? 0}
+          </Text>
         </View>
 
         {/* Menu Section */}

@@ -27,6 +27,14 @@
         "gender": "girl",
         "search": "off",
         "avatar": "https://ui-avatars.com/api/?name=Belinda"
+      },
+      {
+        "id": "50fb8567-2714-486d-bf01-e35e5aa050d1",
+        "name": "Binta",
+        "age": "younger",
+        "gender": "girl",
+        "search": "on",
+        "avatar": "https://ui-avatars.com/api/?name=Binta"
       }
     ]
   },
@@ -152,6 +160,22 @@
         "gender": "girl",
         "search": "off",
         "avatar": "https://ui-avatars.com/api/?name=Hayley"
+      }
+    ]
+  },
+  {
+    "id": "62770f88-ac9e-4649-abfb-54bd6f6e98fd",
+    "name": "Christina ",
+    "email": "drinkwater@gmail.com",
+    "password": "fivesixseven",
+    "profiles": [
+      {
+        "id": "858a8b35-8c19-4f39-a62e-08d9d9012925",
+        "name": "Anita",
+        "age": "younger",
+        "gender": "girl",
+        "search": "off",
+        "avatar": "https://ui-avatars.com/api/?name=Anita"
       }
     ]
   }
