@@ -6,41 +6,48 @@ import {
   TouchableOpacity,
   ScrollView,
   ActivityIndicator,
-} from 'react-native'
-import { useState, useEffect } from 'react'
-import { useRouter } from 'expo-router'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+} from "react-native";
+import { useState, useEffect } from "react";
+import { useRouter } from "expo-router";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function ChooseProfile() {
-  const router = useRouter()
-  const [profiles, setProfiles] = useState([])
-  const [selectedId, setSelectedId] = useState<string | null>(null)
-  const [loading, setLoading] = useState(true)
+  const getAvatarUrl = (profile: { name: string; avatar?: string }) =>
+  profile.avatar?.startsWith('http')
+    ? profile.avatar
+    : `https://ui-avatars.com/api/?name=${encodeURIComponent(profile.name)}&background=random&color=fff&bold=true`;
+
+  const router = useRouter();
+  const [profiles, setProfiles] = useState([]);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProfiles = async () => {
       try {
-        const userData = await AsyncStorage.getItem('user')
-        if (!userData) return
-        const user = JSON.parse(userData)
-        const res = await fetch(`http://192.168.100.25:3001/api/profiles/${user.id}/`)
-        const data = await res.json()
-        setProfiles(data.profiles || [])
-        console.log(data)
+        const userData = await AsyncStorage.getItem("user");
+        if (!userData) return;
+        const user = JSON.parse(userData);
+        const res = await fetch(
+          `http://192.168.100.25:3001/api/profiles/${user.id}/`
+        );
+        const data = await res.json();
+        setProfiles(data.profiles || []);
+        console.log(data);
       } catch (err) {
-        console.error('Failed to fetch profiles', err)
+        console.error("Failed to fetch profiles", err);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    }
+    };
 
-    fetchProfiles()
-  }, [])
+    fetchProfiles();
+  }, []);
 
   const handleContinue = () => {
-    if (!selectedId) return
-    router.replace('/(tabs)')
-  }
+    if (!selectedId) return;
+    router.replace("/(tabs)");
+  };
 
   const renderProfile = ({ item }: any) => (
     <TouchableOpacity
@@ -48,25 +55,28 @@ export default function ChooseProfile() {
       className="items-center w-[100px] self-center"
     >
       <Image
-        source={{ uri: item.avatar }}
-        className={`w-[100px] h-[100px] rounded-full mb-2 ${selectedId === item.id ? 'border-4 border-[#D0EE30]' : ''
-          }`}
+        source={{ uri: getAvatarUrl(item) }}
+        className={`w-[100px] h-[100px] rounded-full mb-2 ${
+          selectedId === item.id ? "border-4 border-[#D0EE30]" : ""
+        }`}
         resizeMode="cover"
       />
-      <Text className="text-white font-poppins text-sm text-center">{item.name}</Text>
+      <Text className="text-white font-poppins text-sm text-center">
+        {item.name}
+      </Text>
     </TouchableOpacity>
-  )
+  );
 
   return (
     <View className="flex-1 bg-[#5d198a] relative">
       {/* Spiderwebs */}
       <Image
-        source={require('@/assets/images/spider-web-1.png')}
+        source={require("@/assets/images/spider-web-1.png")}
         className="w-[150px] h-[120px] absolute top-[-20] right-[-30]"
         resizeMode="cover"
       />
       <Image
-        source={require('@/assets/images/spider-web-2.png')}
+        source={require("@/assets/images/spider-web-2.png")}
         className="w-[170px] h-[80px] absolute bottom-0 left-0"
         resizeMode="cover"
       />
@@ -74,8 +84,8 @@ export default function ChooseProfile() {
       <ScrollView
         contentContainerStyle={{
           flexGrow: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
+          justifyContent: "center",
+          alignItems: "center",
           paddingHorizontal: 24,
           paddingVertical: 48,
         }}
@@ -97,16 +107,22 @@ export default function ChooseProfile() {
             <ActivityIndicator color="#D0EE30" size="large" />
           ) : (
             <FlatList
-              data={[...profiles, { id: 'new', name: 'Add Profile', avatar: null }]}
+              data={[
+                ...profiles,
+                { id: "new", name: "Add Profile", avatar: null },
+              ]}
               numColumns={3}
               scrollEnabled={false}
               keyExtractor={(item) => item.id}
               contentContainerStyle={{ gap: 20 }}
-              columnWrapperStyle={{ justifyContent: 'space-around', marginBottom: 20 }}
+              columnWrapperStyle={{
+                justifyContent: "space-around",
+                marginBottom: 20,
+              }}
               renderItem={({ item }) =>
-                item.id === 'new' ? (
+                item.id === "new" ? (
                   <TouchableOpacity
-                    onPress={() => router.push('/create-child-profile')}
+                    onPress={() => router.push("/create-child-profile")}
                     className="items-center w-[100px] self-center"
                   >
                     <View className="w-[100px] h-[100px] rounded-full bg-white justify-center items-center mb-2">
@@ -127,19 +143,21 @@ export default function ChooseProfile() {
           <TouchableOpacity
             disabled={!selectedId}
             onPress={handleContinue}
-            className={`py-3 px-10 rounded-xl w-full mt-6 ${selectedId ? 'bg-[#D0EE30]' : 'bg-[#D0EE30]/40'
-              }`}
+            className={`py-3 px-10 rounded-xl w-full mt-6 ${
+              selectedId ? "bg-[#D0EE30]" : "bg-[#D0EE30]/40"
+            }`}
           >
             <Text
-              className={`font-poppinsBold text-[18px] text-center ${selectedId ? 'text-[#5d198a]' : 'text-[#5d198a]/50'
-                }`}
+              className={`font-poppinsBold text-[18px] text-center ${
+                selectedId ? "text-[#5d198a]" : "text-[#5d198a]/50"
+              }`}
             >
               Continue
             </Text>
           </TouchableOpacity>
 
           {/* Continue as Parent */}
-          <TouchableOpacity onPress={() => router.replace('/(tabs)')}>
+          <TouchableOpacity onPress={() => router.replace("/(tabs)")}>
             <Text className="text-white font-poppins text-sm text-center underline mt-6">
               Continue with parent account instead
             </Text>
@@ -147,5 +165,5 @@ export default function ChooseProfile() {
         </View>
       </ScrollView>
     </View>
-  )
+  );
 }

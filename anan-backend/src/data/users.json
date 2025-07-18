@@ -13,12 +13,12 @@
     "password": "Chacha",
     "profiles": [
       {
-        "id": "b2aeb36d-7e5a-4ce4-a6fc-ef01c4996017",
-        "name": "Lala",
-        "age": "younger",
-        "gender": "girl",
+        "id": "69d743c1-0830-4e0c-a6d1-9b905ea71337",
+        "name": "Haha",
+        "age": "preschool",
+        "gender": "boy",
         "search": "off",
-        "avatar": "https://ui-avatars.com/api/?name=Lala"
+        "avatar": "https://ui-avatars.com/api/?name=Haha"
       }
     ]
   },
