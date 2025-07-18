@@ -56,7 +56,7 @@ export default function CreateChildProfile() {
       setStep(step + 1);
     } else {
       try {
-        const userData = await AsyncStorage.getItem("user"); // assuming you stored this at login
+        const userData = await AsyncStorage.getItem("user"); 
         const user = JSON.parse(userData || "{}");
 
         if (!user?.id) {
@@ -64,7 +64,7 @@ export default function CreateChildProfile() {
         }
 
         const response = await fetch(
-          "http://192.168.100.25:3001/api/create-profile",
+          "http://192.168.100.25:3001/api/profiles/create-profile",
           {
             method: "POST",
             credentials: "include", 
@@ -95,7 +95,7 @@ export default function CreateChildProfile() {
         });
 
         setTimeout(() => {
-          router.replace("/choose-profile"); // go to choose profile screen
+          router.replace("/choose-profile"); 
         }, 1500);
       } catch (err: any) {
         Toast.show({

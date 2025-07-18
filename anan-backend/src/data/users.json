@@ -1,27 +1,5 @@
 [
   {
-    "id": "parent-123",
-    "name": "Jane Doe",
-    "email": "jane@example.com",
-    "password": "hashedpassword",
-    "profiles": [
-      {
-        "id": "profile-1",
-        "name": "Emma",
-        "age": 7,
-        "gender": "female",
-        "searchEnabled": true
-      },
-      {
-        "id": "profile-2",
-        "name": "Leo",
-        "age": 10,
-        "gender": "male",
-        "searchEnabled": false
-      }
-    ]
-  },
-  {
     "id": "62b9d5f0-2c33-4f69-9a60-a9dad8de438b",
     "name": "Zoe",
     "email": "zoe@email.com",
@@ -49,11 +27,6 @@
     "password": "Chacha",
     "profiles": [
       {
-        "id": "4306315f-cf0f-47c7-8adf-9f11ac01b880",
-        "name": "Zoe",
-        "avatar": "https://ui-avatars.com/api/?name=Zoe"
-      },
-      {
         "id": "cfcc5290-5b48-40eb-8a22-5e48401b4734",
         "name": "Alex",
         "age": "older",
@@ -75,6 +48,20 @@
     "id": "4e67679f-a7df-4fce-8c66-fcc781a5dfe1",
     "name": "Alex",
     "email": "alex@hello.com",
+    "password": "Hello",
+    "profiles": []
+  },
+  {
+    "id": "82c131e5-22f6-4f07-b003-d18d03dfb0a8",
+    "name": "Tina",
+    "email": "tina@helloworld.com",
+    "password": "dontlookatme",
+    "profiles": []
+  },
+  {
+    "id": "9dc8dcbb-c834-4179-a155-b4c361dd9296",
+    "name": "Zoe",
+    "email": "alex@helloworld.com",
     "password": "Hello",
     "profiles": []
   }

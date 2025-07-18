@@ -69,7 +69,7 @@ export default function SignUp() {
     try {
       setIsLoading(true); // ✅ Start loading
 
-      const response = await fetch("http://192.168.100.25:3001/api/register", {
+      const response = await fetch("http://192.168.100.25:3001/api/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
