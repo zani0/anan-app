@@ -26,7 +26,7 @@ const writeUsers = (users: any[]) => {
 };
 
 router.post("/create-profile", (req: Request, res: Response) => {
-  const userId = req.session?.userId;
+  const userId = req.body.userId;
 
   if (!userId) {
     return res
@@ -67,8 +67,8 @@ router.post("/create-profile", (req: Request, res: Response) => {
   });
 });
 
-router.get("/", (req: Request, res: Response) => {
-  const userId = req.session.userId;
+router.get("/:id", (req: Request, res: Response) => {
+  const userId = req.params.id;
 
   if (!userId) {
     return res.status(401).json({ message: "Not authenticated" });
@@ -81,7 +81,7 @@ router.get("/", (req: Request, res: Response) => {
     return res.status(404).json({ message: "User not found" });
   }
 
-  return res.status(200).json(user.profiles || []);
+  return res.status(200).json({ profiles: user.profiles || [] });
 });
 
 export default router;

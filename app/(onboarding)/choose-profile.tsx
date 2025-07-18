@@ -23,9 +23,10 @@ export default function ChooseProfile() {
         const userData = await AsyncStorage.getItem('user')
         if (!userData) return
         const user = JSON.parse(userData)
-        const res = await fetch(`http://192.168.100.25:3001/api/users/${user.id}/profiles`)
+        const res = await fetch(`http://192.168.100.25:3001/api/profiles/${user.id}/`)
         const data = await res.json()
         setProfiles(data.profiles || [])
+        console.log(data)
       } catch (err) {
         console.error('Failed to fetch profiles', err)
       } finally {
@@ -105,7 +106,7 @@ export default function ChooseProfile() {
               renderItem={({ item }) =>
                 item.id === 'new' ? (
                   <TouchableOpacity
-                    onPress={() => router.push('/verify-age')}
+                    onPress={() => router.push('/create-child-profile')}
                     className="items-center w-[100px] self-center"
                   >
                     <View className="w-[100px] h-[100px] rounded-full bg-white justify-center items-center mb-2">

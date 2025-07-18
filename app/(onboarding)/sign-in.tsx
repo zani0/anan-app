@@ -114,7 +114,7 @@ export default function SignIn() {
         text2: "Redirecting to profiles... 💫",
       });
 
-      router.push("/(onboarding)/verify-age");
+      router.push("/(onboarding)/choose-profile");
     } catch (err) {
       console.error("Login error", err);
       Toast.show({
