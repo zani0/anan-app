@@ -21,8 +21,8 @@ import Animated, {
 const AnimatedTouchableOpacity =
   Animated.createAnimatedComponent(TouchableOpacity);
 
-const PRIMARY_COLOR = "#4B8B3B"; // Green
-const SECONDARY_COLOR = "#b4d823"; // Lime
+const PRIMARY_COLOR = "#5a1786"; 
+const SECONDARY_COLOR = "#d0ed32"; 
 
 const routeLabels: Record<string, string> = {
   index: "Home",
@@ -129,7 +129,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "rgba(75, 139, 59, 0.9)", // translucent green
+    // backgroundColor: "rgba(75, 139, 59, 0.9)", 
+    backgroundColor: "#5a1786", 
     width: "90%",
     alignSelf: "center",
     bottom: Platform.OS === "ios" ? 40 : 30,

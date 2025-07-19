@@ -57,7 +57,7 @@ export default function ParentAccount() {
         {/* Profile Info */}
         {/* Profile Info */}
         <View className="items-center mt-6 mb-4">
-          <View className="w-28 h-28 rounded-full border-4 border-black bg-[#FF8661] items-center justify-center mb-2 overflow-hidden">
+          <View className="w-28 h-28 rounded-full border-4 border-black bg-[#FFF] items-center justify-center mb-2 overflow-hidden">
             {user?.name ? (
               <Image
                 source={{
@@ -69,7 +69,7 @@ export default function ParentAccount() {
             ) : (
               <Image
                 source={require("@/assets/images/avatar.png")}
-                className="w-16 h-16"
+                className="w-16 h-16 rounded-full"
                 resizeMode="contain"
               />
             )}

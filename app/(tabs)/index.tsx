@@ -28,7 +28,7 @@ const featuredStories = [
     image: 'https://images.unsplash.com/photo-1628260412297-a3377e45006f?q=80&w=1074&auto=format&fit=crop',
     category: 'Adventure',
   },
-  {
+  { 
     id: '2',
     title: 'Rainforest Wonders',
     image: 'https://images.unsplash.com/photo-1631582053308-40f482e7ace5?q=80&w=1631&auto=format&fit=crop',

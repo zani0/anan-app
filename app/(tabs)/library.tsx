@@ -21,7 +21,7 @@ const savedStories = [
     {
         id: '2',
         title: 'Ameley and the honesty',
-        image: 'https://images.unsplash.com/photo-1628260412297-a3377e45006f?q=80&w=1074&auto=format&fit=crop',
+        image: 'https://images.unsplash.com/photo-1631582053308-40f482e7ace5?q=80&w=1631&auto=format&fit=crop',
         category: 'Adventure',
     },
     {
@@ -33,14 +33,14 @@ const savedStories = [
     {
         id: '4',
         title: 'Ananse and family',
-        image: 'https://images.unsplash.com/photo-1628260412297-a3377e45006f?q=80&w=1074&auto=format&fit=crop',
+        image: 'https://plus.unsplash.com/premium_photo-1681426478241-11b262dd1d21?q=80&w=880&auto=format&fit=crop',
         category: 'Folklore',
         completed: true,
     },
         {
         id: '5',
         title: 'Ananse and family',
-        image: 'https://images.unsplash.com/photo-1628260412297-a3377e45006f?q=80&w=1074&auto=format&fit=crop',
+        image: 'https://images.unsplash.com/photo-1616098063625-65f32186e609?w=500&auto=format&fit=crop&q=60',
         category: 'Folklore',
         completed: true,
     },
