@@ -27,11 +27,16 @@ export default function Header() {
       />
 
       {/* Left: Logo */}
-      <Image
-        source={require("@/assets/images/anansesem-logo.png")}
-        className="w-[100px] h-12"
-        resizeMode="contain"
-      />
+      <View className="items-center">
+        <Image
+          source={require("@/assets/images/anansesem-logo.png")}
+          className="w-[80px] h-12"
+          resizeMode="contain"
+        />
+        <Text className="text-[20px] font-caprasimo text-[#5a1786]">
+          Anansesem
+        </Text>
+      </View>
 
       {/* Right: Avatar */}
       <TouchableOpacity onPress={() => router.push("/account")}>
