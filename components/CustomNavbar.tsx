@@ -42,7 +42,7 @@ const CustomNavBar: React.FC<BottomTabBarProps> = ({
   );
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} className="bg-[#fff]/95">
       {sortedRoutes.map((route, index) => {
         const isFocused = state.index === state.routes.indexOf(route);
         const label = routeLabels[route.name] ?? route.name;
@@ -66,7 +66,7 @@ const CustomNavBar: React.FC<BottomTabBarProps> = ({
             style={[
               styles.tabItem,
               {
-                backgroundColor: isFocused ? SECONDARY_COLOR : "transparent",
+                backgroundColor: isFocused ? "#d0ed32" : "transparent",
               },
             ]}
             layout={LinearTransition.springify().mass(0.5)}
@@ -130,7 +130,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     // backgroundColor: "rgba(75, 139, 59, 0.9)", 
-    backgroundColor: "#fff", 
     width: "90%",
     alignSelf: "center",
     bottom: Platform.OS === "ios" ? 40 : 30,
