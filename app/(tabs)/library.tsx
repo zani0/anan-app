@@ -93,6 +93,7 @@ export default function Library() {
         marginBottom: 10,
         backgroundColor: "white",
       }}
+      className="px-4"
     >
       <Header />
       <Text className="font-poppins text-lg px-4 mb-2">
@@ -104,71 +105,73 @@ export default function Library() {
   );
 
   return (
-    <FlatList
-      data={filteredStories}
-      keyExtractor={(item) => item.id}
-      numColumns={2}
-      style={{ backgroundColor: "white" }}
-      contentContainerStyle={{
-        paddingBottom: 100,
-      }}
-      columnWrapperStyle={{
-        justifyContent: "space-between",
-        paddingHorizontal: 16,
-        marginBottom: 16,
-      }}
-      ListHeaderComponent={renderHeader}
-      ListFooterComponent={<View style={{ height: 80 }} />}
-      renderItem={({ item }) => (
-        <TouchableOpacity
-          className="bg-white rounded-xl overflow-hidden shadow-md"
-          style={{ width: "48%" }}
-          activeOpacity={0.8}
-        >
-          {/* Thumbnail Section */}
-          <View className="relative h-36 w-full">
-            <Image
-              source={item.thumbnail}
-              className="w-full h-full"
-              resizeMode="cover"
-            />
+    <View className="flex-1 bg-white">
+      <FlatList
+        data={filteredStories}
+        keyExtractor={(item) => item.id}
+        numColumns={2}
+        style={{ backgroundColor: "white" }}
+        contentContainerStyle={{
+          paddingBottom: 100,
+        }}
+        columnWrapperStyle={{
+          justifyContent: "space-between",
+          paddingHorizontal: 16,
+          marginBottom: 16,
+        }}
+        ListHeaderComponent={renderHeader}
+        ListFooterComponent={<View style={{ height: 80 }} />}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            className="bg-white rounded-xl overflow-hidden shadow-md"
+            style={{ width: "48%" }}
+            activeOpacity={0.8}
+          >
+            {/* Thumbnail Section */}
+            <View className="relative h-36 w-full">
+              <Image
+                source={item.thumbnail}
+                className="w-full h-full"
+                resizeMode="cover"
+              />
 
-            {/* Category Badge */}
-            <View className="absolute top-2 left-2 bg-black/60 px-2 py-0.5 rounded-full">
-              <Text className="text-white text-xs font-medium font-poppins">
-                {item.category}
+              {/* Category Badge */}
+              <View className="absolute top-2 left-2 bg-black/60 px-2 py-0.5 rounded-full">
+                <Text className="text-white text-xs font-medium font-poppins">
+                  {item.category}
+                </Text>
+              </View>
+
+              {/* Duration */}
+              <View className="absolute bottom-2 right-2 bg-lime-300 px-2 py-0.5 rounded">
+                <Text className="text-black text-xs font-poppinsBold">
+                  {item.duration}
+                </Text>
+              </View>
+            </View>
+
+            {/* Footer */}
+            <View className="bg-[#60178b] p-3 rounded-b-xl h-28 justify-between">
+              <Text
+                numberOfLines={2}
+                ellipsizeMode="tail"
+                className="text-white font-poppins text-[14px]"
+              >
+                {item.title}
               </Text>
+
+              {/* Divider */}
+              <View className="border-b border-white my-2" />
+
+              {/* Icons */}
+              <View className="flex-row justify-between items-center">
+                <Heart size={16} color="white" />
+                <Flag size={16} color="white" />
+              </View>
             </View>
-
-            {/* Duration */}
-            <View className="absolute bottom-2 right-2 bg-lime-300 px-2 py-0.5 rounded">
-              <Text className="text-black text-xs font-poppinsBold">
-                {item.duration}
-              </Text>
-            </View>
-          </View>
-
-          {/* Footer */}
-          <View className="bg-[#60178b] p-3 rounded-b-xl h-28 justify-between">
-            <Text
-              numberOfLines={2}
-              ellipsizeMode="tail"
-              className="text-white font-poppins text-[14px]"
-            >
-              {item.title}
-            </Text>
-
-            {/* Divider */}
-            <View className="border-b border-white my-2" />
-
-            {/* Icons */}
-            <View className="flex-row justify-between items-center">
-              <Heart size={16} color="white" />
-              <Flag size={16} color="white" />
-            </View>
-          </View>
-        </TouchableOpacity>
-      )}
-    />
+          </TouchableOpacity>
+        )}
+      />
+    </View>
   );
 }

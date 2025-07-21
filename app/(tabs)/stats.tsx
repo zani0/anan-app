@@ -66,7 +66,7 @@ export default function Stats() {
   const [activeTab, setActiveTab] = useState('Leaderboard')
 
   return (
-    <View
+    <View 
       style={{
         flex: 1,
         backgroundColor: '#fff', 
