@@ -129,7 +129,7 @@ export default function SignIn() {
   };
 
   return (
-    <View className="flex-1 justify-center items-center bg-[#5d198a] px-6">
+    <View className="flex-1 justify-center items-center bg-[#60178b] px-6">
       {/* Top Right Spiderweb */}
       <Image
         source={require("@/assets/images/spider-web-1.png")}
@@ -185,7 +185,7 @@ export default function SignIn() {
               <Ionicons
                 name={showPassword ? "eye-off" : "eye"}
                 size={20}
-                color="#5d198a"
+                color="#60178b"
               />
             </TouchableOpacity>
           </View>
@@ -195,7 +195,7 @@ export default function SignIn() {
             <Checkbox
               value={rememberMe}
               onValueChange={setRememberMe}
-              color={rememberMe ? "#5d198a" : undefined}
+              color={rememberMe ? "#60178b" : undefined}
             />
             <Text className="ml-2 text-sm font-poppins text-gray-700">
               Remember me
@@ -209,9 +209,9 @@ export default function SignIn() {
             className={`py-3 rounded-xl mt-3 mb-6 ${isLoading ? "bg-[#D0EE30]/70" : "bg-[#D0EE30]"}`}
           >
             {isLoading ? (
-              <ActivityIndicator size="small" color="#5d198a" />
+              <ActivityIndicator size="small" color="#60178b" />
             ) : (
-              <Text className="text-[#5d198a] text-center font-poppinsBold text-[18px]">
+              <Text className="text-[#60178b] text-center font-poppinsBold text-[18px]">
                 Sign In
               </Text>
             )}
@@ -221,7 +221,7 @@ export default function SignIn() {
           <TouchableOpacity
             onPress={() => router.push("/(onboarding)/sign-up")}
           >
-            <Text className="text-center text-[#5d198a] font-poppins mt-2 underline">
+            <Text className="text-center text-[#60178b] font-poppins mt-2 underline">
               Don’t have an account? Create one
             </Text>
           </TouchableOpacity>

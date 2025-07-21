@@ -44,7 +44,7 @@ export default function AccountType() {
 
         {/* Text */}
         <View className="flex-1">
-          <Text className="text-lg font-poppinsBold text-[#5d198a]">{title}</Text>
+          <Text className="text-lg font-poppinsBold text-[#60178b]">{title}</Text>
           <Text className="text-sm font-poppins text-gray-600">{subtitle}</Text>
         </View>
       </View>
@@ -52,7 +52,7 @@ export default function AccountType() {
   );
 
   return (
-    <View className="flex-1 bg-[#5d198a] px-6">
+    <View className="flex-1 bg-[#60178b] px-6">
       <ScrollView
         contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }}
         showsVerticalScrollIndicator={false}
@@ -92,7 +92,7 @@ export default function AccountType() {
               selected ? "bg-[#D0EE30]" : "bg-[#D0EE30]/50"
             }`}
           >
-            <Text className="text-center text-[#5d198a] font-poppinsBold text-[18px]">
+            <Text className="text-center text-[#60178b] font-poppinsBold text-[18px]">
               Next
             </Text>
           </TouchableOpacity>

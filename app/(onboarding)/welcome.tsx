@@ -13,7 +13,7 @@ export default function WelcomeScreen() {
   const router = useRouter();
 
   return (
-    <View className="flex-1 justify-center items-center px-6 bg-[#5d198a]">
+    <View className="flex-1 justify-center items-center px-6 bg-[#60178b]">
 
       {/* Top Right Spiderweb */}
       <Image
@@ -47,7 +47,7 @@ export default function WelcomeScreen() {
         onPress={() => router.replace('/(onboarding)/sign-up')}
         className="bg-[#D0EE30] rounded-xl px-6 py-3 w-full"
       >
-        <Text className="font-poppinsBold text-[#5d198a] text-base text-center">Next</Text>
+        <Text className="font-poppinsBold text-[#60178b] text-base text-center">Next</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => router.push("/(onboarding)/sign-in")}>
         <Text className="text-center text-white text-[12px] font-poppins mt-9 underline">

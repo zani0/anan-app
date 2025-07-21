@@ -112,7 +112,7 @@ export default function CreateChildProfile() {
       case 1:
         return (
           <>
-            <Text className="text-[#5d198a] text-[18px] font-poppins text-center mb-3">
+            <Text className="text-[#60178b] text-[18px] font-poppins text-center mb-3">
               Watch this video to learn more
             </Text>
 
@@ -130,7 +130,7 @@ export default function CreateChildProfile() {
                   </Text>
                 </View>
                 <TouchableOpacity onPress={() => setShowText(false)}>
-                  <Text className="text-sm text-[#5d198a] underline text-center mt-4">
+                  <Text className="text-sm text-[#60178b] underline text-center mt-4">
                     Watch video instead
                   </Text>
                 </TouchableOpacity>
@@ -143,7 +143,7 @@ export default function CreateChildProfile() {
                   videoId={"XqZsoesa55w"}
                 />
                 <TouchableOpacity onPress={() => setShowText(true)}>
-                  <Text className="text-sm text-[#5d198a] underline text-center mt-4">
+                  <Text className="text-sm text-[#60178b] underline text-center mt-4">
                     Read video text instead
                   </Text>
                 </TouchableOpacity>
@@ -155,7 +155,7 @@ export default function CreateChildProfile() {
       case 2:
         return (
           <>
-            <Text className="text-[#5d198a] text-[18px] font-poppins text-center mb-3">
+            <Text className="text-[#60178b] text-[18px] font-poppins text-center mb-3">
               What’s your child’s name?
             </Text>
             <TextInput
@@ -163,7 +163,7 @@ export default function CreateChildProfile() {
               onChangeText={(text) => handleChange("name", text)}
               placeholder="Name here"
               placeholderTextColor="#aaa"
-              className="bg-transparent border-b border-dotted border-[#5d198a] px-4 py-3 font-poppins text-gray-600 text-center w-full mb-2"
+              className="bg-transparent border-b border-dotted border-[#60178b] px-4 py-3 font-poppins text-gray-600 text-center w-full mb-2"
             />
           </>
         );
@@ -190,7 +190,7 @@ export default function CreateChildProfile() {
         ];
         return (
           <>
-            <Text className="text-[#5d198a] font-poppins text-lg text-center mb-6">
+            <Text className="text-[#60178b] font-poppins text-lg text-center mb-6">
               How old is your child?
             </Text>
             <View className="space-y-4">
@@ -210,7 +210,7 @@ export default function CreateChildProfile() {
                     resizeMode="contain"
                   />
                   <View>
-                    <Text className="text-base font-poppinsBold text-[#5d198a]">
+                    <Text className="text-base font-poppinsBold text-[#60178b]">
                       {item.label}
                     </Text>
                     <Text className="text-sm text-gray-500">
@@ -243,7 +243,7 @@ export default function CreateChildProfile() {
 
         return (
           <>
-            <Text className="text-[#5d198a] font-poppins text-lg text-center mb-6">
+            <Text className="text-[#60178b] font-poppins text-lg text-center mb-6">
               What’s your child’s gender?
             </Text>
 
@@ -264,7 +264,7 @@ export default function CreateChildProfile() {
                     className="w-16 h-16 rounded-full mb-2"
                     resizeMode="contain"
                   />
-                  <Text className="text-sm font-poppins text-center text-[#5d198a]">
+                  <Text className="text-sm font-poppins text-center text-[#60178b]">
                     {option.label}
                   </Text>
                 </TouchableOpacity>
@@ -286,7 +286,7 @@ export default function CreateChildProfile() {
                   className="w-16 h-16 rounded-full mb-2"
                   resizeMode="contain"
                 />
-                <Text className="text-sm font-poppins text-center text-[#5d198a]">
+                <Text className="text-sm font-poppins text-center text-[#60178b]">
                   {genderOptions[2].label}
                 </Text>
               </TouchableOpacity>
@@ -297,7 +297,7 @@ export default function CreateChildProfile() {
       case 5:
         return (
           <>
-            <Text className="text-[#5d198a] font-poppins text-lg text-center mb-6">
+            <Text className="text-[#60178b] font-poppins text-lg text-center mb-6">
               Do you want search to be on or off?
             </Text>
             <Text className="text-gray-700 font-poppins text-base text-center mb-4">
@@ -312,11 +312,11 @@ export default function CreateChildProfile() {
                 onPress={() => handleChange("search", "off")}
                 className={`bg-[#cfee30] rounded-xl py-3 px-4 items-center mb-2 ${
                   form.search === "off"
-                    ? "border-4 border-[#5d198a]"
+                    ? "border-4 border-[#60178b]"
                     : "border border-transparent"
                 }`}
               >
-                <Text className="font-poppinsBold text-[#5d198a]">
+                <Text className="font-poppinsBold text-[#60178b]">
                   Turn Search Off
                 </Text>
               </TouchableOpacity>
@@ -324,11 +324,11 @@ export default function CreateChildProfile() {
                 onPress={() => handleChange("search", "on")}
                 className={`bg-[#cfee30] rounded-xl py-3 px-4 items-center ${
                   form.search === "on"
-                    ? "border-4 border-[#5d198a]"
+                    ? "border-4 border-[#60178b]"
                     : "border border-transparent"
                 }`}
               >
-                <Text className="font-poppinsBold text-[#5d198a]">
+                <Text className="font-poppinsBold text-[#60178b]">
                   Turn Search On
                 </Text>
               </TouchableOpacity>
@@ -341,7 +341,7 @@ export default function CreateChildProfile() {
   };
 
   return (
-    <View className="flex-1 bg-[#5d198a] px-6 justify-center items-center">
+    <View className="flex-1 bg-[#60178b] px-6 justify-center items-center">
       <ScrollView
         contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }}
         showsVerticalScrollIndicator={false}
@@ -369,7 +369,7 @@ export default function CreateChildProfile() {
             onPress={handleNext}
             className="bg-[#D0EE30] py-3 mt-6 rounded-xl"
           >
-            <Text className="text-[#5d198a] text-center font-poppinsBold text-[18px]">
+            <Text className="text-[#60178b] text-center font-poppinsBold text-[18px]">
               {step < 5 ? "Next" : "Finish"}
             </Text>
           </TouchableOpacity>

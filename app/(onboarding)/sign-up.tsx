@@ -109,7 +109,7 @@ export default function SignUp() {
   };
 
   return (
-    <View className="flex-1 justify-center items-center bg-[#5d198a] px-6">
+    <View className="flex-1 justify-center items-center bg-[#60178b] px-6">
       {/* Decorations */}
       <Image source={require('@/assets/images/spider-web-1.png')} className="w-[150px] h-[120px] absolute top-[-20] right-[-30]" />
       <Image source={require('@/assets/images/spider-web-2.png')} className="w-[170px] h-[80px] absolute bottom-0 left-0" />
@@ -148,17 +148,17 @@ export default function SignUp() {
               onChangeText={(text) => handleChange("password", text)}
             />
             <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
-              <Ionicons name={showPassword ? "eye-off" : "eye"} size={20} color="#5d198a" />
+              <Ionicons name={showPassword ? "eye-off" : "eye"} size={20} color="#60178b" />
             </TouchableOpacity>
           </View>
 
           <View className="flex-row justify-between items-center mt-2">
             <View className="flex-row items-center">
-              <Checkbox value={rememberMe} onValueChange={setRememberMe} color={rememberMe ? "#5d198a" : undefined} />
+              <Checkbox value={rememberMe} onValueChange={setRememberMe} color={rememberMe ? "#60178b" : undefined} />
               <Text className="ml-2 text-sm font-poppins text-gray-700">Remember me</Text>
             </View>
             <TouchableOpacity>
-              <Text className="text-sm font-poppins text-[#5d198a] underline">Forgot password?</Text>
+              <Text className="text-sm font-poppins text-[#60178b] underline">Forgot password?</Text>
             </TouchableOpacity>
           </View>
 
@@ -168,14 +168,14 @@ export default function SignUp() {
             className={`py-3 rounded-xl mt-6 mb-6 ${isLoading ? 'bg-[#D0EE30]/70' : 'bg-[#D0EE30]'}`}
           >
             {isLoading ? (
-              <ActivityIndicator size="small" color="#5d198a" />
+              <ActivityIndicator size="small" color="#60178b" />
             ) : (
-              <Text className="text-[#5d198a] text-center font-poppinsBold text-[18px]">Proceed</Text>
+              <Text className="text-[#60178b] text-center font-poppinsBold text-[18px]">Proceed</Text>
             )}
           </TouchableOpacity>
 
           <TouchableOpacity onPress={() => router.push("/(onboarding)/sign-in")}>
-            <Text className="text-center text-[#5d198a] font-poppins mt-2 underline">
+            <Text className="text-center text-[#60178b] font-poppins mt-2 underline">
               Already have an account? Sign In
             </Text>
           </TouchableOpacity>

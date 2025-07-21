@@ -76,7 +76,7 @@ export default function RootLayout() {
   // Splash screen while loading
   if (!fontsLoaded || !initialRoute || progress < 100) {
     return (
-      <View className="flex-1 items-center justify-center bg-[#5d198a] px-8">
+      <View className="flex-1 items-center justify-center bg-[#60178b] px-8">
         <View className="items-center mb-20">
           <Image
             source={require("@/assets/images/anansesem-logo-white.png")}

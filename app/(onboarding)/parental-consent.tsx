@@ -23,7 +23,7 @@ export default function ParentalConsent() {
     };
 
     return (
-        <View className="flex-1 justify-center items-center bg-[#5d198a] px-6 relative">
+        <View className="flex-1 justify-center items-center bg-[#60178b] px-6 relative">
             {/* Top Right Spiderweb */}
             <Image
                 source={require("@/assets/images/spider-web-1.png")}
@@ -65,13 +65,13 @@ export default function ParentalConsent() {
                         onPress={() => handleConsent(false)}
                         className="flex-1 bg-white rounded-xl py-3 items-center"
                     >
-                        <Text className="text-[#5d198a] font-poppinsBold">Decline</Text>
+                        <Text className="text-[#60178b] font-poppinsBold">Decline</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={() => handleConsent(true)}
                         className="flex-1 bg-[#D0EE30] rounded-xl py-3 items-center"
                     >
-                        <Text className="text-[#5d198a] font-poppinsBold">Accept</Text>
+                        <Text className="text-[#60178b] font-poppinsBold">Accept</Text>
                     </TouchableOpacity>
                 </View>
             </ScrollView>

@@ -80,7 +80,7 @@ export default function VerifyAge() {
   };
 
   return (
-    <View className="flex-1 items-center justify-center bg-[#5d198a] px-6">
+    <View className="flex-1 items-center justify-center bg-[#60178b] px-6">
       {/* Decorations */}
       <Image
         source={require("@/assets/images/spider-web-1.png")}
@@ -140,7 +140,7 @@ export default function VerifyAge() {
         onPress={handleSubmit}
         className="bg-[#D0EE30] rounded-xl px-6 py-3 w-full"
       >
-        <Text className="text-[#5d198a] text-center font-semibold font-poppinsBold">
+        <Text className="text-[#60178b] text-center font-semibold font-poppinsBold">
           Proceed
         </Text>
       </TouchableOpacity>
@@ -149,12 +149,12 @@ export default function VerifyAge() {
       <Modal transparent visible={modalVisible} animationType="fade">
         <View className="flex-1 items-center justify-center bg-black/60 px-8">
           <View className="bg-white p-6 rounded-xl items-center w-full max-w-[320px]">
-            <Text className="text-[#5d198a] font-poppinsBold text-base text-center mb-4">
+            <Text className="text-[#60178b] font-poppinsBold text-base text-center mb-4">
               {modalMessage}
             </Text>
             <Pressable
               onPress={() => setModalVisible(false)}
-              className="mt-2 px-6 py-2 bg-[#5d198a] rounded-full"
+              className="mt-2 px-6 py-2 bg-[#60178b] rounded-full"
             >
               <Text className="text-white font-poppins">OK</Text>
             </Pressable>

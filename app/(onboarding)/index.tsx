@@ -5,7 +5,7 @@ export default function ChooseRole() {
   const router = useRouter();
 
   return (
-    <View className="flex-1 bg-[#5d198a] relative">
+    <View className="flex-1 bg-[#60178b] relative">
       {/* Top Right Spiderweb */}
       <Image
         source={require('@/assets/images/spider-web-1.png')} 
@@ -39,14 +39,14 @@ export default function ChooseRole() {
           onPress={() => router.push("/(onboarding)/verify-age")}
           className="bg-[#D0EE30] rounded-xl px-6 py-3 w-full mb-4"
         >
-          <Text className="text-[#5d198a] text-center font-semibold font-poppinsBold">I am a PARENT</Text>
+          <Text className="text-[#60178b] text-center font-semibold font-poppinsBold">I am a PARENT</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           onPress={() => router.push("/(onboarding)/oops")}
           className="bg-[#D0EE30] rounded-xl px-6 py-3 w-full"
         >
-          <Text className="text-[#5d198a] text-center font-semibold font-poppinsBold">I am a KID</Text>
+          <Text className="text-[#60178b] text-center font-semibold font-poppinsBold">I am a KID</Text>
         </TouchableOpacity>
 
         <TouchableOpacity className="mt-20">

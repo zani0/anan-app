@@ -72,7 +72,7 @@ export default function ChooseProfile() {
   );
 
   return (
-    <View className="flex-1 bg-[#5d198a] relative">
+    <View className="flex-1 bg-[#60178b] relative">
       {/* Spiderwebs */}
       <Image
         source={require("@/assets/images/spider-web-1.png")}
@@ -130,7 +130,7 @@ export default function ChooseProfile() {
                     className="items-center w-[100px] self-center"
                   >
                     <View className="w-[100px] h-[100px] rounded-full bg-white justify-center items-center mb-2">
-                      <Text className="text-[#5d198a] text-5xl">+</Text>
+                      <Text className="text-[#60178b] text-5xl">+</Text>
                     </View>
                     <Text className="text-white font-poppins text-sm text-center">
                       Add
@@ -153,7 +153,7 @@ export default function ChooseProfile() {
           >
             <Text
               className={`font-poppinsBold text-[18px] text-center ${
-                selectedId ? "text-[#5d198a]" : "text-[#5d198a]/50"
+                selectedId ? "text-[#60178b]" : "text-[#60178b]/50"
               }`}
             >
               Continue

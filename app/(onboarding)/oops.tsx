@@ -5,7 +5,7 @@ export default function OopsScreen() {
     const router = useRouter();
 
     return (
-        <View className="flex-1 justify-center items-center bg-[#5d198a] px-6">
+        <View className="flex-1 justify-center items-center bg-[#60178b] px-6">
             {/* Top Right Spiderweb */}
             <Image
                 source={require('@/assets/images/spider-web-1.png')}
@@ -41,7 +41,7 @@ export default function OopsScreen() {
                     onPress={() => router.push("/")}
                     className="bg-[#D0EE30] py-3 rounded-xl"
                 >
-                    <Text className="text-[#5d198a] text-center font-poppinsBold">Okay</Text>
+                    <Text className="text-[#60178b] text-center font-poppinsBold">Okay</Text>
                 </TouchableOpacity>
             </View>
             <TouchableOpacity className="mt-20">
