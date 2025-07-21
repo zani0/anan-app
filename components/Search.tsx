@@ -25,6 +25,7 @@ export default function SearchBar() {
           placeholder="Search Anansesem"
           placeholderTextColor="#888"
           style={styles.input}
+          className="font-poppins"
         />
 
         {/* Slanted Button */}

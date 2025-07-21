@@ -16,6 +16,14 @@ import { useUser } from "@/context/UserContext";
 
 const screenHeight = Dimensions.get("window").height;
 
+const routes: Record<string, any> = {
+  "Edit my profile": "/(screens)/edit-profile",
+  "Edit my preference": "/(screens)/edit-preference",
+  "Reading history": "/(screens)/reading-history",
+  "Customise your theme": "/(screens)/customise-theme",
+  "Change password": "/(screens)/change-password",
+};
+
 export default function ParentAccount() {
   const { user } = useUser();
   const router = useRouter();
@@ -55,13 +63,14 @@ export default function ParentAccount() {
         </Text>
 
         {/* Profile Info */}
-        {/* Profile Info */}
         <View className="items-center mt-6 mb-4">
           <View className="w-28 h-28 rounded-full border-4 border-black bg-[#FFF] items-center justify-center mb-2 overflow-hidden">
             {user?.name ? (
               <Image
                 source={{
-                  uri: `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}`,
+                  uri: `https://ui-avatars.com/api/?name=${encodeURIComponent(
+                    user.name
+                  )}`,
                 }}
                 className="w-28 h-28 rounded-full"
                 resizeMode="cover"
@@ -77,9 +86,7 @@ export default function ParentAccount() {
           <Text className="mt-2 mb-2 text-4xl font-caprasimo text-black">
             {user?.name || "User"}
           </Text>
-          <Text className="text-sm text-black mb-4">
-            ★{user?.points ?? 0}
-          </Text>
+          <Text className="text-sm text-black mb-4">★{user?.points ?? 0}</Text>
         </View>
 
         {/* Menu Section */}
@@ -88,24 +95,16 @@ export default function ParentAccount() {
           style={{ minHeight: screenHeight - 250 }}
         >
           <View className="space-y-6">
-            {[
-              { title: "Edit my profile", screen: "edit-profile" },
-              { title: "Reading history", screen: "reading-history" },
-              { title: "Customise your theme", screen: "customise-theme" },
-              { title: "Change password", screen: "change-password" },
-            ].map((item, index) => (
+            {Object.entries(routes).map(([title, path], index) => (
               <TouchableOpacity
                 key={index}
-                onPress={() =>
-                  item.screen === "edit-profile" &&
-                  router.push(`/(screens)/${item.screen}`)
-                }
+                onPress={() => router.push(path)}
                 className="flex-row justify-between items-center mb-5"
               >
                 <View className="flex-row items-center space-x-3">
                   <View className="w-4 h-4 bg-purple-400 rounded-full mr-3" />
                   <Text className="text-base text-black font-poppins">
-                    {item.title}
+                    {title}
                   </Text>
                 </View>
                 <ChevronRight size={18} color="#333" />
@@ -152,7 +151,6 @@ export default function ParentAccount() {
         <VerifyAgePopup
           visible={showVerifyAge}
           onClose={() => setShowVerifyAge(false)}
-          // onVerify={handleVerifyComplete} // must pass age to this callback
         />
       )}
     </>
