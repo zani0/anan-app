@@ -1,17 +1,42 @@
-// components/FloatingButton.tsx
-import { useRouter } from 'expo-router';
-import { TouchableOpacity, StyleSheet } from 'react-native';
-import { Sparkles } from 'lucide-react-native'; 
+import { useRouter } from "expo-router";
+import { TouchableOpacity, StyleSheet } from "react-native";
+import { Sparkles } from "lucide-react-native";
+import { LinearGradient } from "expo-linear-gradient";
+
 export default function FloatingButton() {
   const router = useRouter();
 
   return (
     <TouchableOpacity
-      onPress={() => router.push('/generate-story')}
+      onPress={() => router.push("/generate-story")}
       activeOpacity={0.9}
-      className="absolute bottom-[120] right-[20] bg-[#7C3AED] rounded-full p-6 z-[999]"
+      style={styles.buttonContainer}
     >
-      <Sparkles color="#fff" size={20} />
+      <LinearGradient
+        colors={["#5a1786", "#cfee31"]}
+        start={{ x: 0, y: 1 }}
+        end={{ x: 3, y: 1 }}
+        style={styles.gradient}
+      >
+        <Sparkles color="#fff" size={20} />
+      </LinearGradient>
     </TouchableOpacity>
   );
 }
+
+const styles = StyleSheet.create({
+  buttonContainer: {
+    position: "absolute",
+    bottom: 120,
+    right: 20,
+    zIndex: 999,
+    borderRadius: 999,
+    overflow: "hidden",
+  },
+  gradient: {
+    padding: 20,
+    borderRadius: 999,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});
