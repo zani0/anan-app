@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   },
   button: {
     flex: 1,
-    backgroundColor: "#5e1184", // deep purple
+    backgroundColor: "#60178b", 
     justifyContent: "center",
     alignItems: "center",
     borderTopLeftRadius: 50,

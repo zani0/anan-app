@@ -13,6 +13,7 @@ import FloatingButton from "@/components/FloatingButton";
 import { useRouter } from "expo-router";
 import CategorySlider from "@/components/CategorySlider";
 import SearchBar from "@/components/Search";
+import RecentlyWatched from "@/components/RecentlyWatched";
 
 const categories = [
   {
@@ -102,31 +103,7 @@ export default function HomeScreen() {
       </View>
 
       {/* Categories */}
-      <Text className="text-lg font-bold text-gray-800 mb-4 font-poppins">
-        Categories
-      </Text>
-      <FlatList
-        data={categories}
-        keyExtractor={(item) => item.label}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ gap: 12, paddingBottom: 24 }}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            style={{ backgroundColor: item.bgColor }}
-            className="w-32 h-32 rounded-xl items-center justify-center space-y-2"
-          >
-            <Image
-              source={item.icon}
-              className="w-28 h-12"
-              resizeMode="contain"
-            />
-            <Text className="text-md mt-5 text-gray-800 font-poppins text-center">
-              {item.label}
-            </Text>
-          </TouchableOpacity>
-        )}
-      />
+      <RecentlyWatched />
 
       {/* Featured Stories */}
       <View className="flex-row justify-between items-center mb-4">

@@ -19,16 +19,17 @@ const categories = [
   { id: "5", name: "Create", icon: require("@/assets/images/icon-create.png") },
 ];
 
-export default function CategoryGrid() {
+export default function CategorySlider() {
   return (
     <View className="my-6 px-4">
       <FlatList
         data={categories}
-        numColumns={3}
+        horizontal
         keyExtractor={(item) => item.id}
-        columnWrapperStyle={{ justifyContent: "space-between", marginBottom: 20 }}
+        showsHorizontalScrollIndicator={false}
+        ItemSeparatorComponent={() => <View className="w-4" />}
         renderItem={({ item }) => (
-          <TouchableOpacity className="items-center w-[30%]">
+          <TouchableOpacity className="items-center w-[80px]">
             <Image
               source={item.icon}
               className="w-[50px] h-[50px] mb-1"
