@@ -1,130 +1,174 @@
 import {
-    Text,
-    View,
-    FlatList,
-    Image,
-    TextInput,
-    TouchableOpacity,
-} from 'react-native'
-import { useEffect, useState } from 'react'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { Ionicons } from '@expo/vector-icons'
-import Header from '@/components/Header'
-import SearchBar from '@/components/Search'
+  Text,
+  View,
+  FlatList,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
+import { useEffect, useState } from "react";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import Header from "@/components/Header";
+import SearchBar from "@/components/Search";
+import { Heart, Flag } from "lucide-react-native";
 
+const filters = ["All", "Folklore", "Adventure"];
 const savedStories = [
-    {
-        id: '1',
-        title: 'Ameley and the honesty',
-        image: 'https://images.unsplash.com/photo-1628260412297-a3377e45006f?q=80&w=1074&auto=format&fit=crop',
-        category: 'Folklore',
-    },
-    {
-        id: '2',
-        title: 'Ameley and the honesty',
-        image: 'https://images.unsplash.com/photo-1631582053308-40f482e7ace5?q=80&w=1631&auto=format&fit=crop',
-        category: 'Adventure',
-    },
-    {
-        id: '3',
-        title: 'Amilcar cabral the voice…',
-        image: 'https://images.unsplash.com/photo-1628260412297-a3377e45006f?q=80&w=1074&auto=format&fit=crop',
-        category: 'Folklore',
-    },
-    {
-        id: '4',
-        title: 'Ananse and family',
-        image: 'https://plus.unsplash.com/premium_photo-1681426478241-11b262dd1d21?q=80&w=880&auto=format&fit=crop',
-        category: 'Folklore',
-        completed: true,
-    },
-        {
-        id: '5',
-        title: 'Ananse and family',
-        image: 'https://images.unsplash.com/photo-1616098063625-65f32186e609?w=500&auto=format&fit=crop&q=60',
-        category: 'Folklore',
-        completed: true,
-    },
-        {
-        id: '6',
-        title: 'Ananse and family',
-        image: 'https://images.unsplash.com/photo-1628260412297-a3377e45006f?q=80&w=1074&auto=format&fit=crop',
-        category: 'Folklore',
-        completed: true,
-    },
-]
+  {
+    id: "1",
+    title: "The day at the cinema with Jenny",
+    duration: "5:00",
+    category: "Adventure",
+    thumbnail: require("@/assets/images/vid1.png"),
+  },
+  {
+    id: "2",
+    title: "Kweku Ananse visits his farm in the village",
+    duration: "1:06:05",
+    category: "Adventure",
+    thumbnail: require("@/assets/images/cartoon.jpg"),
+  },
+  {
+    id: "3",
+    title: "Alidu Gariba goes on a fancy trip",
+    duration: "55:00",
+    category: "Adventure",
+    thumbnail: require("@/assets/images/vid3.png"),
+  },
+  {
+    id: "4",
+    title: "The Quansah’s go on a family vacation",
+    duration: "10:00",
+    category: "Adventure",
+    thumbnail: require("@/assets/images/lion.jpg"),
+  },
+];
 
 export default function Library() {
-    const insets = useSafeAreaInsets()
-    const [greeting, setGreeting] = useState('')
-    const [username, setUsername] = useState('Zrah')
+  const insets = useSafeAreaInsets();
+  const [selectedFilter, setSelectedFilter] = useState("All");
 
-    useEffect(() => {
-        const hour = new Date().getHours()
-        if (hour < 12) setGreeting('Good Morning')
-        else if (hour < 18) setGreeting('Good Afternoon')
-        else setGreeting('Good Evening')
-    }, [])
+  const filteredStories =
+    selectedFilter === "All"
+      ? savedStories
+      : savedStories.filter((item) => item.category === selectedFilter);
 
-    const renderHeader = () => (
-        <View style={{ paddingTop: insets.top + 20, paddingHorizontal: 16, marginBottom: 20 }}>
-            {/* Greeting */}
-            <Header />
+  const renderFilter = () => (
+    <ScrollView
+      horizontal
+      showsHorizontalScrollIndicator={false}
+      className="mb-4"
+      contentContainerStyle={{ paddingHorizontal: 16 }}
+    >
+      {filters.map((filter) => {
+        const isSelected = filter === selectedFilter;
+        return (
+          <TouchableOpacity
+            key={filter}
+            onPress={() => setSelectedFilter(filter)}
+            className={`px-4 py-2 mr-3 rounded-full border ${
+              isSelected
+                ? "bg-[#5a1786] border-[#5a1786]"
+                : "bg-white border-[#ddd]"
+            }`}
+          >
+            <Text
+              className={`font-poppins text-sm ${
+                isSelected ? "text-white" : "text-[#333]"
+              }`}
+            >
+              {filter}
+            </Text>
+          </TouchableOpacity>
+        );
+      })}
+    </ScrollView>
+  );
 
-            <Text className="font-poppins text-lg my-3">Find interesting stories and more...</Text>
-            {/* Search Bar */}
-            <SearchBar />
-            {/* <View className="flex-row items-center bg-gray-100 rounded-xl px-4 py-3">
-                <Ionicons name="search" size={20} color="#888" />
-                <TextInput
-                    placeholder="Search stories"
-                    placeholderTextColor="#888"
-                    className="ml-3 flex-1 text-base font-poppins"
-                />
-                <Ionicons name="options-outline" size={20} color="#888" />
-            </View> */}
-        </View>
-    )
+  const renderHeader = () => (
+    <View
+      style={{
+        paddingTop: insets.top + 20,
+        paddingHorizontal: 0,
+        marginBottom: 10,
+        backgroundColor: "white",
+      }}
+    >
+      <Header />
+      <Text className="font-poppins text-lg px-4 mb-2">
+        Find interesting stories and more...
+      </Text>
+      <SearchBar />
+      {renderFilter()}
+    </View>
+  );
 
-    return (
-        <FlatList
-            data={savedStories}
-            keyExtractor={(item) => item.id}
-            numColumns={2}
-            style={{ backgroundColor: 'white' }}
-            contentContainerStyle={{
-                paddingBottom: 80,
-            }}
-            columnWrapperStyle={{
-                justifyContent: 'space-between',
-                paddingHorizontal: 16,
-                marginBottom: 16,
-            }}
-            ListHeaderComponent={renderHeader}
-            ListFooterComponent={<View style={{ height: 80 }} />}
-            renderItem={({ item }) => (
-                <TouchableOpacity className="w-[48%] rounded-[18px] overflow-hidden bg-gray-100">
-                    <View className="relative w-full h-72">
-                        <Image
-                            source={{ uri: item.image }}
-                            className="w-full h-full"
-                            resizeMode="cover"
-                        />
-                        {item.completed && (
-                            <View className="absolute top-2 right-2 bg-green-500 px-2 py-1 rounded-full">
-                                <Text className="text-white text-xs font-poppins">completed</Text>
-                            </View>
-                        )}
-                        <View className="absolute bottom-0 left-0 right-0 bg-black/50 px-5 py-5">
-                            <Text className="text-white text-sm font-poppins mb-0.5" numberOfLines={1}>
-                                {item.title}
-                            </Text>
-                            <Text className="text-lime-300 text-xs font-poppins">{item.category}</Text>
-                        </View>
-                    </View>
-                </TouchableOpacity>
-            )}
-        />
-    )
+  return (
+    <FlatList
+      data={filteredStories}
+      keyExtractor={(item) => item.id}
+      numColumns={2}
+      style={{ backgroundColor: "white" }}
+      contentContainerStyle={{
+        paddingBottom: 100,
+      }}
+      columnWrapperStyle={{
+        justifyContent: "space-between",
+        paddingHorizontal: 16,
+        marginBottom: 16,
+      }}
+      ListHeaderComponent={renderHeader}
+      ListFooterComponent={<View style={{ height: 80 }} />}
+      renderItem={({ item }) => (
+        <TouchableOpacity
+          className="bg-white rounded-xl overflow-hidden shadow-md"
+          style={{ width: "48%" }}
+          activeOpacity={0.8}
+        >
+          {/* Thumbnail Section */}
+          <View className="relative h-36 w-full">
+            <Image
+              source={item.thumbnail}
+              className="w-full h-full"
+              resizeMode="cover"
+            />
 
+            {/* Category Badge */}
+            <View className="absolute top-2 left-2 bg-black/60 px-2 py-0.5 rounded-full">
+              <Text className="text-white text-xs font-medium font-poppins">
+                {item.category}
+              </Text>
+            </View>
+
+            {/* Duration */}
+            <View className="absolute bottom-2 right-2 bg-lime-300 px-2 py-0.5 rounded">
+              <Text className="text-black text-xs font-poppinsBold">
+                {item.duration}
+              </Text>
+            </View>
+          </View>
+
+          {/* Footer */}
+          <View className="bg-[#60178b] p-3 rounded-b-xl h-28 justify-between">
+            <Text
+              numberOfLines={2}
+              ellipsizeMode="tail"
+              className="text-white font-poppins text-[14px]"
+            >
+              {item.title}
+            </Text>
+
+            {/* Divider */}
+            <View className="border-b border-white my-2" />
+
+            {/* Icons */}
+            <View className="flex-row justify-between items-center">
+              <Heart size={16} color="white" />
+              <Flag size={16} color="white" />
+            </View>
+          </View>
+        </TouchableOpacity>
+      )}
+    />
+  );
 }
