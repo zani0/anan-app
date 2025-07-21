@@ -45,7 +45,7 @@ export default function RecentlyWatched() {
       {/* Section Header */}
       <View className="">
         <View className="bg-[#60178b] px-4 py-2 rounded-l-[40px] rounded-tr-[40px] rounded-br-0  w-[70vw]">
-          <Text className="text-white font-semibold text-base font-poppinsBold">
+          <Text className="text-white text-base font-poppinsBold">
             My recently watched videos
           </Text>
         </View>
