@@ -15,6 +15,7 @@ import CategorySlider from "@/components/CategorySlider";
 import SearchBar from "@/components/Search";
 import RecentlyWatched from "@/components/RecentlyWatched";
 import RecommendedVideos from "@/components/Recommended";
+import BannerVideo from "@/components/BannerVideo";
 
 const categories = [
   {
@@ -93,20 +94,8 @@ export default function HomeScreen() {
       <SearchBar />
       <CategorySlider />
 
-      {/* Info Card */}
-      <View className="bg-[#c5db2e] rounded-2xl mb-8 h-[150px] justify-center px-4">
-        <Text className="text-[26px] font-semibold text-[#5a1786] mb-1 text-left font-poppinsBold">
-          Let's learn something new today!
-        </Text>
-        <Text className="text-md text-[#5a1786] text-left">
-          Learn through wonderful stories to keep you smart.
-        </Text>
-      </View>
-
-      {/* Categories */}
+      <BannerVideo />
       <RecentlyWatched />
-
-      {/* Featured Stories */}
       <RecommendedVideos />
 
       <FloatingButton />
