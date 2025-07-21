@@ -14,6 +14,7 @@ import { useRouter } from "expo-router";
 import CategorySlider from "@/components/CategorySlider";
 import SearchBar from "@/components/Search";
 import RecentlyWatched from "@/components/RecentlyWatched";
+import RecommendedVideos from "@/components/Recommended";
 
 const categories = [
   {
@@ -106,56 +107,7 @@ export default function HomeScreen() {
       <RecentlyWatched />
 
       {/* Featured Stories */}
-      <View className="flex-row justify-between items-center mb-4">
-        <Text className="text-lg font-poppins text-gray-800">
-          Featured Stories
-        </Text>
-        <TouchableOpacity
-          onPress={() => console.log("See more pressed")}
-          className="bg-lime-600 px-4 py-1 rounded-full"
-        >
-          <Text className="text-sm text-white font-poppins">See All</Text>
-        </TouchableOpacity>
-      </View>
-
-      <FlatList
-        data={featuredStories}
-        keyExtractor={(item) => item.id}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ gap: 10 }}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            className="w-60 h-60"
-            onPress={() =>
-              router.push({
-                pathname: "/story",
-                params: {
-                  title: item.title,
-                  image: item.image,
-                  category: item.category,
-                },
-              })
-            }
-          >
-            <View className="w-full h-full rounded-xl overflow-hidden relative mb-2">
-              <Image
-                source={{ uri: item.image }}
-                className="w-full h-full"
-                resizeMode="cover"
-              />
-              <View className="absolute bottom-0 left-0 right-0 bg-black/60 px-2 py-4">
-                <Text className="text-white text-md font-poppins mb-1">
-                  {item.title}
-                </Text>
-                <Text className="text-lime-300 text-sm font-poppins">
-                  {item.category}
-                </Text>
-              </View>
-            </View>
-          </TouchableOpacity>
-        )}
-      />
+      <RecommendedVideos />
 
       <FloatingButton />
     </ScrollView>

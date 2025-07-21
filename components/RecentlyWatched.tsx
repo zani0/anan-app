@@ -41,10 +41,10 @@ const videos = [
 
 export default function RecentlyWatched() {
   return (
-    <View className="my-6">
+    <View className="my-2">
       {/* Section Header */}
-      <View className="px-4">
-        <View className="bg-[#60178b] px-4 py-2 rounded-l-[40px] rounded-tr-[40px] rounded-br-0  w-fit">
+      <View className="">
+        <View className="bg-[#60178b] px-4 py-2 rounded-l-[40px] rounded-tr-[40px] rounded-br-0  w-[70vw]">
           <Text className="text-white font-semibold text-base">
             My recently watched Videos
           </Text>
@@ -57,7 +57,7 @@ export default function RecentlyWatched() {
         horizontal
         keyExtractor={(item) => item.id}
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ paddingHorizontal: 16, paddingTop: 12 }}
+        contentContainerStyle={{ paddingHorizontal: 0, paddingTop: 12 }}
         ItemSeparatorComponent={() => <View className="w-4" />}
         renderItem={({ item }) => (
           <TouchableOpacity className="bg-white rounded-xl w-60 overflow-hidden shadow-md" activeOpacity={0.8}>

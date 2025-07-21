@@ -105,19 +105,19 @@ const AnimatedIcon = ({ name, focused }: { name: string; focused: boolean }) => 
 
   switch (name) {
     case "index":
-      IconComponent = <Feather name="home" size={size} color="#fff" />;
+      IconComponent = <Feather name="home" size={size} color="#5a1786" />;
       break;
     case "library":
-      IconComponent = <Ionicons name="library-outline" size={size} color="#fff" />;
+      IconComponent = <Ionicons name="library-outline" size={size} color="#5a1786" />;
       break;
     case "stats":
-      IconComponent = <Feather name="bar-chart-2" size={size} color="#fff" />;
+      IconComponent = <Feather name="bar-chart-2" size={size} color="#5a1786" />;
       break;
     case "settings":
-      IconComponent = <Ionicons name="settings-outline" size={size} color="#fff" />;
+      IconComponent = <Ionicons name="settings-outline" size={size} color="#5a1786" />;
       break;
     default:
-      IconComponent = <Feather name="home" size={size} color="#fff" />;
+      IconComponent = <Feather name="home" size={size} color="#5a1786" />;
   }
 
   return <Animated.View style={animatedStyle}>{IconComponent}</Animated.View>;
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     // backgroundColor: "rgba(75, 139, 59, 0.9)", 
-    backgroundColor: "#5a1786", 
+    backgroundColor: "#fff", 
     width: "90%",
     alignSelf: "center",
     bottom: Platform.OS === "ios" ? 40 : 30,
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
   },
   text: {
-    color: "#fff",
+    color: PRIMARY_COLOR,
     marginLeft: 8,
     fontWeight: "600",
     fontSize: 13,
