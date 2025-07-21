@@ -9,9 +9,9 @@ export default function FloatingButton() {
     <TouchableOpacity
       onPress={() => router.push('/generate-story')}
       activeOpacity={0.9}
-      className="absolute bottom-[90] right-[20] bg-[#7C3AED] rounded-full p-6 z-[999]"
+      className="absolute bottom-[120] right-[20] bg-[#7C3AED] rounded-full p-6 z-[999]"
     >
-      <Sparkles color="#fff" size={24} />
+      <Sparkles color="#fff" size={20} />
     </TouchableOpacity>
   );
 }

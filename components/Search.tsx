@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     color: "#000",
   },
   buttonContainer: {
-    width: 70,
+    width: 80,
     height: "100%",
     backgroundColor: "transparent",
   },

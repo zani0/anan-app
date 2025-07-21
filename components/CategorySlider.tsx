@@ -35,7 +35,7 @@ export default function CategorySlider() {
               className="w-[50px] h-[50px] mb-1"
               resizeMode="contain"
             />
-            <Text className="text-[12px]  text-purple-700 text-center">
+            <Text className="text-[10px] font-poppinsBold text-[#5a1786] text-center">
               {item.name}
             </Text>
           </TouchableOpacity>

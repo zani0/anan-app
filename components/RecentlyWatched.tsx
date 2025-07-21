@@ -45,8 +45,8 @@ export default function RecentlyWatched() {
       {/* Section Header */}
       <View className="">
         <View className="bg-[#60178b] px-4 py-2 rounded-l-[40px] rounded-tr-[40px] rounded-br-0  w-[70vw]">
-          <Text className="text-white font-semibold text-base">
-            My recently watched Videos
+          <Text className="text-white font-semibold text-base font-poppinsBold">
+            My recently watched videos
           </Text>
         </View>
       </View>
@@ -70,15 +70,15 @@ export default function RecentlyWatched() {
               />
 
               {/* Category Badge */}
-              <View className="absolute top-2 left-2 bg-black/40 px-2 py-0.5 rounded-full">
-                <Text className="text-white text-xs font-medium">
+              <View className="absolute top-2 left-2 bg-black/60 px-2 py-0.5 rounded-full">
+                <Text className="text-white text-xs font-medium font-poppins">
                   {item.category}
                 </Text>
               </View>
 
               {/* Duration */}
               <View className="absolute bottom-2 right-2 bg-lime-300 px-2 py-0.5 rounded">
-                <Text className="text-black text-xs font-bold">
+                <Text className="text-black text-xs font-poppinsBold">
                   {item.duration}
                 </Text>
               </View>
@@ -89,7 +89,7 @@ export default function RecentlyWatched() {
               <Text
                 numberOfLines={2}
                 ellipsizeMode="tail"
-                className="text-white font-medium text-sm"
+                className="text-white font-poppins text-[14px]"
               >
                 {item.title}
               </Text>

@@ -26,21 +26,21 @@ export default function BannerVideo({ onPress }: { onPress?: () => void }) {
           <View className="w-12 h-12 bg-lime-300 rounded-full items-center justify-center">
             <Text className="text-black font-bold text-xl">▶</Text>
           </View>
-          <Text className="text-white mt-2 font-medium">Play Video</Text>
+          <Text className="text-white mt-2 font-medium font-poppins">Play Video</Text>
         </View>
 
         {/* Info Overlay */}
-        <View className="absolute bottom-0 w-full bg-lime-300/80 px-4 py-3 flex-row justify-between items-end">
+        <View className="absolute bottom-0 w-full bg-lime-300/90 px-4 py-3 flex-row justify-between items-end">
           <View>
-            <Text className="text-purple-900 font-bold text-base">
+            <Text className="text-purple-900 font-poppinsBold text-[16px]">
               The three village hunters
             </Text>
-            <Text className="text-purple-900 text-xs">
+            <Text className="text-purple-900 text-xs font-poppins">
               Story by Nutifafa Tsikata
             </Text>
           </View>
 
-          <Text className="text-purple-900 text-xs">Duration : 5:00</Text>
+          <Text className="text-purple-900 text-xs font-poppins">Duration : 5:00</Text>
         </View>
       </View>
     </TouchableOpacity>
