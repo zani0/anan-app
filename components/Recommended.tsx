@@ -5,7 +5,6 @@ import {
   FlatList,
   Image,
   TouchableOpacity,
-  Dimensions,
 } from "react-native";
 import { Heart, Flag } from "lucide-react-native";
 
@@ -40,36 +39,29 @@ const videos = [
   },
 ];
 
-const screenWidth = Dimensions.get("window").width;
-const cardWidth = screenWidth / 2 - 24; // accounting for spacing
-
-export default function RecommendedVideos() {
+export default function Recommended() {
   return (
     <View className="my-2">
       {/* Section Header */}
-      <View>
-        <View className="bg-[#60178b] px-4 py-2 rounded-l-[40px] rounded-tr-[40px] rounded-br-0 w-[70vw]">
+      <View className="">
+        <View className="bg-[#60178b] px-4 py-2 rounded-l-[40px] rounded-tr-[40px] rounded-br-0  w-[60vw]">
           <Text className="text-white font-semibold text-base">
-            Recommended Videos
+            Recommended for you 
           </Text>
         </View>
       </View>
 
-      {/* Grid List */}
+      {/* Horizontal List */}
       <FlatList
         data={videos}
-        numColumns={2}
+        horizontal
         keyExtractor={(item) => item.id}
-        showsVerticalScrollIndicator={false}
-        columnWrapperStyle={{ gap: 16, paddingHorizontal: 0 }}
-        contentContainerStyle={{ paddingTop: 12, gap: 16 }}
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{ paddingHorizontal: 0, paddingTop: 12 }}
+        ItemSeparatorComponent={() => <View className="w-4" />}
         renderItem={({ item }) => (
-          <TouchableOpacity
-            activeOpacity={0.8}
-            style={{ width: cardWidth }}
-            className="bg-white rounded-xl overflow-hidden shadow-md"
-          >
-            {/* Thumbnail */}
+          <TouchableOpacity className="bg-white rounded-xl w-60 overflow-hidden shadow-md" activeOpacity={0.8}>
+            {/* Thumbnail Section */}
             <View className="relative h-36 w-full">
               <Image
                 source={item.thumbnail}
@@ -102,8 +94,10 @@ export default function RecommendedVideos() {
                 {item.title}
               </Text>
 
+              {/* Divider */}
               <View className="border-b border-white my-2" />
 
+              {/* Icons */}
               <View className="flex-row justify-between items-center">
                 <Heart size={16} color="white" />
                 <Flag size={16} color="white" />
