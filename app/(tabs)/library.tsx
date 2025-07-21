@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Ionicons } from '@expo/vector-icons'
 import Header from '@/components/Header'
+import SearchBar from '@/components/Search'
 
 const savedStories = [
     {
@@ -72,7 +73,8 @@ export default function Library() {
 
             <Text className="font-poppins text-lg my-3">Find interesting stories and more...</Text>
             {/* Search Bar */}
-            <View className="flex-row items-center bg-gray-100 rounded-xl px-4 py-3">
+            <SearchBar />
+            {/* <View className="flex-row items-center bg-gray-100 rounded-xl px-4 py-3">
                 <Ionicons name="search" size={20} color="#888" />
                 <TextInput
                     placeholder="Search stories"
@@ -80,7 +82,7 @@ export default function Library() {
                     className="ml-3 flex-1 text-base font-poppins"
                 />
                 <Ionicons name="options-outline" size={20} color="#888" />
-            </View>
+            </View> */}
         </View>
     )
 

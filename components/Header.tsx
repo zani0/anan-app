@@ -27,13 +27,13 @@ export default function Header() {
       />
 
       {/* Left: Logo */}
-      <View className="items-center">
+      <View className="items-center m-0">
         <Image
           source={require("@/assets/images/anansesem-logo.png")}
-          className="w-[80px] h-12"
+          className="w-[80px] h-10"
           resizeMode="contain"
         />
-        <Text className="text-[20px] font-caprasimo text-[#5a1786]">
+        <Text className="text-[18px] font-caprasimo text-[#5a1786]">
           Anansesem
         </Text>
       </View>
