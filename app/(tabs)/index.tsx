@@ -86,19 +86,24 @@ export default function HomeScreen() {
   const insets = useSafeAreaInsets();
 
   return (
-    <ScrollView
-      className="flex-1 bg-white px-4"
-      contentContainerStyle={{ paddingTop: insets.top + 20, paddingBottom: 80 }}
-    >
-      <Header />
-      <SearchBar />
-      <CategorySlider />
+    <View className="flex-1 bg-white">
+      <ScrollView
+        className="flex-1 bg-white px-4"
+        contentContainerStyle={{
+          paddingTop: insets.top + 20,
+          paddingBottom: 80,
+        }}
+      >
+        <Header />
 
-      <BannerVideo />
-      <RecentlyWatched />
-      <RecommendedVideos />
+        <SearchBar />
+        <CategorySlider />
 
+        <BannerVideo />
+        <RecentlyWatched />
+        <RecommendedVideos />
+      </ScrollView>
       <FloatingButton />
-    </ScrollView>
+    </View>
   );
 }

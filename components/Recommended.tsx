@@ -44,7 +44,7 @@ export default function Recommended() {
     <View className="my-2">
       {/* Section Header */}
       <View className="">
-        <View className="bg-[#60178b] px-4 py-2 rounded-l-[40px] rounded-tr-[40px] rounded-br-0  w-[60vw]">
+        <View className="bg-[#60178b] px-4 py-2 rounded-l-[40px] rounded-tr-[40px] rounded-br-0  w-[55vw]">
           <Text className="text-white font-semibold text-base">
             Recommended for you 
           </Text>

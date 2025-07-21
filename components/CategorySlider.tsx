@@ -21,7 +21,7 @@ const categories = [
 
 export default function CategorySlider() {
   return (
-    <View className="my-6 px-4">
+    <View className="my-4 px-4">
       <FlatList
         data={categories}
         horizontal
@@ -35,7 +35,7 @@ export default function CategorySlider() {
               className="w-[50px] h-[50px] mb-1"
               resizeMode="contain"
             />
-            <Text className="text-[14px] font-medium text-purple-700 text-center">
+            <Text className="text-[12px]  text-purple-700 text-center">
               {item.name}
             </Text>
           </TouchableOpacity>
