@@ -23,7 +23,7 @@ export default function Header() {
       <TouchableOpacity onPress={() => router.back()}>
         <Image
           source={require("@/assets/images/left-arrow.png")}
-          className="w-8 h-8"
+          className="w-10 h-10"
           resizeMode="contain"
         />
       </TouchableOpacity>
