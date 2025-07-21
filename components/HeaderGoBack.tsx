@@ -3,10 +3,7 @@ import { View, Text, Image, TouchableOpacity } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 
-import { useUser } from "@/context/UserContext";
-
 export default function Header() {
-  const { user } = useUser();
   const insets = useSafeAreaInsets();
   const router = useRouter();
   const [greeting, setGreeting] = useState("");
@@ -19,24 +16,17 @@ export default function Header() {
   }, []);
 
   return (
-    <View className="flex-row justify-between items-center px-4 mb-6 bg-white">
-      {/* Spider Web Background Image */}
-      <Image
-        source={require("@/assets/images/spider-web-3.png")}
-        className="w-[150px] h-[120px] absolute top-[-80] right-[-6]"
-      />
-
-      {/* Left: Logo */}
-      <View className="items-center m-0">
+    <View
+      className="flex-row justify-between items-center px-4 mb-6 bg-white"
+    >
+      {/* Left: Back Button */}
+      <TouchableOpacity onPress={() => router.back()}>
         <Image
-          source={require("@/assets/images/anansesem-logo.png")}
-          className="w-[80px] h-10"
+          source={require("@/assets/images/left-arrow.png")}
+          className="w-8 h-8"
           resizeMode="contain"
         />
-        <Text className="text-[18px] font-caprasimo text-[#5a1786]">
-          Anansesem
-        </Text>
-      </View>
+      </TouchableOpacity>
 
       {/* Right: Avatar */}
       <TouchableOpacity onPress={() => router.push("/account")}>
