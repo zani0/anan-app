@@ -96,7 +96,7 @@ export default function EditPreferences() {
       <Text className="text-center text-4xl font-caprasimo text-purple-800 mb-8">
         Let's get to know you
       </Text>
-
+      <View className="mx-4">
       {/* Section 1: Genres */}
       <Text className="text-lg text-black font-poppinsBold mb-2">
         What story genres do you like?
@@ -147,6 +147,7 @@ export default function EditPreferences() {
             outlineColor="#10B981" 
           />
         ))}
+      </View>
       </View>
 
       {/* Submit Button */}
