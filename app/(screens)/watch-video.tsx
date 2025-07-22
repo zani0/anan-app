@@ -4,6 +4,7 @@ import Header from "@/components/HeaderGoBack";
 import CategorySlider from "@/components/CategorySlider";
 import BannerVideo from "@/components/BannerVideo";
 import Video from "@/components/Video";
+import NextVideos from "@/components/NextVideos";
 
 export default function WatchVideo() {
   const insets = useSafeAreaInsets();
@@ -20,6 +21,7 @@ export default function WatchVideo() {
         <Header />
         <CategorySlider />
         <Video />
+        <NextVideos />
       </ScrollView>
     </View>
   );
