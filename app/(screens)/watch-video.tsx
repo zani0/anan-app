@@ -11,19 +11,19 @@ export default function WatchVideo() {
 
   return (
     <View className="flex-1 bg-white">
-      <ScrollView
+      <View
         className="flex-1 bg-white px-4"
-        contentContainerStyle={{
-          paddingTop: insets.top + 20,
+        style={{
+          paddingTop: insets.top + 0,
           paddingBottom: 80,
         }}
       >
         <Header />
         <CategorySlider />
         <Video />
-        <View className="my-4"></View>
+        <View className="my-2"></View>
         <NextVideos />
-      </ScrollView>
+      </View>
     </View>
   );
 }
