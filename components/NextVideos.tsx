@@ -40,7 +40,7 @@ export default function NextVideos() {
       {/* Section Header */}
       <View className="">
         <View className="bg-[#60178b] px-4 py-2 rounded-r-[40px] rounded-tl-[40px] rounded-br-0  w-[35vw]">
-          <Text className="text-white font-poppinsBold text-center text-base">
+          <Text className="text-lime-300 font-poppinsBold text-center text-base">
             Next Videos
           </Text>
         </View>

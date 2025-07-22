@@ -21,6 +21,7 @@ export default function WatchVideo() {
         <Header />
         <CategorySlider />
         <Video />
+        <View className="my-4"></View>
         <NextVideos />
       </ScrollView>
     </View>
