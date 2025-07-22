@@ -1,9 +1,31 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, Image } from "react-native";
 import YoutubePlayer from "react-native-youtube-iframe";
+import { Star } from "lucide-react-native";
 
 export default function Video() {
   const [playVideo, setPlayVideo] = useState(false);
+  const [rating, setRating] = useState(0);
+
+  const renderStars = () => {
+    return (
+      <View className="flex-row mt-2">
+        {[1, 2, 3, 4, 5].map((star) => (
+          <TouchableOpacity
+            key={star}
+            onPress={() => setRating(star)}
+            className="mx-1"
+          >
+            <Star
+              size={24}
+              color={star <= rating ? "#facc15" : "#e5e7eb"} // yellow-400 or gray-200
+              fill={star <= rating ? "#facc15" : "none"}
+            />
+          </TouchableOpacity>
+        ))}
+      </View>
+    );
+  };
 
   return (
     <View className="w-full">
@@ -37,22 +59,23 @@ export default function Video() {
           initialPlayerParams={{
             controls: 2,
             modestbranding: true,
-            rel: false, 
+            rel: false,
             showinfo: false,
           }}
         />
       )}
 
-      {/* Text Section */}
-      <View className="w-full px-4 py-3 flex-row justify-between items-end">
-        <View>
-          <Text className="text-purple-900 font-poppinsBold text-[23px]">
-            The three village hunters
-          </Text>
-          <Text className="text-purple-900 text-md font-poppins">
-            Story by Nutifafa Tsikata
-          </Text>
-        </View>
+      {/* Text & Rating Section */}
+      <View className="w-full px-4 py-3">
+        <Text className="text-purple-900 font-poppinsBold text-[23px]">
+          The three village hunters
+        </Text>
+        <Text className="text-purple-900 text-md font-poppins">
+          Story by Nutifafa Tsikata
+        </Text>
+
+        {/* Star Rating */}
+        <View className="mt-2">{renderStars()}</View>
       </View>
     </View>
   );
