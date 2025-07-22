@@ -1,33 +1,64 @@
 import React, { useState, useRef } from "react";
-import { View, Text, TouchableOpacity, Image, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  Dimensions,
+  ScrollView,
+} from "react-native";
 import YoutubePlayer from "react-native-youtube-iframe";
-import { Star } from "lucide-react-native";
-import Checkbox from "expo-checkbox";
+import { Star, ChevronLeft, ChevronRight } from "lucide-react-native";
 
 const quizData = [
   {
-    question: "What did the first hunter find?",
-    options: ["A lion", "A bird", "A treasure", "A rabbit"],
+    question: "What did the hunters go to the forest to do?",
+    options: ["To fetch water", "To hunt", "To sleep", "To plant trees"],
+    answer: "To hunt",
   },
   {
-    question: "Where did the hunters go?",
-    options: ["To the sea", "To the forest", "To the city", "To the mountain"],
+    question: "How many hunters were there?",
+    options: ["One", "Two", "Three", "Four"],
+    answer: "Three",
   },
 ];
 
+const { width } = Dimensions.get("window");
+
 export default function Video() {
   const [playVideo, setPlayVideo] = useState(false);
-  const [videoEnded, setVideoEnded] = useState(false);
   const [rating, setRating] = useState(0);
   const [showQuiz, setShowQuiz] = useState(false);
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [answers, setAnswers] = useState<number[]>([]);
-  const playerRef = useRef(null);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
+  const [score, setScore] = useState<number | null>(null);
+  const [showAnswers, setShowAnswers] = useState(false);
+
+  const handleOptionSelect = (option: string) => {
+    const updated = [...selectedOptions];
+    updated[currentQuestion] = option;
+    setSelectedOptions(updated);
+  };
+
+  const submitQuiz = () => {
+    let points = 0;
+    selectedOptions.forEach((opt, i) => {
+      if (opt === quizData[i].answer) {
+        points++;
+      }
+    });
+    setScore(points);
+    setShowAnswers(true);
+  };
 
   const renderStars = () => (
-    <View className="flex-row mt-2">
+    <View className="flex-row items-center">
       {[1, 2, 3, 4, 5].map((star) => (
-        <TouchableOpacity key={star} onPress={() => setRating(star)} className="mx-1">
+        <TouchableOpacity
+          key={star}
+          onPress={() => setRating(star)}
+          className="mx-1"
+        >
           <Star
             size={24}
             color={star <= rating ? "#facc15" : "#e5e7eb"}
@@ -38,21 +69,9 @@ export default function Video() {
     </View>
   );
 
-  const handleCheckboxSelect = (optionIndex: number) => {
-    const updatedAnswers = [...answers];
-    updatedAnswers[currentSlide] = optionIndex;
-    setAnswers(updatedAnswers);
-  };
-
-  const handleSubmit = () => {
-    console.log("Submitted answers:", answers);
-    setShowQuiz(false);
-    setCurrentSlide(0);
-  };
-
   return (
     <View className="w-full relative">
-      {/* Thumbnail or Player */}
+      {/* Video or Thumbnail */}
       {!playVideo ? (
         <TouchableOpacity
           onPress={() => setPlayVideo(true)}
@@ -68,107 +87,27 @@ export default function Video() {
               <View className="w-12 h-12 bg-lime-300 rounded-full items-center justify-center">
                 <Text className="text-black font-bold text-xl">▶</Text>
               </View>
-              <Text className="text-white mt-2 font-medium font-poppins">Play Video</Text>
+              <Text className="text-white mt-2 font-medium font-poppins">
+                Play Video
+              </Text>
             </View>
           </View>
         </TouchableOpacity>
       ) : (
-        <>
-          <YoutubePlayer
-            ref={playerRef}
-            height={220}
-            play={true}
-            videoId={"XqZsoesa55w"}
-            onChangeState={(state: string) => {
-              if (state === "ended") {
-                setVideoEnded(true);
-              }
-            }}
-            initialPlayerParams={{
-              controls: 2,
-              modestbranding: true,
-              rel: false,
-              showinfo: false,
-            }}
-          />
-        </>
+        <YoutubePlayer
+          height={220}
+          play={true}
+          videoId={"XqZsoesa55w"}
+          initialPlayerParams={{
+            controls: 2,
+            modestbranding: true,
+            rel: false,
+            showinfo: false,
+          }}
+        />
       )}
 
-      {/* Start Quiz Overlay */}
-      {videoEnded && !showQuiz && (
-        <View className="absolute top-0 left-0 right-0 bottom-0 bg-purple-800/60 items-center justify-center rounded-2xl">
-          <TouchableOpacity
-            onPress={() => setShowQuiz(true)}
-            className="bg-white px-6 py-3 rounded-full"
-          >
-            <Text className="text-purple-800 font-bold text-lg">Start Quiz</Text>
-          </TouchableOpacity>
-        </View>
-      )}
-
-      {/* Quiz Overlay */}
-      {showQuiz && (
-        <View className="absolute top-0 left-0 right-0 bottom-0 bg-purple-800/70 px-6 py-8 rounded-2xl justify-center">
-          <ScrollView showsVerticalScrollIndicator={false}>
-            <Text className="text-white text-2xl font-poppinsBold mb-4 text-center">
-              Quiz Time
-            </Text>
-
-            <Text className="text-white text-lg font-bold mb-2">
-              Question {currentSlide + 1}
-            </Text>
-
-            <Text className="text-white text-base font-poppins mb-4">
-              {quizData[currentSlide].question}
-            </Text>
-
-            <View className="flex-row flex-wrap gap-4 justify-between mb-6">
-              {quizData[currentSlide].options.map((opt, index) => (
-                <TouchableOpacity
-                  key={index}
-                  onPress={() => handleCheckboxSelect(index)}
-                  className="w-[48%] bg-white rounded-xl p-3 flex-row items-center gap-2"
-                >
-                  <Checkbox
-                    value={answers[currentSlide] === index}
-                    onValueChange={() => handleCheckboxSelect(index)}
-                    color="#9333ea"
-                  />
-                  <Text className="text-purple-900 font-poppins">{opt}</Text>
-                </TouchableOpacity>
-              ))}
-            </View>
-
-            {/* Buttons */}
-            <View className="flex-row justify-between">
-              <TouchableOpacity onPress={() => setShowQuiz(false)}>
-                <Text className="text-white underline">Skip</Text>
-              </TouchableOpacity>
-
-              {currentSlide === quizData.length - 1 ? (
-                <TouchableOpacity
-                  onPress={handleSubmit}
-                  disabled={answers.length < quizData.length}
-                  className={`bg-white px-4 py-2 rounded-full ${
-                    answers.length < quizData.length ? "opacity-50" : ""
-                  }`}
-                >
-                  <Text className="text-purple-900 font-semibold">Submit</Text>
-                </TouchableOpacity>
-              ) : (
-                <TouchableOpacity
-                  onPress={() => setCurrentSlide((prev) => prev + 1)}
-                  className="bg-white px-4 py-2 rounded-full"
-                >
-                  <Text className="text-purple-900 font-semibold">Next</Text>
-                </TouchableOpacity>
-              )}
-            </View>
-          </ScrollView>
-        </View>
-      )}
-
-      {/* Text & Star Rating */}
+      {/* Title and Author */}
       <View className="w-full px-4 py-3">
         <Text className="text-purple-900 font-poppinsBold text-[23px]">
           The three village hunters
@@ -176,8 +115,118 @@ export default function Video() {
         <Text className="text-purple-900 text-md font-poppins">
           Story by Nutifafa Tsikata
         </Text>
-        {renderStars()}
+
+        {/* Rating + Quiz Button */}
+        <View className="flex-row mt-3 justify-between items-center">
+          {renderStars()}
+          <TouchableOpacity
+            disabled={score !== null}
+            onPress={() => setShowQuiz(true)}
+            className={`px-4 py-2 rounded-xl ${
+              score !== null
+                ? "bg-gray-400"
+                : "bg-purple-700"
+            }`}
+          >
+            <Text className="text-white font-poppins">
+              {score !== null ? `Score: ${score}/${quizData.length}` : "Start Quiz"}
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
+
+      {/* QUIZ OVERLAY */}
+      {showQuiz && (
+        <View
+          className="absolute top-0 left-0 w-full h-full items-center justify-center"
+          style={{ backgroundColor: "rgba(128, 90, 213, 0.9)" }} // Purple overlay
+        >
+          <View
+            style={{ width: width - 40 }}
+            className="bg-white rounded-xl p-5"
+          >
+            <Text className="text-xl text-center font-bold mb-3 text-purple-900">
+              Quiz Time
+            </Text>
+
+            <Text className="text-base font-semibold text-gray-800 mb-2">
+              {`Question ${currentQuestion + 1}: ${
+                quizData[currentQuestion].question
+              }`}
+            </Text>
+
+            {/* OPTIONS */}
+            <View className="flex-row flex-wrap justify-between mb-4">
+              {quizData[currentQuestion].options.map((option, idx) => {
+                const isSelected = selectedOptions[currentQuestion] === option;
+                const isCorrect = option === quizData[currentQuestion].answer;
+                const showFeedback = showAnswers;
+
+                let bgColor = "bg-gray-100";
+                if (showFeedback) {
+                  if (isCorrect) bgColor = "bg-green-300";
+                  else if (isSelected) bgColor = "bg-red-300";
+                } else if (isSelected) {
+                  bgColor = "bg-yellow-300";
+                }
+
+                return (
+                  <TouchableOpacity
+                    key={idx}
+                    onPress={() => handleOptionSelect(option)}
+                    className={`w-[48%] ${bgColor} rounded-md p-2 mb-2`}
+                    disabled={showAnswers}
+                  >
+                    <Text className="text-sm text-center">{option}</Text>
+                  </TouchableOpacity>
+                );
+              })}
+            </View>
+
+            {/* Navigation */}
+            <View className="flex-row justify-between items-center mb-4">
+              <TouchableOpacity
+                disabled={currentQuestion === 0}
+                onPress={() => setCurrentQuestion((prev) => prev - 1)}
+              >
+                <ChevronLeft color="#6b21a8" size={28} />
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                disabled={currentQuestion === quizData.length - 1}
+                onPress={() => setCurrentQuestion((prev) => prev + 1)}
+              >
+                <ChevronRight color="#6b21a8" size={28} />
+              </TouchableOpacity>
+            </View>
+
+            {/* Submit + Skip */}
+            <View className="flex-row justify-between items-center">
+              <TouchableOpacity
+                onPress={() => {
+                  setShowQuiz(false);
+                  setCurrentQuestion(0);
+                }}
+                className="px-4 py-2 bg-gray-300 rounded-lg"
+              >
+                <Text>Skip</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                disabled={selectedOptions.length < quizData.length}
+                onPress={submitQuiz}
+                className={`px-4 py-2 rounded-lg ${
+                  selectedOptions.length < quizData.length
+                    ? "bg-gray-400"
+                    : "bg-purple-700"
+                }`}
+              >
+                <Text className="text-white">Submit</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      )}
     </View>
   );
 }

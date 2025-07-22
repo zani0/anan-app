@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ChevronLeft, Heart, Share2 } from 'lucide-react-native';
-import { useRouter } from 'expo-router';
+import { useRouter } from 'expo-router'; 
 
 export default function FullStory() {
   const insets = useSafeAreaInsets();
