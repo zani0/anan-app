@@ -11,7 +11,7 @@ export default function Leaderboard() {
       {/* Title and Filter Tabs */}
       <View className="flex-row justify-between items-center px-2">
         {/* Left: Leaderboard Title */}
-        <View className="bg-[#60178b] px-4 py-2 rounded-l-[40px] rounded-tr-[40px] rounded-br-0 w-[40%]">
+        <View className="bg-[#60178b] px-4 py-2 rounded-l-[40px] rounded-tr-[40px] rounded-br-0 w-[50%]">
           <Text className="text-white text-base font-poppinsBold">
             Leaderboard
           </Text>
