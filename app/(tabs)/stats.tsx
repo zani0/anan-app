@@ -9,15 +9,19 @@ export default function Stats() {
   const insets = useSafeAreaInsets();
 
   return (
-    <ScrollView
-      style={{ paddingTop: insets.top }}
-      contentContainerStyle={{ paddingBottom: 100 }}
-      className="flex-1 bg-white px-4"
-    >
+    <View className="flex-1 bg-white">
+      <ScrollView
+        className="flex-1 bg-white px-4"
+        contentContainerStyle={{
+          paddingTop: insets.top + 20,
+          paddingBottom: 80,
+        }}
+      >
       <Header />
       <CategorySlider />
       <Achievements />
       <Leaderboard />
     </ScrollView>
+    </View>
   );
 }
