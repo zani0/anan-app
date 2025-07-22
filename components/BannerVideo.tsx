@@ -1,15 +1,11 @@
+import { router } from "expo-router";
 import React from "react";
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 
 export default function BannerVideo({ onPress }: { onPress?: () => void }) {
   return (
     <TouchableOpacity
-      onPress={onPress}
+      onPress={() => router.push("/watch-video")}
       activeOpacity={0.9}
       className="rounded-2xl overflow-hidden my-2"
     >
@@ -26,7 +22,9 @@ export default function BannerVideo({ onPress }: { onPress?: () => void }) {
           <View className="w-12 h-12 bg-lime-300 rounded-full items-center justify-center">
             <Text className="text-black font-bold text-xl">▶</Text>
           </View>
-          <Text className="text-white mt-2 font-medium font-poppins">Play Video</Text>
+          <Text className="text-white mt-2 font-medium font-poppins">
+            Play Video
+          </Text>
         </View>
 
         {/* Info Overlay */}
@@ -40,7 +38,9 @@ export default function BannerVideo({ onPress }: { onPress?: () => void }) {
             </Text>
           </View>
 
-          <Text className="text-purple-900 text-xs font-poppins">Duration : 5:00</Text>
+          <Text className="text-purple-900 text-xs font-poppins">
+            Duration : 5:00
+          </Text>
         </View>
       </View>
     </TouchableOpacity>

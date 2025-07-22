@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Heart, Flag } from "lucide-react-native";
+import { useRouter } from "expo-router";
 
 const videos = [
   {
@@ -40,11 +41,13 @@ const videos = [
 ];
 
 export default function RecentlyWatched() {
+  const router = useRouter();
+
   return (
     <View className="my-2">
       {/* Section Header */}
       <View className="">
-        <View className="bg-[#60178b] px-4 py-2 rounded-l-[40px] rounded-tr-[40px] rounded-br-0  w-[70vw]">
+        <View className="bg-[#60178b] px-4 py-2 rounded-l-[40px] rounded-tr-[40px] rounded-br-0 w-[70vw]">
           <Text className="text-white text-base font-poppinsBold">
             My recently watched videos
           </Text>
@@ -60,7 +63,11 @@ export default function RecentlyWatched() {
         contentContainerStyle={{ paddingHorizontal: 0, paddingTop: 12 }}
         ItemSeparatorComponent={() => <View className="w-4" />}
         renderItem={({ item }) => (
-          <TouchableOpacity className="bg-white rounded-xl w-60 overflow-hidden shadow-md" activeOpacity={0.8}>
+          <TouchableOpacity
+            onPress={() => router.push("/watch-video")}
+            className="bg-white rounded-xl w-60 overflow-hidden shadow-md"
+            activeOpacity={0.8}
+          >
             {/* Thumbnail Section */}
             <View className="relative h-36 w-full">
               <Image

@@ -1,6 +1,6 @@
 import { ScrollView, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import Header from "@/components/Header";
+import Header from "@/components/HeaderGoBack";
 import CategorySlider from "@/components/CategorySlider";
 import BannerVideo from "@/components/BannerVideo";
 import Video from "@/components/Video";

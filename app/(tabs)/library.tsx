@@ -42,6 +42,20 @@ const savedStories = [
     category: "Adventure",
     thumbnail: require("@/assets/images/lion.jpg"),
   },
+  {
+    id: "5",
+    title: "The Quansah’s go on a family vacation",
+    duration: "10:00",
+    category: "Adventure",
+    thumbnail: require("@/assets/images/lion.jpg"),
+  },
+  {
+    id: "6",
+    title: "The Quansah’s go on a family vacation",
+    duration: "10:00",
+    category: "Adventure",
+    thumbnail: require("@/assets/images/lion.jpg"),
+  },
 ];
 
 export default function Library() {
@@ -96,10 +110,8 @@ export default function Library() {
       className="px-4"
     >
       <Header />
-      <Text className="font-poppins text-lg px-4 mb-2">
-        Find interesting stories and more...
-      </Text>
       <SearchBar />
+      <View className="my-2"></View>
       {renderFilter()}
     </View>
   );
