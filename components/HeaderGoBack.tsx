@@ -16,9 +16,12 @@ export default function Header() {
   }, []);
 
   return (
-    <View
-      className="flex-row justify-between items-center px-4 mb-6 bg-white"
-    >
+    <View className="flex-row justify-between items-center px-4 mb-6 bg-white">
+      {/* Spider Web Background Image */}
+      <Image
+        source={require("@/assets/images/spider-web-3.png")}
+        className="w-[150px] h-[120px] absolute top-[-80] right-[-6]"
+      />
       {/* Left: Back Button */}
       <TouchableOpacity onPress={() => router.back()}>
         <Image
