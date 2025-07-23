@@ -125,7 +125,7 @@ export default function Video() {
             className={`px-4 py-2 rounded-xl ${
               score !== null
                 ? "bg-gray-400"
-                : "bg-purple-700"
+                : "bg-[#5a1786]"
             }`}
           >
             <Text className="text-white font-poppins">
@@ -215,10 +215,10 @@ export default function Video() {
               <TouchableOpacity
                 disabled={selectedOptions.length < quizData.length}
                 onPress={submitQuiz}
-                className={`px-4 py-2 rounded-lg ${
+                className={`px-4 py-2 rounded-full ${
                   selectedOptions.length < quizData.length
                     ? "bg-gray-400"
-                    : "bg-purple-700"
+                    : "bg-[#5a1786]"
                 }`}
               >
                 <Text className="text-white">Submit</Text>
