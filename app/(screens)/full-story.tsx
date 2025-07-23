@@ -1,13 +1,8 @@
-import {
-  ScrollView,
-  Text,
-  View,
-  Image,
-  TouchableOpacity,
-} from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { ChevronLeft, Heart, Share2 } from 'lucide-react-native';
-import { useRouter } from 'expo-router'; 
+import { ScrollView, Text, View, Image, TouchableOpacity } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { ChevronLeft, Heart, Share2 } from "lucide-react-native";
+import { useRouter } from "expo-router";
+import Header from "@/components/HeaderGoBack";
 
 export default function FullStory() {
   const insets = useSafeAreaInsets();
@@ -20,44 +15,41 @@ export default function FullStory() {
       contentContainerStyle={{ paddingBottom: 100 }}
     >
       {/* Top Bar */}
-      <View className="relative flex-row items-center justify-center mb-6 mt-6">
-        <TouchableOpacity
-          onPress={() => router.back()}
-          className="absolute left-0 bg-white rounded-full p-2"
-        >
-          <ChevronLeft size={24} color="#333" />
-        </TouchableOpacity>
-        <Text className="text-lg font-poppinsBold text-center">Detail</Text>
-      </View>
+      <Header />
 
       {/* Image */}
-      <View className="w-full h-48 mb-4 rounded-2xl overflow-hidden">
+      <View className="w-full h-72 mb-4 rounded-2xl overflow-hidden">
         <Image
-          source={{ uri: 'https://images.unsplash.com/photo-1631582053308-40f482e7ace5?q=80&w=1631&auto=format&fit=crop' }}
+          source={{
+            uri: "https://images.unsplash.com/photo-1631582053308-40f482e7ace5?q=80&w=1631&auto=format&fit=crop",
+          }}
           className="w-full h-full"
           resizeMode="cover"
         />
       </View>
 
+      {/* Tags */}
+      <View className="flex-row gap-2 mb-4">
+        <Text className="bg-cyan-100 text-cyan-800 text-sm font-poppins px-3 py-1 rounded-md">
+          ADVENTURE
+        </Text>
+        <Text className="bg-sky-200 text-sky-800 text-sm font-poppins px-3 py-1 rounded-md uppercase">
+          Intermediate
+        </Text>
+      </View>
+
       {/* Story Titles */}
-      <Text className="text-xl font-poppinsBold text-purple-800 mb-2">
+      <Text className="text-[20px] font-poppinsBold uppercase text-purple-800 mb-2">
         Why antelope lives in the bush
-      </Text>
-      <Text className="text-md font-poppins text-gray-800 mb-4">
-        Why Antelope lives in the bush
       </Text>
 
       {/* Meta Info */}
       <View className="flex-row items-center flex-wrap gap-2 mb-4">
-        <Text className="text-sm font-poppins text-gray-600">👤 by Content Manager</Text>
+        <Text className="text-sm font-poppins text-gray-600">
+          👤 by Content Manager
+        </Text>
         <Text className="text-sm font-poppins text-gray-600">• 1 view</Text>
         <Text className="text-sm font-poppins text-gray-600">• 0 likes</Text>
-      </View>
-
-      {/* Tags */}
-      <View className="flex-row gap-2 mb-4">
-        <Text className="bg-cyan-100 text-cyan-800 text-sm font-poppins px-3 py-1 rounded-md">ADVENTURE</Text>
-        <Text className="bg-sky-200 text-sky-800 text-sm font-poppins px-3 py-1 rounded-md">Intermediate</Text>
       </View>
 
       {/* Like & Share */}
@@ -78,17 +70,23 @@ export default function FullStory() {
           Read Story <Text className="text-xs font-poppins">in original</Text>
         </Text>
         <Text className="text-white text-sm font-poppins leading-relaxed">
-          Why Antelope Lives in the Bush? In an ancient community, goat and antelope once shared a home with an owner.
-          While they were being tamed, they were told not to tamper with their owner's food supply. Goat and antelope were
-          held to a high standard, but curiosity got the better of the goat. One day, while the owner was away, goat ate
-          some of the food. When the owner returned, only antelope was around, and he was blamed. Out of shame, antelope
-          ran away into the wild and has lived in the bush ever since.
-
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias sint atque sequi tenetur. Autem nisi vero eius voluptatibus inventore. Consequuntur itaque at saepe eius odit ad delectus molestiae magni asperiores.
-
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet, porro harum. Doloribus suscipit ad eaque nobis laudantium quam velit possimus culpa eius, aut nemo impedit! At quisquam maiores quo harum.
-
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsa cum quasi facere maiores magni corrupti quam quae mollitia magnam eos porro, voluptate possimus, minus velit distinctio ex quibusdam laudantium omnis.
+          Why Antelope Lives in the Bush? In an ancient community, goat and
+          antelope once shared a home with an owner. While they were being
+          tamed, they were told not to tamper with their owner's food supply.
+          Goat and antelope were held to a high standard, but curiosity got the
+          better of the goat. One day, while the owner was away, goat ate some
+          of the food. When the owner returned, only antelope was around, and he
+          was blamed. Out of shame, antelope ran away into the wild and has
+          lived in the bush ever since. Lorem ipsum dolor sit amet consectetur
+          adipisicing elit. Molestias sint atque sequi tenetur. Autem nisi vero
+          eius voluptatibus inventore. Consequuntur itaque at saepe eius odit ad
+          delectus molestiae magni asperiores. Lorem ipsum dolor sit amet
+          consectetur adipisicing elit. Eveniet, porro harum. Doloribus suscipit
+          ad eaque nobis laudantium quam velit possimus culpa eius, aut nemo
+          impedit! At quisquam maiores quo harum. Lorem ipsum, dolor sit amet
+          consectetur adipisicing elit. Ipsa cum quasi facere maiores magni
+          corrupti quam quae mollitia magnam eos porro, voluptate possimus,
+          minus velit distinctio ex quibusdam laudantium omnis.
         </Text>
       </View>
     </ScrollView>
