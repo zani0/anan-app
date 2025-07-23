@@ -11,6 +11,8 @@ import DropDownPicker from "react-native-dropdown-picker";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function StoryCreatorForm() {
+  const insets = useSafeAreaInsets();
+
   const [languageOpen, setLanguageOpen] = useState(false);
   const [language, setLanguage] = useState(null);
   const [languages, setLanguages] = useState([
@@ -54,116 +56,143 @@ export default function StoryCreatorForm() {
   const [title, setTitle] = useState("");
   const [characterName, setCharacterName] = useState("");
   const [description, setDescription] = useState("");
-  const insets = useSafeAreaInsets();
+
+  const inputClass =
+    "border border-purple-300 bg-[#fdf9ff] rounded-xl px-4 py-3 text-base shadow-sm mb-4";
+
+  const dropdownStyle = {
+    marginBottom: 20,
+    borderColor: "#d6bbf5",
+    borderRadius: 14,
+    backgroundColor: "#fdf9ff",
+    shadowColor: "#c79df7",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 4,
+    elevation: 2,
+  };
 
   return (
     <View
-      className="flex-1 bg-white px-4"
+      className="flex-1 bg-white"
       style={{
-        paddingTop: insets.top + 0,
+        paddingTop: insets.top,
         paddingBottom: 80,
       }}
     >
       <Header />
-      <ScrollView className="px-4 py-4 bg-white">
-        {/* Book Details */}
-        <Text className="text-purple-800 font-poppinsBold text-lg mb-2">
-          Book Info
+      <View className="justify-between items-center px-4 py-3 bg-white rounded-b-3xl">
+        <Text className="text-4xl text-purple-700 font-caprasimo">
+          AI Story Creator
         </Text>
-        <View className="mb-4">
-          <TextInput
-            placeholder="Title"
-            value={title}
-            onChangeText={setTitle}
-            className="border border-purple-300 bg-gray-50 rounded-lg px-4 py-2 mb-3"
-          />
-
-          <DropDownPicker
-            open={languageOpen}
-            value={language}
-            items={languages}
-            setOpen={setLanguageOpen}
-            setValue={setLanguage}
-            setItems={setLanguages}
-            placeholder="Select Language"
-            style={{ marginBottom: languageOpen ? 100 : 15 }}
-          />
-
-          <DropDownPicker
-            open={categoryOpen}
-            value={category}
-            items={categories}
-            setOpen={setCategoryOpen}
-            setValue={setCategory}
-            setItems={setCategories}
-            placeholder="Select Category"
-            style={{ marginBottom: categoryOpen ? 100 : 15 }}
-          />
-
-          <DropDownPicker
-            open={pagesOpen}
-            value={pages}
-            items={pageOptions}
-            setOpen={setPagesOpen}
-            setValue={setPages}
-            setItems={setPageOptions}
-            placeholder="Number of Pages"
-            style={{ marginBottom: pagesOpen ? 100 : 15 }}
-          />
-        </View>
-
-        {/* Character Details */}
-        <Text className="text-purple-800 font-poppinsBold text-lg mb-2">
-          Character Info
+        <Text className="text-base text-black text-center font-poppins mt-2">
+          Your story will be generated based on the options you select in the
+          following 3 categories
         </Text>
-        <View className="mb-4">
-          <TextInput
-            placeholder="Character Name"
-            value={characterName}
-            onChangeText={setCharacterName}
-            className="border border-purple-300 bg-gray-50 rounded-lg px-4 py-2 mb-3"
-          />
+      </View>
+      <ScrollView className="px-5 py-4">
+        {/* Book Info Section */}
+        <Text className="text-purple-800 font-poppinsBold text-xl mb-3">
+          📘 Book Info
+        </Text>
 
-          <DropDownPicker
-            open={genderOpen}
-            value={gender}
-            items={genders}
-            setOpen={setGenderOpen}
-            setValue={setGender}
-            setItems={setGenders}
-            placeholder="Gender"
-            style={{ marginBottom: genderOpen ? 100 : 15 }}
-          />
+        <TextInput
+          placeholder="Title"
+          value={title}
+          onChangeText={setTitle}
+          className={inputClass}
+        />
 
-          <DropDownPicker
-            open={ageOpen}
-            value={age}
-            items={ageOptions}
-            setOpen={setAgeOpen}
-            setValue={setAge}
-            setItems={setAgeOptions}
-            placeholder="Age"
-            style={{ marginBottom: ageOpen ? 100 : 15 }}
-          />
-        </View>
+        <DropDownPicker
+          open={languageOpen}
+          value={language}
+          items={languages}
+          setOpen={setLanguageOpen}
+          setValue={setLanguage}
+          setItems={setLanguages}
+          placeholder="Select Language"
+          style={dropdownStyle}
+          zIndex={5000}
+        />
+
+        <DropDownPicker
+          open={categoryOpen}
+          value={category}
+          items={categories}
+          setOpen={setCategoryOpen}
+          setValue={setCategory}
+          setItems={setCategories}
+          placeholder="Select Category"
+          style={dropdownStyle}
+          zIndex={4000}
+        />
+
+        <DropDownPicker
+          open={pagesOpen}
+          value={pages}
+          items={pageOptions}
+          setOpen={setPagesOpen}
+          setValue={setPages}
+          setItems={setPageOptions}
+          placeholder="Number of Pages"
+          style={dropdownStyle}
+          zIndex={3000}
+        />
+
+        {/* Character Info Section */}
+        <Text className="text-purple-800 font-poppinsBold text-xl mt-6 mb-3">
+          🧒 Character Info
+        </Text>
+
+        <TextInput
+          placeholder="Character Name"
+          value={characterName}
+          onChangeText={setCharacterName}
+          className={inputClass}
+        />
+
+        <DropDownPicker
+          open={genderOpen}
+          value={gender}
+          items={genders}
+          setOpen={setGenderOpen}
+          setValue={setGender}
+          setItems={setGenders}
+          placeholder="Gender"
+          style={dropdownStyle}
+          zIndex={2000}
+        />
+
+        <DropDownPicker
+          open={ageOpen}
+          value={age}
+          items={ageOptions}
+          setOpen={setAgeOpen}
+          setValue={setAge}
+          setItems={setAgeOptions}
+          placeholder="Age"
+          style={dropdownStyle}
+          zIndex={1000}
+        />
 
         {/* Story Prompt */}
-        <Text className="text-purple-800 font-poppinsBold text-lg mb-2">
-          Describe Your Story
+        <Text className="text-purple-800 font-poppinsBold text-xl mt-6 mb-3">
+          ✨ Describe Your Story
         </Text>
         <TextInput
           placeholder="Describe your story idea..."
           value={description}
           onChangeText={setDescription}
           multiline
-          numberOfLines={5}
-          className="border border-purple-300 bg-gray-50 rounded-lg px-4 py-2 mb-6 text-base"
+          numberOfLines={8}
+          textAlignVertical="top"
+          className="border border-purple-300 bg-[#fdf9ff] rounded-xl px-4 py-3 text-base shadow-sm mb-6"
         />
 
         {/* Generate Button */}
-        <TouchableOpacity className="bg-[#60178b] rounded-full py-3">
+        <TouchableOpacity className="bg-[#60178b] rounded-full py-4">
           <Text className="text-white text-center text-lg font-poppinsBold">
-            Generate Story
+            💡 Generate Story
           </Text>
         </TouchableOpacity>
       </ScrollView>

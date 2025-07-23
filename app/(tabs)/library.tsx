@@ -11,8 +11,10 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Header from "@/components/Header";
 import SearchBar from "@/components/Search";
 import { Heart, Flag } from "lucide-react-native";
+import { useRouter } from "expo-router";
 
 const filters = ["All", "Folklore", "Adventure"];
+
 const savedStories = [
   {
     id: "1",
@@ -24,7 +26,7 @@ const savedStories = [
   {
     id: "2",
     title: "Kweku Ananse visits his farm in the village",
-    duration: "1:06:05",
+    // no duration
     category: "Adventure",
     thumbnail: require("@/assets/images/cartoon.jpg"),
   },
@@ -61,6 +63,7 @@ const savedStories = [
 export default function Library() {
   const insets = useSafeAreaInsets();
   const [selectedFilter, setSelectedFilter] = useState("All");
+  const router = useRouter();
 
   const filteredStories =
     selectedFilter === "All"
@@ -138,6 +141,11 @@ export default function Library() {
             className="bg-white rounded-xl overflow-hidden shadow-md"
             style={{ width: "48%" }}
             activeOpacity={0.8}
+            onPress={() => {
+              if (item.id === "2") {
+                router.push("/full-story");
+              }
+            }}
           >
             {/* Thumbnail Section */}
             <View className="relative h-36 w-full">
@@ -154,12 +162,14 @@ export default function Library() {
                 </Text>
               </View>
 
-              {/* Duration */}
-              <View className="absolute bottom-2 right-2 bg-lime-300 px-2 py-0.5 rounded">
-                <Text className="text-black text-xs font-poppinsBold">
-                  {item.duration}
-                </Text>
-              </View>
+              {/* Duration (optional) */}
+              {item.duration && (
+                <View className="absolute bottom-2 right-2 bg-lime-300 px-2 py-0.5 rounded">
+                  <Text className="text-black text-xs font-poppinsBold">
+                    {item.duration}
+                  </Text>
+                </View>
+              )}
             </View>
 
             {/* Footer */}
