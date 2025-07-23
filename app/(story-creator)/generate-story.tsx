@@ -88,7 +88,7 @@ export default function StoryCreatorForm() {
           nestedScrollEnabled={true}
         >
           <View className="justify-between items-center px-4 py-3 bg-white rounded-b-3xl">
-            <Text className="text-4xl text-purple-700 font-caprasimo">
+            <Text className="text-4xl text-[#5a1786] font-caprasimo">
               AI Story Creator
             </Text>
             <Text className="text-base text-black text-center font-poppins mt-2">
@@ -97,7 +97,7 @@ export default function StoryCreatorForm() {
             </Text>
           </View>
 
-          <Text className="text-purple-800 font-poppinsBold text-xl mb-3 mt-4">
+          <Text className="text-[#5a1786] font-poppinsBold text-xl mb-3 mt-4">
             Book Info
           </Text>
 
@@ -147,7 +147,7 @@ export default function StoryCreatorForm() {
             />
           </View>
 
-          <Text className="text-purple-800 font-poppinsBold text-xl mt-6 mb-3">
+          <Text className="text-[#5a1786] font-poppinsBold text-xl mt-6 mb-3">
             Character Info
           </Text>
 
@@ -184,7 +184,7 @@ export default function StoryCreatorForm() {
             />
           </View>
 
-          <Text className="text-purple-800 font-poppinsBold text-xl mt-6 mb-3">
+          <Text className="text-[#5a1786] font-poppinsBold text-xl mt-6 mb-3">
             Describe Your Story
           </Text>
           <TextInput
