@@ -29,7 +29,7 @@ export default function FullStory() {
       </View>
 
       {/* Tags */}
-      <View className="flex-row gap-2 mb-4">
+      <View className="flex-row gap-2 mb-4 px-4">
         <Text className="bg-cyan-100 text-cyan-800 text-sm font-poppins px-3 py-1 rounded-md">
           ADVENTURE
         </Text>
@@ -39,37 +39,34 @@ export default function FullStory() {
       </View>
 
       {/* Story Titles */}
-      <Text className="text-[20px] font-poppinsBold uppercase text-purple-800 mb-2">
+      <Text className="text-[20px] font-poppinsBold uppercase text-purple-800 mb-2 px-4">
         Why antelope lives in the bush
       </Text>
 
       {/* Meta Info */}
-      <View className="flex-row items-center flex-wrap gap-2 mb-4">
+      {/* <View className="flex-row items-center flex-wrap gap-2 mb-4">
         <Text className="text-sm font-poppins text-gray-600">
           👤 by Content Manager
         </Text>
         <Text className="text-sm font-poppins text-gray-600">• 1 view</Text>
         <Text className="text-sm font-poppins text-gray-600">• 0 likes</Text>
-      </View>
+      </View> */}
 
       {/* Like & Share */}
-      <View className="flex-row gap-4 mb-6">
-        <TouchableOpacity className="flex-row items-center space-x-2 bg-gray-200 rounded-full px-4 py-2">
+      <View className="flex-row gap-4 mb-2 px-4">
+        <TouchableOpacity className="flex-row items-center space-x-4 bg-gray-200 rounded-full px-4 py-2">
           <Heart size={20} color="#555" />
-          <Text className="text-gray-700 font-poppins">Like</Text>
+          <Text className="text-gray-700 font-poppins ml-2">Like</Text>
         </TouchableOpacity>
-        <TouchableOpacity className="flex-row items-center space-x-2 bg-gray-200 rounded-full px-4 py-2">
+        {/* <TouchableOpacity className="flex-row items-center space-x-2 bg-gray-200 rounded-full px-4 py-2">
           <Share2 size={20} color="#555" />
           <Text className="text-gray-700 font-poppins">Share</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
 
       {/* Full Story Box */}
-      <View className="bg-teal-500 p-4 rounded-xl mb-6">
-        <Text className="text-white font-poppinsBold mb-2">
-          Read Story <Text className="text-xs font-poppins">in original</Text>
-        </Text>
-        <Text className="text-white text-sm font-poppins leading-relaxed">
+      <ScrollView className="bg-white p-4 rounded-xl mb-6">
+        <Text className="text-black text-sm font-poppins leading-relaxed">
           Why Antelope Lives in the Bush? In an ancient community, goat and
           antelope once shared a home with an owner. While they were being
           tamed, they were told not to tamper with their owner's food supply.
@@ -86,9 +83,13 @@ export default function FullStory() {
           impedit! At quisquam maiores quo harum. Lorem ipsum, dolor sit amet
           consectetur adipisicing elit. Ipsa cum quasi facere maiores magni
           corrupti quam quae mollitia magnam eos porro, voluptate possimus,
-          minus velit distinctio ex quibusdam laudantium omnis.
+          minus velit distinctio ex quibusdam laudantium omnis. Lorem, ipsum
+          dolor sit amet consectetur adipisicing elit. Eum maxime soluta
+          repellat ullam impedit, accusamus est praesentium blanditiis, fugiat
+          reprehenderit ipsa cumque explicabo perspiciatis ad quia, illo in
+          saepe assumenda!
         </Text>
-      </View>
+      </ScrollView>
     </ScrollView>
   );
 }
