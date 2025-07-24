@@ -51,7 +51,7 @@ export default function Watch() {
             className="px-4"
           >
             <Header />
-            <View className="justify-center items-center py-4">
+            <View className="justify-center items-center py-4 mb-6">
               <Text className="text-4xl text-[#5a1786] font-caprasimo">Watch</Text>
             </View>
           </View>
