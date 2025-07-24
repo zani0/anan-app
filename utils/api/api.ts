@@ -7,6 +7,8 @@ interface SignupForm {
   name: string;
   email: string;
   password: string;
+  dateOfBirth: string;
+  phoneNumber: string;
 }
 
 interface SignupResponse {
@@ -37,18 +39,35 @@ interface LoginResponse {
 
 export const signup = async (form: SignupForm): Promise<SignupResponse> => {
   try {
-    const response = await axios.post(`${API_BASE_URL}/register`, form);
+    console.log('form', form)
+
+    const response = await axios({
+      method: 'post',
+      baseURL: API_BASE_URL,
+      url: '/register',
+      data: {
+        ...form,
+        password: 'P@ssw0rd123'
+      }
+    })
+    // const response = await axios.post(`${API_BASE_URL}/register`, form);
 
     return response.data;
+
   } catch (error: any) {
-    if (axios.isAxiosError(error)) {
-      const message = error.response?.data?.message || "Signup failed (Axios)";
-      console.error("Signup failed:", message);
-      throw new Error(message);
-    } else {
-      console.error("Unexpected signup error:", error);
-      throw new Error("Unexpected error occurred during signup.");
-    }
+
+  console.error(error?.response.data);
+  
+  throw new Error(error.message)
+  
+    // if (axios.isAxiosError(error)) {
+    //   const message = error.response?.data?.message || "Signup failed (Axios)";
+    //   console.error("Signup failed:", message);
+    //   throw new Error(message);
+    // } else {
+    //   console.error("Unexpected signup error:", error);
+    //   throw new Error("Unexpected error occurred during signup.");
+    // }
   }
 };
 
@@ -63,7 +82,8 @@ const api = axios.create({
 
 api.interceptors.request.use(
   async (config) => {
-    const token = await AsyncStorage.getItem("access_token");
+    const token = await AsyncStorage.getItem("token");
+    console.log("token within api client", token);
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }

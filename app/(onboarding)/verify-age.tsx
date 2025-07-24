@@ -11,6 +11,7 @@ import {
 import { useRouter } from "expo-router";
 import { useRef, useState, useEffect } from "react";
 import * as SecureStore from "expo-secure-store";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function VerifyAge() {
   const router = useRouter();
@@ -63,6 +64,8 @@ export default function VerifyAge() {
       setModalMessage("Age verified! Welcome to Anansesem.");
       setModalVisible(true);
 
+      AsyncStorage.setItem('DOB', birthYear.toString())
+
       setTimeout(async () => {
         setModalVisible(false);
 
@@ -92,14 +95,14 @@ export default function VerifyAge() {
       />
 
       {/* Title */}
-      <Text className="font-caprasimo text-[#D0EE30] text-4xl mb-4 text-center">
+      <Text className="font-caprasimo text-[#D0EE30] text-4xl mb-8 text-center">
         Please enter your birth year to proceed
       </Text>
 
       {/* Subtitle */}
-      <Text className="font-poppins text-white text-[13px] text-center mb-8">
+      {/* <Text className="font-poppins text-white text-[13px] text-center mb-8">
         This is only a verification method, we won't store your age
-      </Text>
+      </Text> */}
 
       {/* Year Input Boxes */}
       <TouchableWithoutFeedback onPress={() => hiddenInputRef.current?.focus()}>

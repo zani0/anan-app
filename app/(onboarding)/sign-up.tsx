@@ -1,20 +1,21 @@
+import { signup } from "@/utils/api/api";
+import { Ionicons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import Checkbox from "expo-checkbox";
+import { useRouter } from "expo-router";
+import moment from 'moment';
+import { useEffect, useState } from "react";
 import {
-  View,
+  ActivityIndicator,
+  Image,
+  Platform,
+  ScrollView,
   Text,
   TextInput,
   TouchableOpacity,
-  ScrollView,
-  Image,
-  ActivityIndicator,
-  Platform,
+  View,
 } from "react-native";
-import { useState, useEffect } from "react";
-import Checkbox from "expo-checkbox";
-import { useRouter } from "expo-router";
 import Toast from "react-native-toast-message";
-import { Ionicons } from "@expo/vector-icons";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { signup } from "@/utils/api/api";
 
 export default function SignUp() {
   const router = useRouter();
@@ -70,9 +71,11 @@ export default function SignUp() {
       return;
     }
 
+    const dateOfBirth = await AsyncStorage.getItem('DOB');
+
     try {
       setIsLoading(true);
-      const data = await signup(form);
+      const data = await signup({...form, phoneNumber: '1234', dateOfBirth: moment(dateOfBirth, 'yyyy').toISOString()});
 
       if (rememberMe) {
         await AsyncStorage.setItem("user", JSON.stringify(data.user));
@@ -88,7 +91,7 @@ export default function SignUp() {
         router.replace("/(onboarding)/parental-consent");
       }, 1500);
     } catch (error: any) {
-      console.error("Signup failed:", error.message);
+      console.error("Signup failed:", error);
       Toast.show({
         type: "error",
         text1: "Signup Failed",

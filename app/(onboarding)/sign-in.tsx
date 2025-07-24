@@ -14,6 +14,7 @@ import Toast from "react-native-toast-message";
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Checkbox from "expo-checkbox";
+import { error } from "console";
 
 const BASE_URL = "https://anansesem.onrender.com/api/v1";
 
@@ -109,20 +110,21 @@ export default function SignIn() {
       // ✅ Save token
       const accessToken = data?.data?.access_token;
 
-      if (accessToken) {
-        await AsyncStorage.setItem("token", accessToken);
-        console.log("Token saved:", accessToken);
-      } else {
-        console.warn("Access token missing from response.");
-      }
+      
+        AsyncStorage.setItem("token", accessToken).then(()=> {
+          router.push("/(onboarding)/choose-profile");
+        }).catch(error => {
+          console.log('token save error:', error)
+        })
+     
+      //  const gottenToken = await AsyncStorage.getItem('token')
+      //  console.log('gottentoKEN', gottenToken)
 
       Toast.show({
         type: "success",
         text1: "Login Successful!",
         text2: "Redirecting to profiles... 💫",
       });
-
-      router.push("/(onboarding)/choose-profile");
     } catch (err) {
       console.error("Login error", err);
       Toast.show({
