@@ -48,7 +48,7 @@ export default function Settings() {
             <View className="flex-row items-center space-x-4">
               <View className="w-4 h-4 rounded-full bg-purple-300 mr-4" />
               <Text className="text-base text-black font-poppins">
-                {item.label}
+                {item.label} 
               </Text>
             </View>
 

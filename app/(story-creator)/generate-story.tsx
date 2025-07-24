@@ -97,9 +97,12 @@ export default function StoryCreatorForm() {
             </Text>
           </View>
 
-          <Text className="text-[#5a1786] font-poppinsBold text-xl mb-3 mt-4">
-            Book Info
-          </Text>
+          <View className="mb-3 mt-4 flex-row items-center space-x-4">
+            <View className="w-4 h-4 rounded-full bg-purple-300 mr-4" />
+            <Text className="text-[#5a1786] font-poppinsBold text-xl ml-4">
+              Book Info
+            </Text>
+          </View>
 
           <TextInput
             placeholder="Title"
@@ -147,9 +150,12 @@ export default function StoryCreatorForm() {
             />
           </View>
 
-          <Text className="text-[#5a1786] font-poppinsBold text-xl mt-6 mb-3">
-            Character Info
-          </Text>
+          <View className="mb-3 mt-4 flex-row items-center space-x-4">
+            <View className="w-4 h-4 rounded-full bg-purple-300 mr-4" />
+            <Text className="text-[#5a1786] font-poppinsBold text-xl ml-4">
+              Character Info
+            </Text>
+          </View>
 
           <TextInput
             placeholder="Character Name"
@@ -184,9 +190,12 @@ export default function StoryCreatorForm() {
             />
           </View>
 
-          <Text className="text-[#5a1786] font-poppinsBold text-xl mt-6 mb-3">
-            Describe Your Story
-          </Text>
+          <View className="mb-3 mt-4 flex-row items-center space-x-4">
+            <View className="w-4 h-4 rounded-full bg-purple-300 mr-4" />
+            <Text className="text-[#5a1786] font-poppinsBold text-xl ml-4">
+              Describe Your Story
+            </Text>
+          </View>
           <TextInput
             placeholder="Describe your story idea..."
             value={description}
