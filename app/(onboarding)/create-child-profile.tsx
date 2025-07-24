@@ -12,6 +12,7 @@ import { useRouter } from "expo-router";
 import Toast from "react-native-toast-message";
 import YoutubePlayer from "react-native-youtube-iframe";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import api from "@/utils/api/api";
 
 export default function CreateChildProfile() {
   const router = useRouter();
@@ -55,21 +56,24 @@ export default function CreateChildProfile() {
     if (step < 5) {
       setStep(step + 1);
     } else {
+      // Inside handleNext, step === 5
       try {
-        const userData = await AsyncStorage.getItem("user"); 
+        const userData = await AsyncStorage.getItem("user");
+        const token = await AsyncStorage.getItem("access_token"); // 🔐 Get token
+
         const user = JSON.parse(userData || "{}");
 
-        if (!user?.id) {
-          throw new Error("User ID not found");
+        if (!user?.id || !token) {
+          throw new Error("Missing user ID or token");
         }
 
         const response = await fetch(
-          "http://192.168.100.25:3001/api/profiles/create-profile",
+          "https://anansesem.onrender.com/api/v1/profile/",
           {
             method: "POST",
-            credentials: "include", 
             headers: {
               "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`, // ✅ Add bearer token
             },
             body: JSON.stringify({
               userId: user.id,
@@ -95,7 +99,7 @@ export default function CreateChildProfile() {
         });
 
         setTimeout(() => {
-          router.replace("/choose-profile"); 
+          router.replace("/(onboarding)/preferences/index");
         }, 1500);
       } catch (err: any) {
         Toast.show({

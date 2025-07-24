@@ -1,5 +1,4 @@
 import Header from "@/components/HeaderGoBack";
-import Preferences from "@/components/Preferences";
 import { useState } from "react";
 import {
   View,
@@ -62,7 +61,7 @@ const Pill = ({
   );
 };
 
-export default function EditPreferences() {
+export default function Preferences() {
   const insets = useSafeAreaInsets();
 
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
@@ -92,8 +91,67 @@ export default function EditPreferences() {
       className="flex-1 bg-white px-6"
       contentContainerStyle={{ paddingTop: insets.top + 20, paddingBottom: 60 }}
     >
-      <Header />
-      <Preferences />
+      <View className="mx-4">
+      {/* Section 1: Genres */}
+      <Text className="text-lg text-black font-poppinsBold mb-2">
+        What story genres do you like?
+      </Text>
+      <View className="flex-row flex-wrap mb-8">
+        {genres.map((genre, index) => (
+          <Pill
+            key={index}
+            label={genre}
+            selected={selectedGenres.includes(genre)}
+            onPress={() => toggleSelect(genre, selectedGenres, setSelectedGenres)}
+            outlineColor="#6366F1" // indigo
+          />
+        ))}
+      </View>
+
+      {/* Section 2: Learning Style */}
+      <Text className="text-lg text-black font-poppinsBold mb-2">
+        What is your learning style?
+      </Text>
+      <View className="flex-row flex-wrap mb-8">
+        {learningStyles.map((style, index) => (
+          <Pill
+            key={index}
+            label={style}
+            selected={selectedLearningStyles.includes(style)}
+            onPress={() =>
+              toggleSelect(style, selectedLearningStyles, setSelectedLearningStyles)
+            }
+            outlineColor="#EAB308" // yellow
+          />
+        ))}
+      </View>
+
+      {/* Section 3: Character Preferences */}
+      <Text className="text-lg text-black font-poppinsBold mb-2">
+        What are your character preferences?
+      </Text>
+      <View className="flex-row flex-wrap mb-12">
+        {characterPrefs.map((pref, index) => (
+          <Pill
+            key={index}
+            label={pref}
+            selected={selectedCharacterPrefs.includes(pref)}
+            onPress={() =>
+              toggleSelect(pref, selectedCharacterPrefs, setSelectedCharacterPrefs)
+            }
+            outlineColor="#10B981" 
+          />
+        ))}
+      </View>
+      </View>
+
+      {/* Submit Button */}
+      <TouchableOpacity
+        onPress={handleSubmit}
+        className="bg-purple-700 py-4 rounded-full items-center"
+      >
+        <Text className="text-white font-poppinsBold text-lg">Submit</Text>
+      </TouchableOpacity>
     </ScrollView>
   );
 }
