@@ -52,7 +52,7 @@ export default function Music() {
           >
             <Header />
             <View className="justify-center items-center py-4 mb-6">
-              <Text className="text-4xl text-[#5a1786] font-caprasimo">Watch</Text>
+              <Text className="text-4xl text-[#5a1786] font-caprasimo">Music</Text>
             </View>
           </View>
         }

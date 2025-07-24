@@ -12,7 +12,6 @@ import { useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ChevronRight } from "lucide-react-native";
 import VerifyAgePopup from "@/components/VerifyAgePopup";
-// import { useUser } from "@/context/UserContext";
 
 const screenHeight = Dimensions.get("window").height;
 
@@ -25,12 +24,15 @@ const routes: Record<string, any> = {
 };
 
 export default function ParentAccount() {
-  // const { user } = useUser();
   const router = useRouter();
   const insets = useSafeAreaInsets();
 
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
   const [showVerifyAge, setShowVerifyAge] = useState(false);
+
+  // Placeholder user values (since useUser was removed)
+  const name = "Parent";
+  const points = 100;
 
   const handleLogout = () => {
     setShowLogoutConfirm(true);
@@ -43,11 +45,8 @@ export default function ParentAccount() {
 
   const handleVerifyComplete = (age: number) => {
     setShowVerifyAge(false);
-
     if (age < 18) {
-      router.back(); // Go to the previous screen
-    } else {
-      // Stay on current screen (do nothing)
+      router.back();
     }
   };
 
@@ -64,29 +63,19 @@ export default function ParentAccount() {
 
         {/* Profile Info */}
         <View className="items-center mt-6 mb-4">
-          <View className="w-28 h-28 rounded-full border-4 border-black bg-[#FFF] items-center justify-center mb-2 overflow-hidden">
-            {user?.name ? (
-              <Image
-                source={{
-                  uri: `https://ui-avatars.com/api/?name=${encodeURIComponent(
-                    user.name
-                  )}`,
-                }}
-                className="w-28 h-28 rounded-full"
-                resizeMode="cover"
-              />
-            ) : (
-              <Image
-                source={require("@/assets/images/avatar.png")}
-                className="w-16 h-16 rounded-full"
-                resizeMode="contain"
-              />
-            )}
+          <View className="w-28 h-28 rounded-full border-4 border-black bg-white items-center justify-center mb-2 overflow-hidden">
+            <Image
+              source={{
+                uri: `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}`,
+              }}
+              className="w-28 h-28 rounded-full"
+              resizeMode="cover"
+            />
           </View>
           <Text className="mt-2 mb-2 text-4xl font-caprasimo text-black">
-            {user?.name || "User"}
+            {name}
           </Text>
-          <Text className="text-sm text-black mb-4">★{user?.points ?? 0}</Text>
+          <Text className="text-sm text-black mb-4">★ {points}</Text>
         </View>
 
         {/* Menu Section */}
