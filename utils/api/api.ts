@@ -52,19 +52,24 @@ export const signup = async (form: SignupForm): Promise<SignupResponse> => {
   }
 };
 
-export const login = async (form: LoginForm): Promise<LoginResponse> => {
-  try {
-    const response = await axios.post(`${API_BASE_URL}/login`, form);
+// lib/api.ts
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-    return response.data;
-  } catch (error: any) {
-    if (axios.isAxiosError(error)) {
-      const message = error.response?.data?.message || "Login failed (Axios)";
-      console.error("Login failed:", message);
-      throw new Error(message);
-    } else {
-      console.error("Unexpected Login error:", error);
-      throw new Error("Unexpected error occurred during Login.");
+export const BASE_URL = "https://anansesem.onrender.com/api/v1";
+
+const api = axios.create({
+  baseURL: BASE_URL,
+});
+
+api.interceptors.request.use(
+  async (config) => {
+    const token = await AsyncStorage.getItem("access_token");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
     }
-  }
-};
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
+export default api;

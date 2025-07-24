@@ -10,6 +10,7 @@ import {
 import { useState, useEffect } from "react";
 import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import api from "@/utils/api/api";
 
 export default function ChooseProfile() {
   const handleSelectProfile = async (profile: any) => {
@@ -32,10 +33,9 @@ export default function ChooseProfile() {
         const userData = await AsyncStorage.getItem("user");
         if (!userData) return;
         const user = JSON.parse(userData);
-        const res = await fetch(
-          `https://anansesem.onrender.com/api/v1/profile/`
-        );
-        const data = await res.json();
+        const res = await api.get("/profile");
+        const data = await res.data;
+        console.log (data);
         setProfiles(data.profiles || []);
         console.log(data);
       } catch (err) {

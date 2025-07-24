@@ -46,7 +46,7 @@ export default function SignIn() {
   // Optional: Redirect if already logged in
   useEffect(() => {
     const checkToken = async () => {
-      const token = await AsyncStorage.getItem("token");
+      const token = await AsyncStorage.getItem("access_token");
       if (token) {
         router.replace("/(onboarding)/choose-profile");
       }
@@ -107,9 +107,9 @@ export default function SignIn() {
       }
 
       // ✅ Save token
-      if (data.token) {
-        await AsyncStorage.setItem("token", data.token);
-        console.log("Token saved:", data.token);
+      if (data.access_token) {
+        await AsyncStorage.setItem("token", data.access_token);
+        console.log("Token saved:", data.access_token);
       }
 
       Toast.show({
