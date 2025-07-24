@@ -5,7 +5,7 @@ import Leaderboard from "@/components/Leaderboard";
 import { ScrollView, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-export default function Stats() {
+export default function Compete() {
   const insets = useSafeAreaInsets();
 
   return (
@@ -18,7 +18,7 @@ export default function Stats() {
         }}
       >
         <Header />
-        <View className="justify-between items-center px-4 py-3 bg-white rounded-b-3xl">
+        <View className="justify-between items-center px-4 py-3 mb-4 bg-white rounded-b-3xl">
           <Text className="text-4xl text-[#5a1786] font-caprasimo">
             Compete
           </Text>

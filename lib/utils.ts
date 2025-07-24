@@ -4,13 +4,13 @@
 //   return classes.filter(Boolean).join(' ')
 // }
 
-import axios from 'axios'
+// import axios from 'axios'
 
-const API_BASE_URL = 'http://192.168.100.25:3001/api'
+// const API_BASE_URL = 'http://192.168.100.25:3001/api'
 
-export const api = axios.create({
-  baseURL: API_BASE_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-})
+// export const api = axios.create({
+//   baseURL: API_BASE_URL,
+//   headers: {
+//     'Content-Type': 'application/json',
+//   },
+// })

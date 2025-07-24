@@ -17,7 +17,7 @@ import {
 } from "@expo-google-fonts/poppins";
 import { Caprasimo_400Regular } from "@expo-google-fonts/caprasimo";
 
-import { UserProvider } from "@/context/UserContext";
+// import { UserProvider } from "@/context/UserContext";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -101,7 +101,6 @@ export default function RootLayout() {
 
   // Main layout after loading
   return (
-    <UserProvider>
       <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
         <Stack initialRouteName={initialRoute}>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
@@ -123,6 +122,5 @@ export default function RootLayout() {
         </Stack>
         <StatusBar hidden />
       </ThemeProvider>
-    </UserProvider>
   );
 }

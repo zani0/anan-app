@@ -33,7 +33,7 @@ export default function ChooseProfile() {
         if (!userData) return;
         const user = JSON.parse(userData);
         const res = await fetch(
-          `http://192.168.100.25:3001/api/profiles/${user.id}/`
+          `https://anansesem.onrender.com/api/v1/profile/`
         );
         const data = await res.json();
         setProfiles(data.profiles || []);

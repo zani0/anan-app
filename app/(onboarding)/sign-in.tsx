@@ -14,13 +14,11 @@ import Toast from "react-native-toast-message";
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Checkbox from "expo-checkbox";
-import * as SecureStore from "expo-secure-store";
 
-const BASE_URL = "http://192.168.100.25:3001/api/auth";
+const BASE_URL = "https://anansesem.onrender.com/api/v1";
 
 export default function SignIn() {
   const [isLoading, setIsLoading] = useState(false);
-
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
@@ -45,14 +43,23 @@ export default function SignIn() {
     loadSaved();
   }, []);
 
+  // Optional: Redirect if already logged in
+  useEffect(() => {
+    const checkToken = async () => {
+      const token = await AsyncStorage.getItem("token");
+      if (token) {
+        router.replace("/(onboarding)/choose-profile");
+      }
+    };
+
+    checkToken();
+  }, []);
+
   const handleChange = (field: keyof typeof form, value: string) => {
     setForm((prev) => ({ ...prev, [field]: value }));
   };
 
   const handleSubmit = async () => {
-    console.log("Sending to:", `${BASE_URL}/login`);
-    console.log("Body:", form);
-
     if (!form.email || !form.password) {
       Toast.show({
         type: "error",
@@ -72,7 +79,7 @@ export default function SignIn() {
       return;
     }
 
-    setIsLoading(true); // 🌀 Start loading
+    setIsLoading(true);
 
     try {
       if (rememberMe) {
@@ -99,14 +106,11 @@ export default function SignIn() {
         return;
       }
 
-      await AsyncStorage.setItem("user", JSON.stringify(data.user));
-
-      const hasProfiles = data.user.profiles && data.user.profiles.length > 0;
-      const destination = hasProfiles
-        ? "choose-profile"
-        : "create-child-profile";
-
-      await SecureStore.setItemAsync("age_verify_source", destination);
+      // ✅ Save token
+      if (data.token) {
+        await AsyncStorage.setItem("token", data.token);
+        console.log("Token saved:", data.token);
+      }
 
       Toast.show({
         type: "success",
@@ -123,21 +127,18 @@ export default function SignIn() {
         text2: "Something went wrong, try again.",
       });
     } finally {
-      setIsLoading(false); 
+      setIsLoading(false);
     }
-    
   };
 
   return (
     <View className="flex-1 justify-center items-center bg-[#60178b] px-6">
-      {/* Top Right Spiderweb */}
+      {/* Spiderwebs */}
       <Image
         source={require("@/assets/images/spider-web-1.png")}
         className="w-[150px] h-[120px] absolute top-[-20] right-[-30]"
         resizeMode="cover"
       />
-
-      {/* Bottom Left Spiderweb */}
       <Image
         source={require("@/assets/images/spider-web-2.png")}
         className="w-[170px] h-[80px] absolute bottom-0 left-0"
@@ -148,18 +149,15 @@ export default function SignIn() {
         contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }}
         showsVerticalScrollIndicator={false}
       >
-        {/* Title */}
         <Text className="text-[35px] font-caprasimo text-[#D0EE30] text-center mb-2">
           Sign In
         </Text>
 
-        {/* Subtitle */}
         <Text className="text-white font-poppins text-center mb-6">
           Enter your account details to log in and continue setting up parental
           controls.
         </Text>
 
-        {/* Form Card */}
         <View className="bg-white rounded-2xl p-6 shadow-md space-y-4">
           <TextInput
             placeholder="Email Address"
@@ -171,7 +169,6 @@ export default function SignIn() {
             onChangeText={(text) => handleChange("email", text)}
           />
 
-          {/* Password Field with Icon */}
           <View className="border border-gray-300 rounded-lg flex-row items-center px-4 mb-4">
             <TextInput
               placeholder="Password"
@@ -190,7 +187,6 @@ export default function SignIn() {
             </TouchableOpacity>
           </View>
 
-          {/* Checkbox */}
           <View className="flex-row items-center mb-2 mt-1">
             <Checkbox
               value={rememberMe}
@@ -202,7 +198,6 @@ export default function SignIn() {
             </Text>
           </View>
 
-          {/* Proceed */}
           <TouchableOpacity
             onPress={handleSubmit}
             disabled={isLoading}
@@ -217,20 +212,15 @@ export default function SignIn() {
             )}
           </TouchableOpacity>
 
-          {/* Create Account */}
-          <TouchableOpacity
-            onPress={() => router.push("/(onboarding)/sign-up")}
-          >
+          <TouchableOpacity onPress={() => router.push("/(onboarding)/sign-up")}>
             <Text className="text-center text-[#60178b] font-poppins mt-2 underline">
               Don’t have an account? Create one
             </Text>
           </TouchableOpacity>
         </View>
 
-        {/* Divider */}
         <Text className="text-white font-poppins text-center my-6">OR</Text>
 
-        {/* Social Buttons Row */}
         <View className="flex-row justify-center gap-6">
           <TouchableOpacity className="w-14 h-14 bg-white rounded-lg items-center justify-center">
             <Image
@@ -256,7 +246,6 @@ export default function SignIn() {
         </View>
       </ScrollView>
 
-      {/* Toast Popup */}
       <Toast />
     </View>
   );
