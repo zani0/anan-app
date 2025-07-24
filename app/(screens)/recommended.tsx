@@ -7,7 +7,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function Recommended() {
   const insets = useSafeAreaInsets();
-
+ 
   return (
     <View className="flex-1 bg-white">
       <ScrollView

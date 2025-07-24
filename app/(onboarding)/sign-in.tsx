@@ -107,9 +107,13 @@ export default function SignIn() {
       }
 
       // ✅ Save token
-      if (data.access_token) {
-        await AsyncStorage.setItem("token", data.access_token);
-        console.log("Token saved:", data.access_token);
+      const accessToken = data?.data?.access_token;
+
+      if (accessToken) {
+        await AsyncStorage.setItem("token", accessToken);
+        console.log("Token saved:", accessToken);
+      } else {
+        console.warn("Access token missing from response.");
       }
 
       Toast.show({
@@ -212,7 +216,9 @@ export default function SignIn() {
             )}
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => router.push("/(onboarding)/sign-up")}>
+          <TouchableOpacity
+            onPress={() => router.push("/(onboarding)/sign-up")}
+          >
             <Text className="text-center text-[#60178b] font-poppins mt-2 underline">
               Don’t have an account? Create one
             </Text>

@@ -30,6 +30,109 @@ export default function CreateChildProfile() {
     setForm((prev) => ({ ...prev, [field]: value }));
   };
 
+  //   const handleNext = async () => {
+  //     if (step === 1) {
+  //       setStep(step + 1);
+  //       return;
+  //     }
+
+  //     if (step === 2 && !form.name) {
+  //       Toast.show({ type: "error", text1: "Enter a name 🧒🏾" });
+  //       return;
+  //     }
+  //     if (step === 3 && !form.age) {
+  //       Toast.show({ type: "error", text1: "Select an age group 🎂" });
+  //       return;
+  //     }
+  //     if (step === 4 && !form.gender) {
+  //       Toast.show({ type: "error", text1: "Select a gender 🚻" });
+  //       return;
+  //     }
+  //     if (step === 5 && !form.search) {
+  //       Toast.show({ type: "error", text1: "Choose search setting 🔍" });
+  //       return;
+  //     }
+
+  //     if (step < 5) {
+  //       setStep(step + 1);
+  //     }
+
+  //     else {
+  //       // Inside handleNext, step === 5
+  //       try {
+  //         const userData = await AsyncStorage.getItem("user");
+  //         const token = await AsyncStorage.getItem("token");
+
+  //         if (!userData || !token) {
+  //           throw new Error("Missing user or token in storage");
+  //         }
+
+  //         let user;
+  //         try {
+  //           user = JSON.parse(userData);
+  //           if (!user?.id) throw new Error("User ID missing");
+  //         } catch (e) {
+  //           throw new Error("Invalid user data");
+  //         }
+
+  //         const response = await fetch(
+  //           "https://anansesem.onrender.com/api/v1/profile/",
+  //           {
+  //             method: "POST",
+  //             headers: {
+  //               "Content-Type": "application/json",
+  //               Authorization: `Bearer ${token}`, // ✅ Add bearer token
+  //             },
+  //             body: JSON.stringify({
+  //   bio: {
+  //     nickName: form.name, // or a separate nickname field if needed
+  //     avatar: `https://ui-avatars.com/api/?name=${form.name}`,
+  //     fullName: form.name,
+  //     dateOfBirth: "2023-05-23T00:00:00.000Z", // replace this with actual date later
+  //     gender: form.gender.toUpperCase(), // e.g. "MALE"
+  //     preferredLanguage: "ENGLISH", // default or let user pick later
+  //     readingLevel: "Advanced" // default or from future screen
+  //   },
+  //   interests: {
+  //     favoriteStoryGenre: "MYSTERY", // default or future form field
+  //     favoriteCharacter: "Monkey D. Luffy",
+  //     creativePreference: "READING",
+  //     favoriteColor: "Black"
+  //   },
+  //   storyPreferences: {
+  //     mood: "FUNNY",
+  //     themeOfInterest: "MAGIC"
+  //   }
+  // }),
+
+  //           }
+  //         );
+
+  //         const data = await response.json();
+
+  //         if (!response.ok) {
+  //           throw new Error(data.message || "Something went wrong");
+  //         }
+
+  //         Toast.show({
+  //           type: "success",
+  //           text1: "Profile created!",
+  //           text2: "You're all set 🎉",
+  //         });
+
+  //         setTimeout(() => {
+  //           router.replace("/(onboarding)/preferences/index");
+  //         }, 1500);
+  //       } catch (err: any) {
+  //         Toast.show({
+  //           type: "error",
+  //           text1: "Failed to create profile",
+  //           text2: err.message,
+  //         });
+  //       }
+  //     }
+  //   };
+
   const handleNext = async () => {
     if (step === 1) {
       setStep(step + 1);
@@ -56,58 +159,8 @@ export default function CreateChildProfile() {
     if (step < 5) {
       setStep(step + 1);
     } else {
-      // Inside handleNext, step === 5
-      try {
-        const userData = await AsyncStorage.getItem("user");
-        const token = await AsyncStorage.getItem("access_token"); // 🔐 Get token
-
-        const user = JSON.parse(userData || "{}");
-
-        if (!user?.id || !token) {
-          throw new Error("Missing user ID or token");
-        }
-
-        const response = await fetch(
-          "https://anansesem.onrender.com/api/v1/profile/",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`, // ✅ Add bearer token
-            },
-            body: JSON.stringify({
-              userId: user.id,
-              name: form.name,
-              age: form.age,
-              gender: form.gender,
-              search: form.search,
-              avatar: "https://ui-avatars.com/api/?name=" + form.name,
-            }),
-          }
-        );
-
-        const data = await response.json();
-
-        if (!response.ok) {
-          throw new Error(data.message || "Something went wrong");
-        }
-
-        Toast.show({
-          type: "success",
-          text1: "Profile created!",
-          text2: "You're all set 🎉",
-        });
-
-        setTimeout(() => {
-          router.replace("/(onboarding)/preferences/index");
-        }, 1500);
-      } catch (err: any) {
-        Toast.show({
-          type: "error",
-          text1: "Failed to create profile",
-          text2: err.message,
-        });
-      }
+      // 🚨 TEMPORARILY SKIPPING API
+      router.replace("/(onboarding)/preferences/index");
     }
   };
 

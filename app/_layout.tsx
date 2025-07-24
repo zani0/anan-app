@@ -17,7 +17,7 @@ import {
 } from "@expo-google-fonts/poppins";
 import { Caprasimo_400Regular } from "@expo-google-fonts/caprasimo";
 
-// import { UserProvider } from "@/context/UserContext";
+import { UserProvider } from "@/context/UserContext";
 
 SplashScreen.preventAutoHideAsync();
 

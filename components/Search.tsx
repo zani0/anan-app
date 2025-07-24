@@ -7,11 +7,20 @@ import {
   Platform,
 } from "react-native";
 import { SearchIcon } from "lucide-react-native";
+import { Route, useRouter } from "expo-router";
 
 export default function SearchBar() {
   const [query, setQuery] = useState("");
 
+  const router = useRouter();
+
   const handleSearch = () => {
+    if (query.trim()) {
+      router.push({
+        pathname: "/search-results",
+        params: { query },
+      });
+    }
     console.log("Search for:", query);
   };
 
@@ -61,7 +70,7 @@ const styles = StyleSheet.create({
   },
   button: {
     flex: 1,
-    backgroundColor: "#60178b", 
+    backgroundColor: "#60178b",
     justifyContent: "center",
     alignItems: "center",
     borderTopLeftRadius: 50,

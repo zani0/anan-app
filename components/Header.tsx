@@ -3,10 +3,10 @@ import { View, Text, Image, TouchableOpacity } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 
-import { useUser } from "@/context/UserContext";
+// import { useUser } from "@/context/UserContext";
 
 export default function Header() {
-  const { user } = useUser();
+  // const { user } = useUser();
   const insets = useSafeAreaInsets();
   const router = useRouter();
   const [greeting, setGreeting] = useState("");

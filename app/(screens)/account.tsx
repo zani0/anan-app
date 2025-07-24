@@ -12,7 +12,7 @@ import { useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ChevronRight } from "lucide-react-native";
 import VerifyAgePopup from "@/components/VerifyAgePopup";
-import { useUser } from "@/context/UserContext";
+// import { useUser } from "@/context/UserContext";
 
 const screenHeight = Dimensions.get("window").height;
 
@@ -25,7 +25,7 @@ const routes: Record<string, any> = {
 };
 
 export default function ParentAccount() {
-  const { user } = useUser();
+  // const { user } = useUser();
   const router = useRouter();
   const insets = useSafeAreaInsets();
 
