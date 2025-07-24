@@ -20,14 +20,12 @@ const mockResults = [
     id: "1",
     title: "A Visit to the Forest",
     category: "Folklore",
-    duration: "6:30",
     thumbnail: require("@/assets/images/vid1.png"),
   },
   {
     id: "2",
     title: "Ananse and the Pot of Wisdom",
     category: "Folklore",
-    duration: "12:00",
     thumbnail: require("@/assets/images/cartoon.jpg"),
   },
 ];
@@ -86,13 +84,13 @@ export default function SearchResults() {
                   {item.category}
                 </Text>
               </View>
-              {item.duration && (
+              {/* {item.duration && (
                 <View className="absolute bottom-2 right-2 bg-lime-300 px-2 py-0.5 rounded">
                   <Text className="text-black text-xs font-poppinsBold">
                     {item.duration}
                   </Text>
                 </View>
-              )}
+              )} */}
             </View>
             <View className="bg-[#60178b] p-3 rounded-b-xl h-28 justify-between">
               <Text

@@ -23,6 +23,7 @@ export default function Recommended() {
             Recommended
           </Text>
         </View>
+        
       </ScrollView>
     </View>
   );
