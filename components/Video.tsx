@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -9,30 +9,47 @@ import {
 } from "react-native";
 import YoutubePlayer from "react-native-youtube-iframe";
 import { Star, ChevronLeft, ChevronRight } from "lucide-react-native";
+import { useRouter } from "expo-router";
 
 const quizData = [
   {
-    question: "What did the hunters go to the forest to do?",
-    options: ["To fetch water", "To hunt", "To sleep", "To plant trees"],
-    answer: "To hunt",
+    question: "Where did the three village hunters go?",
+    options: ["Forest", "Home", "School", "Market"],
+    answer: "Forest",
   },
   {
-    question: "How many hunters were there?",
-    options: ["One", "Two", "Three", "Four"],
-    answer: "Three",
+    question: "What did the hunters use to track animals?",
+    options: ["Dogs", "Magic", "Footprints", "Maps"],
+    answer: "Footprints",
+  },
+  {
+    question: "Who warned them not to go too deep?",
+    options: ["An old man", "A wise woman", "Their chief", "Their parents"],
+    answer: "An old man",
+  },
+  {
+    question: "What animal did they encounter?",
+    options: ["A lion", "A giant snake", "A bird", "A spirit"],
+    answer: "A giant snake",
+  },
+  {
+    question: "How did they escape?",
+    options: ["They climbed a tree", "They ran", "They fought it", "They tricked it"],
+    answer: "They tricked it",
   },
 ];
 
 const { width } = Dimensions.get("window");
 
 export default function Video() {
+  const router = useRouter();
   const [playVideo, setPlayVideo] = useState(false);
   const [rating, setRating] = useState(0);
   const [showQuiz, setShowQuiz] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
   const [score, setScore] = useState<number | null>(null);
-  const [showAnswers, setShowAnswers] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
 
   const handleOptionSelect = (option: string) => {
     const updated = [...selectedOptions];
@@ -48,7 +65,14 @@ export default function Video() {
       }
     });
     setScore(points);
-    setShowAnswers(true);
+    setShowPopup(true);
+  };
+
+  const handleRetry = () => {
+    setCurrentQuestion(0);
+    setSelectedOptions([]);
+    setScore(null);
+    setShowPopup(false);
   };
 
   const renderStars = () => (
@@ -71,7 +95,6 @@ export default function Video() {
 
   return (
     <View className="w-full relative">
-      {/* Video or Thumbnail */}
       {!playVideo ? (
         <TouchableOpacity
           onPress={() => setPlayVideo(true)}
@@ -107,7 +130,6 @@ export default function Video() {
         />
       )}
 
-      {/* Title and Author */}
       <View className="w-full px-4 py-3">
         <Text className="text-purple-900 font-poppinsBold text-[23px]">
           The three village hunters
@@ -116,16 +138,13 @@ export default function Video() {
           Story by Nutifafa Tsikata
         </Text>
 
-        {/* Rating + Quiz Button */}
         <View className="flex-row mt-3 justify-between items-center">
           {renderStars()}
           <TouchableOpacity
             disabled={score !== null}
             onPress={() => setShowQuiz(true)}
             className={`px-4 py-2 rounded-xl ${
-              score !== null
-                ? "bg-gray-400"
-                : "bg-[#5a1786]"
+              score !== null ? "bg-gray-400" : "bg-[#5a1786]"
             }`}
           >
             <Text className="text-white font-poppins">
@@ -135,35 +154,23 @@ export default function Video() {
         </View>
       </View>
 
-      {/* QUIZ OVERLAY */}
       {showQuiz && (
-        <View
-          className="absolute top-0 left-0 w-full h-full items-center justify-center"
-          style={{ backgroundColor: "rgba(128, 90, 213, 0.9)" }} // Purple overlay
-        >
-          <View
-            style={{ width: width - 40 }}
-            className="bg-white rounded-xl p-5"
-          >
+        <View className="absolute inset-0 bg-[#845ec2dd] items-center justify-center px-4">
+          <View className="bg-white p-6 rounded-3xl w-full">
             <Text className="text-xl text-center font-bold mb-3 text-purple-900">
-              Quiz Time
+              Question {currentQuestion + 1}
+            </Text>
+            <Text className="text-lg text-center mb-5 font-poppins">
+              {quizData[currentQuestion].question}
             </Text>
 
-            <Text className="text-base font-semibold text-gray-800 mb-2">
-              {`Question ${currentQuestion + 1}: ${
-                quizData[currentQuestion].question
-              }`}
-            </Text>
-
-            {/* OPTIONS */}
             <View className="flex-row flex-wrap justify-between mb-4">
               {quizData[currentQuestion].options.map((option, idx) => {
                 const isSelected = selectedOptions[currentQuestion] === option;
                 const isCorrect = option === quizData[currentQuestion].answer;
-                const showFeedback = showAnswers;
 
-                let bgColor = "bg-gray-100";
-                if (showFeedback) {
+                let bgColor = "bg-white";
+                if (score !== null) {
                   if (isCorrect) bgColor = "bg-green-300";
                   else if (isSelected) bgColor = "bg-red-300";
                 } else if (isSelected) {
@@ -175,15 +182,16 @@ export default function Video() {
                     key={idx}
                     onPress={() => handleOptionSelect(option)}
                     className={`w-[48%] ${bgColor} rounded-md p-2 mb-2`}
-                    disabled={showAnswers}
+                    disabled={score !== null}
                   >
-                    <Text className="text-sm text-center">{option}</Text>
+                    <Text className="text-sm text-center text-purple-800 font-poppins">
+                      {option}
+                    </Text>
                   </TouchableOpacity>
                 );
               })}
             </View>
 
-            {/* Navigation */}
             <View className="flex-row justify-between items-center mb-4">
               <TouchableOpacity
                 disabled={currentQuestion === 0}
@@ -200,7 +208,6 @@ export default function Video() {
               </TouchableOpacity>
             </View>
 
-            {/* Submit + Skip */}
             <View className="flex-row justify-between items-center">
               <TouchableOpacity
                 onPress={() => {
@@ -224,6 +231,51 @@ export default function Video() {
                 <Text className="text-white">Submit</Text>
               </TouchableOpacity>
             </View>
+          </View>
+        </View>
+      )}
+
+      {showPopup && (
+        <View className="absolute inset-0 bg-black/40 items-center justify-center px-6">
+          <View className="bg-white p-6 rounded-3xl items-center w-full">
+            <Image
+              source={
+                score >= 3
+                  ? require("@/assets/images/avatar.png")
+                  : require("@/assets/images/oops.png")
+              }
+              className="w-32 h-32 mb-4"
+              resizeMode="contain"
+            />
+            <Text className="text-2xl font-caprasimo text-purple-800 mb-2">
+              {score >= 3 ? "Well done!" : "Oops!"}
+            </Text>
+            <Text className="text-lg font-poppins text-black mb-4">
+              You scored {score} out of {quizData.length}
+            </Text>
+
+            {score < 3 && (
+              <TouchableOpacity
+                onPress={handleRetry}
+                className="bg-yellow-400 px-6 py-3 rounded-full mb-3"
+              >
+                <Text className="text-black text-lg font-poppinsBold">
+                  Try Again
+                </Text>
+              </TouchableOpacity>
+            )}
+
+            <TouchableOpacity
+              onPress={() => {
+                setShowQuiz(false);
+                setShowPopup(false);
+              }}
+              className="bg-purple-700 px-6 py-3 rounded-full"
+            >
+              <Text className="text-white text-lg font-poppinsBold">
+                Back to Video
+              </Text>
+            </TouchableOpacity>
           </View>
         </View>
       )}

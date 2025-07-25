@@ -22,7 +22,7 @@ export default function OopsScreen() {
 
             {/* Ananse oops image */}
             <Image
-                source={require("@/assets/images/oops-illustration.png")}
+                source={require("@/assets/images/oops.png")}
                 className="h-[85px] mb-6"
                 resizeMode="contain"
             />
