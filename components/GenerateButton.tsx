@@ -13,9 +13,9 @@ export default function FloatingButton() {
       style={styles.buttonContainer}
     >
       <LinearGradient
-        colors={["#5a1786", "#ae2c44"]}
-        start={{ x: 4, y: 3 }}
-        end={{ x: 8, y: 2 }}
+        colors={["#7e22ce", "#ec4899"]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
         style={styles.gradient}
       >
         <Sparkles color="#fff" size={20} />

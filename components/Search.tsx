@@ -4,10 +4,9 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  Platform,
 } from "react-native";
 import { SearchIcon } from "lucide-react-native";
-import { Route, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 
 export default function SearchBar() {
   const [query, setQuery] = useState("");
