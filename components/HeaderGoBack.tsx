@@ -3,7 +3,11 @@ import { View, Text, Image, TouchableOpacity } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 
-export default function Header() {
+interface HeaderProps {
+  showProfilePicture?: boolean; // Optional prop
+}
+
+export default function Header({ showProfilePicture = true }: HeaderProps) {
   const insets = useSafeAreaInsets();
   const router = useRouter();
   const [greeting, setGreeting] = useState("");
@@ -22,6 +26,7 @@ export default function Header() {
         source={require("@/assets/images/spider-web-3.png")}
         className="w-[150px] h-[120px] absolute top-[-80] right-[-6]"
       />
+
       {/* Left: Back Button */}
       <TouchableOpacity onPress={() => router.back()}>
         <Image
@@ -31,13 +36,15 @@ export default function Header() {
         />
       </TouchableOpacity>
 
-      {/* Right: Avatar */}
-      <TouchableOpacity onPress={() => router.push("/account")}>
-        <Image
-          source={require("@/assets/images/avatar.png")}
-          className="w-11 h-11 rounded-full"
-        />
-      </TouchableOpacity>
+      {/* Right: Avatar (only if showProfilePicture is true) */}
+      {showProfilePicture && (
+        <TouchableOpacity onPress={() => router.push("/account")}>
+          <Image
+            source={require("@/assets/images/avatar.png")}
+            className="w-11 h-11 rounded-full"
+          />
+        </TouchableOpacity>
+      )}
     </View>
   );
 }

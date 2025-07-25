@@ -76,7 +76,7 @@ export default function ParentAccount() {
         contentContainerStyle={{ paddingTop: insets.top + 20 }}
       >
         <View className="bg-white mx-6">
-          <Header />
+          <Header showProfilePicture={false} />
         </View>
         {/* Header */}
         {/* <Text className="text-center text-4xl font-caprasimo text-purple-800">
