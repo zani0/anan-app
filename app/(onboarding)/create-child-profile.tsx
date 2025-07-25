@@ -118,7 +118,7 @@ export default function CreateChildProfile() {
         });
 
         setTimeout(() => {
-          router.replace("//preferences/");
+          router.replace("/(tabs)");
         }, 1500);
       } catch (err: any) {
         Toast.show({

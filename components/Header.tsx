@@ -2,20 +2,60 @@ import React, { useEffect, useState } from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
-
-// import { useUser } from "@/context/UserContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Header() {
-  // const { user } = useUser();
   const insets = useSafeAreaInsets();
   const router = useRouter();
-  const [greeting, setGreeting] = useState("");
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
 
   useEffect(() => {
-    const hour = new Date().getHours();
-    if (hour < 12) setGreeting("Good morning");
-    else if (hour < 18) setGreeting("Good afternoon");
-    else setGreeting("Good evening");
+    const fetchAvatar = async () => {
+      try {
+        const profileData = await AsyncStorage.getItem("selectedProfile");
+        const userData = await AsyncStorage.getItem("user");
+
+        if (!profileData || !userData) return;
+
+        const profile = JSON.parse(profileData);
+        const user = JSON.parse(userData);
+        const token = user?.data?.access_token;
+
+        const response = await fetch(
+          `https://anansesem.onrender.com/api/v1/profile/${profile.id}`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        if (!response.ok) {
+          console.error("Failed to fetch profile", response.status);
+          return;
+        }
+
+        const profileResult = await response.json();
+
+        const avatar = profileResult?.data?.avatar;
+
+        if (avatar && avatar !== "") {
+          setAvatarUrl(avatar);
+        } else {
+          setAvatarUrl(
+            `https://ui-avatars.com/api/?name=${encodeURIComponent(
+              profile.name
+            )}&background=random&color=fff&bold=true`
+          );
+        }
+      } catch (error) {
+        console.error("Error loading avatar", error);
+      }
+    };
+
+    fetchAvatar();
   }, []);
 
   return (
@@ -41,7 +81,11 @@ export default function Header() {
       {/* Right: Avatar */}
       <TouchableOpacity onPress={() => router.push("/account")}>
         <Image
-          source={require("@/assets/images/avatar.png")}
+          source={
+            avatarUrl
+              ? { uri: avatarUrl }
+              : require("@/assets/images/avatar.png")
+          }
           className="w-11 h-11 rounded-full"
         />
       </TouchableOpacity>
