@@ -76,7 +76,9 @@ export default function StoryCreatorForm() {
 
   return (
     <View className="flex-1 bg-white" style={{ paddingTop: insets.top }}>
+      <View className="mx-6">
       <Header />
+      </View>
 
       <ScrollView
         className="px-5 py-4"

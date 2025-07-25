@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -12,6 +12,8 @@ import { useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ChevronRight } from "lucide-react-native";
 import VerifyAgePopup from "@/components/VerifyAgePopup";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import Header from "@/components/HeaderGoBack";
 
 const screenHeight = Dimensions.get("window").height;
 
@@ -29,10 +31,27 @@ export default function ParentAccount() {
 
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
   const [showVerifyAge, setShowVerifyAge] = useState(false);
-
-  // Placeholder user values (since useUser was removed)
-  const name = "Parent";
+  const [name, setName] = useState("Parent");
   const points = 100;
+
+  useEffect(() => {
+    const loadParentName = async () => {
+      try {
+        const storedUser = await AsyncStorage.getItem("user");
+        if (storedUser) {
+          const parsed = JSON.parse(storedUser);
+          const accountName = parsed?.data?.name;
+          if (accountName) {
+            setName(accountName);
+          }
+        }
+      } catch (error) {
+        console.error("Failed to load account name:", error);
+      }
+    };
+
+    loadParentName();
+  }, []);
 
   const handleLogout = () => {
     setShowLogoutConfirm(true);
@@ -53,20 +72,25 @@ export default function ParentAccount() {
   return (
     <>
       <ScrollView
-        className="flex-1 bg-[#FFF2DF]"
+        className="flex-1 bg-white"
         contentContainerStyle={{ paddingTop: insets.top + 20 }}
       >
+        <View className="bg-white mx-6">
+          <Header />
+        </View>
         {/* Header */}
-        <Text className="text-center text-4xl font-caprasimo text-purple-800">
+        {/* <Text className="text-center text-4xl font-caprasimo text-purple-800">
           Profile
-        </Text>
+        </Text> */}
 
         {/* Profile Info */}
         <View className="items-center mt-6 mb-4">
           <View className="w-28 h-28 rounded-full border-4 border-black bg-white items-center justify-center mb-2 overflow-hidden">
             <Image
               source={{
-                uri: `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}`,
+                uri: `https://ui-avatars.com/api/?name=${encodeURIComponent(
+                  name
+                )}`,
               }}
               className="w-28 h-28 rounded-full"
               resizeMode="cover"
@@ -100,6 +124,15 @@ export default function ParentAccount() {
               </TouchableOpacity>
             ))}
           </View>
+
+          <TouchableOpacity
+            onPress={() => router.push("/choose-profile")}
+            className="bg-[#60178b] mt-6 py-3 rounded-full items-center"
+          >
+            <Text className="text-white text-lg font-poppinsBold">
+              Switch Profile
+            </Text>
+          </TouchableOpacity>
 
           {/* Log Out Button */}
           <TouchableOpacity
