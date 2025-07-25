@@ -77,142 +77,137 @@ export default function StoryCreatorForm() {
   return (
     <View className="flex-1 bg-white" style={{ paddingTop: insets.top }}>
       <Header />
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : undefined}
-        style={{ flex: 1 }}
-        keyboardVerticalOffset={100}
+
+      <ScrollView
+        className="px-5 py-4"
+        contentContainerStyle={{ paddingBottom: 100 }}
+        nestedScrollEnabled={true}
       >
-        <ScrollView
-          className="px-5 py-4"
-          contentContainerStyle={{ paddingBottom: 100 }}
-          nestedScrollEnabled={true}
-        >
-          <View className="justify-between items-center px-4 py-3 bg-white rounded-b-3xl">
-            <Text className="text-4xl text-[#5a1786] font-caprasimo">
-              AI Story Creator
-            </Text>
-            <Text className="text-base text-black text-center font-poppins mt-2">
-              Your story will be generated based on the options you select in
-              the following 3 categories
-            </Text>
-          </View>
+        <View className="justify-between items-center px-4 py-3 bg-white rounded-b-3xl">
+          <Text className="text-4xl text-[#5a1786] font-caprasimo">
+            AI Story Creator
+          </Text>
+          <Text className="text-base text-black text-center font-poppins mt-2">
+            Your story will be generated based on the options you select in the
+            following 3 categories
+          </Text>
+        </View>
 
-          <View className="mb-3 mt-4 flex-row items-center space-x-4">
-            <View className="w-4 h-4 rounded-full bg-purple-300 mr-4" />
-            <Text className="text-[#5a1786] font-poppinsBold text-xl ml-4">
-              Book Info
-            </Text>
-          </View>
+        <View className="mb-3 mt-4 flex-row items-center space-x-4">
+          <View className="w-4 h-4 rounded-full bg-purple-300 mr-4" />
+          <Text className="text-[#5a1786] font-poppinsBold text-xl ml-4">
+            Book Info
+          </Text>
+        </View>
 
-          <TextInput
-            placeholder="Title"
-            value={title}
-            onChangeText={setTitle}
-            className={inputClass}
+        <TextInput
+          placeholder="Title"
+          value={title}
+          onChangeText={setTitle}
+          className={inputClass}
+        />
+
+        <View style={{ zIndex: 5000 }}>
+          <DropDownPicker
+            open={languageOpen}
+            value={language}
+            items={languages}
+            setOpen={setLanguageOpen}
+            setValue={setLanguage}
+            setItems={setLanguages}
+            placeholder="Select Language"
+            style={dropdownStyle}
           />
+        </View>
 
-          <View style={{ zIndex: 5000 }}>
-            <DropDownPicker
-              open={languageOpen}
-              value={language}
-              items={languages}
-              setOpen={setLanguageOpen}
-              setValue={setLanguage}
-              setItems={setLanguages}
-              placeholder="Select Language"
-              style={dropdownStyle}
-            />
-          </View>
-
-          <View style={{ zIndex: 4000 }}>
-            <DropDownPicker
-              open={categoryOpen}
-              value={category}
-              items={categories}
-              setOpen={setCategoryOpen}
-              setValue={setCategory}
-              setItems={setCategories}
-              placeholder="Select Category"
-              style={dropdownStyle}
-            />
-          </View>
-
-          <View style={{ zIndex: 3000 }}>
-            <DropDownPicker
-              open={pagesOpen}
-              value={pages}
-              items={pageOptions}
-              setOpen={setPagesOpen}
-              setValue={setPages}
-              setItems={setPageOptions}
-              placeholder="Number of Pages"
-              style={dropdownStyle}
-            />
-          </View>
-
-          <View className="mb-3 mt-4 flex-row items-center space-x-4">
-            <View className="w-4 h-4 rounded-full bg-purple-300 mr-4" />
-            <Text className="text-[#5a1786] font-poppinsBold text-xl ml-4">
-              Character Info
-            </Text>
-          </View>
-
-          <TextInput
-            placeholder="Character Name"
-            value={characterName}
-            onChangeText={setCharacterName}
-            className={inputClass}
+        <View style={{ zIndex: 4000 }}>
+          <DropDownPicker
+            open={categoryOpen}
+            value={category}
+            items={categories}
+            setOpen={setCategoryOpen}
+            setValue={setCategory}
+            setItems={setCategories}
+            placeholder="Select Category"
+            style={dropdownStyle}
           />
+        </View>
 
-          <View style={{ zIndex: 2000 }}>
-            <DropDownPicker
-              open={genderOpen}
-              value={gender}
-              items={genders}
-              setOpen={setGenderOpen}
-              setValue={setGender}
-              setItems={setGenders}
-              placeholder="Gender"
-              style={dropdownStyle}
-            />
-          </View>
-
-          <View style={{ zIndex: 1000 }}>
-            <DropDownPicker
-              open={ageOpen}
-              value={age}
-              items={ageOptions}
-              setOpen={setAgeOpen}
-              setValue={setAge}
-              setItems={setAgeOptions}
-              placeholder="Age"
-              style={dropdownStyle}
-            />
-          </View>
-
-          <View className="mb-3 mt-4 flex-row items-center space-x-4">
-            <View className="w-4 h-4 rounded-full bg-purple-300 mr-4" />
-            <Text className="text-[#5a1786] font-poppinsBold text-xl ml-4">
-              Describe Your Story
-            </Text>
-          </View>
-          <TextInput
-            placeholder="Describe your story idea..."
-            value={description}
-            onChangeText={setDescription}
-            multiline
-            numberOfLines={8}
-            textAlignVertical="top"
-            className="border border-purple-300 bg-[#fdf9ff] rounded-xl px-4 py-3 text-base shadow-sm mb-6"
+        <View style={{ zIndex: 3000 }}>
+          <DropDownPicker
+            open={pagesOpen}
+            value={pages}
+            items={pageOptions}
+            setOpen={setPagesOpen}
+            setValue={setPages}
+            setItems={setPageOptions}
+            placeholder="Number of Pages"
+            style={dropdownStyle}
           />
+        </View>
 
-          <TouchableOpacity className="bg-[#60178b] rounded-full py-4 mb-10">
-            <Text className="text-white text-center text-lg font-poppinsBold">
-              Generate Story
-            </Text>
-          </TouchableOpacity>
-        </ScrollView>
-      </KeyboardAvoidingView>
+        <View className="mb-3 mt-4 flex-row items-center space-x-4">
+          <View className="w-4 h-4 rounded-full bg-purple-300 mr-4" />
+          <Text className="text-[#5a1786] font-poppinsBold text-xl ml-4">
+            Character Info
+          </Text>
+        </View>
+
+        <TextInput
+          placeholder="Character Name"
+          value={characterName}
+          onChangeText={setCharacterName}
+          className={inputClass}
+        />
+
+        <View style={{ zIndex: 2000 }}>
+          <DropDownPicker
+            open={genderOpen}
+            value={gender}
+            items={genders}
+            setOpen={setGenderOpen}
+            setValue={setGender}
+            setItems={setGenders}
+            placeholder="Gender"
+            style={dropdownStyle}
+          />
+        </View>
+
+        <View style={{ zIndex: 1000 }}>
+          <DropDownPicker
+            open={ageOpen}
+            value={age}
+            items={ageOptions}
+            setOpen={setAgeOpen}
+            setValue={setAge}
+            setItems={setAgeOptions}
+            placeholder="Age"
+            style={dropdownStyle}
+          />
+        </View>
+
+        <View className="mb-3 mt-4 flex-row items-center space-x-4">
+          <View className="w-4 h-4 rounded-full bg-purple-300 mr-4" />
+          <Text className="text-[#5a1786] font-poppinsBold text-xl ml-4">
+            Describe Your Story
+          </Text>
+        </View>
+        <TextInput
+          placeholder="Describe your story idea..."
+          value={description}
+          onChangeText={setDescription}
+          multiline
+          numberOfLines={8}
+          textAlignVertical="top"
+          className="border border-purple-300 bg-[#fdf9ff] rounded-xl px-4 py-3 text-base shadow-sm mb-6"
+        />
+
+        <TouchableOpacity className="bg-[#60178b] rounded-full py-4 mb-10">
+          <Text className="text-white text-center text-lg font-poppinsBold">
+            Generate Story
+          </Text>
+        </TouchableOpacity>
+      </ScrollView>
     </View>
   );
 }

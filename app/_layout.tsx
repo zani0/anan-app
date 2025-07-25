@@ -18,6 +18,8 @@ import {
 import { Caprasimo_400Regular } from "@expo-google-fonts/caprasimo";
 
 import { UserProvider } from "@/context/UserContext";
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+
 
 SplashScreen.preventAutoHideAsync();
 
@@ -101,6 +103,8 @@ export default function RootLayout() {
 
   // Main layout after loading
   return (
+        <GestureHandlerRootView style={{ flex: 1 }}>
+
       <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
         <Stack initialRouteName={initialRoute}>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
@@ -122,5 +126,6 @@ export default function RootLayout() {
         </Stack>
         <StatusBar hidden />
       </ThemeProvider>
+      </GestureHandlerRootView>
   );
 }

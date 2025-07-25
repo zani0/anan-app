@@ -13,19 +13,22 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import api from "@/utils/api/api";
 
 export default function ChooseProfile() {
-  const handleSelectProfile = async (profile: any) => {
-  await AsyncStorage.setItem('selectedProfile', JSON.stringify(profile));
-  router.push('/(tabs)'); 
-};
-  const getAvatarUrl = (profile: { name: string; avatar?: string }) =>
-  profile.avatar?.startsWith('http')
-    ? profile.avatar
-    : `https://ui-avatars.com/api/?name=${encodeURIComponent(profile.name)}&background=random&color=fff&bold=true`;
-
   const router = useRouter();
   const [profiles, setProfiles] = useState([]);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+
+  const handleSelectProfile = async (profile: any) => {
+    await AsyncStorage.setItem("selectedProfile", JSON.stringify(profile));
+    router.push("/(tabs)");
+  };
+
+  const getAvatarUrl = (profile: { name: string; avatar?: string }) =>
+    profile.avatar?.startsWith("http") && profile.avatar !== ""
+      ? profile.avatar
+      : `https://ui-avatars.com/api/?name=${encodeURIComponent(
+          profile.name
+        )}&background=random&color=fff&bold=true`;
 
   useEffect(() => {
     const fetchProfiles = async () => {
@@ -34,10 +37,15 @@ export default function ChooseProfile() {
         if (!userData) return;
         const user = JSON.parse(userData);
         const res = await api.get("/profile");
-        const data = await res.data;
-        console.log (data);
-        setProfiles(data.profiles || []);
-        console.log(data);
+        const rawProfiles = res.data;
+
+        const simplifiedProfiles = rawProfiles.map((profile: any) => ({
+          id: profile.id.toString(),
+          name: profile.bio.fullName,
+          avatar: profile.bio.avatar,
+        }));
+
+        setProfiles(simplifiedProfiles);
       } catch (err) {
         console.error("Failed to fetch profiles", err);
       } finally {

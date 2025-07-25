@@ -87,7 +87,10 @@ export default function FullStory() {
           dolor sit amet consectetur adipisicing elit. Eum maxime soluta
           repellat ullam impedit, accusamus est praesentium blanditiis, fugiat
           reprehenderit ipsa cumque explicabo perspiciatis ad quia, illo in
-          saepe assumenda!
+          saepe assumenda! Lorem ipsum dolor sit amet consectetur adipisicing
+          elit. Nisi corporis pariatur asperiores eius magni fugit sit quisquam
+          rerum quo, aliquam voluptatum reiciendis nesciunt ex vitae consequatur
+          dolor! Nostrum, consectetur nihil.
         </Text>
       </ScrollView>
     </ScrollView>
