@@ -9,71 +9,55 @@ import {
 } from "react-native";
 import YoutubePlayer from "react-native-youtube-iframe";
 import { Star, ChevronLeft, ChevronRight } from "lucide-react-native";
-import { useRouter } from "expo-router";
+import { CheckSquare, Square } from "lucide-react-native";
 
 const quizData = [
   {
-    question: "Where did the three village hunters go?",
-    options: ["Forest", "Home", "School", "Market"],
-    answer: "Forest",
+    question: "What did the hunters go to the forest to do?",
+    options: ["To fetch water", "To hunt", "To sleep", "To plant trees"],
+    answer: "To hunt",
   },
   {
-    question: "What did the hunters use to track animals?",
-    options: ["Dogs", "Magic", "Footprints", "Maps"],
-    answer: "Footprints",
-  },
-  {
-    question: "Who warned them not to go too deep?",
-    options: ["An old man", "A wise woman", "Their chief", "Their parents"],
-    answer: "An old man",
-  },
-  {
-    question: "What animal did they encounter?",
-    options: ["A lion", "A giant snake", "A bird", "A spirit"],
-    answer: "A giant snake",
-  },
-  {
-    question: "How did they escape?",
-    options: ["They climbed a tree", "They ran", "They fought it", "They tricked it"],
-    answer: "They tricked it",
+    question: "How many hunters were there?",
+    options: ["One", "Two", "Three", "Four"],
+    answer: "Three",
   },
 ];
 
 const { width } = Dimensions.get("window");
 
 export default function Video() {
-  const router = useRouter();
   const [playVideo, setPlayVideo] = useState(false);
   const [rating, setRating] = useState(0);
   const [showQuiz, setShowQuiz] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
-  const [score, setScore] = useState<number | null>(null);
-  const [showPopup, setShowPopup] = useState(false);
+  const [showScore, setShowScore] = useState(false);
 
   const handleOptionSelect = (option: string) => {
+    if (selectedOptions[currentQuestion]) return; // prevent reselect
     const updated = [...selectedOptions];
     updated[currentQuestion] = option;
     setSelectedOptions(updated);
   };
 
-  const submitQuiz = () => {
-    let points = 0;
-    selectedOptions.forEach((opt, i) => {
-      if (opt === quizData[i].answer) {
-        points++;
-      }
-    });
-    setScore(points);
-    setShowPopup(true);
+  const handleNext = () => {
+    if (currentQuestion < quizData.length - 1) {
+      setCurrentQuestion(currentQuestion + 1);
+    } else {
+      setShowScore(true);
+    }
   };
 
-  const handleRetry = () => {
-    setCurrentQuestion(0);
-    setSelectedOptions([]);
-    setScore(null);
-    setShowPopup(false);
+  const handlePrevious = () => {
+    if (currentQuestion > 0) {
+      setCurrentQuestion(currentQuestion - 1);
+    }
   };
+
+  const score = selectedOptions.filter(
+    (option, i) => option === quizData[i].answer
+  ).length;
 
   const renderStars = () => (
     <View className="flex-row items-center">
@@ -95,6 +79,7 @@ export default function Video() {
 
   return (
     <View className="w-full relative">
+      {/* Video or Thumbnail */}
       {!playVideo ? (
         <TouchableOpacity
           onPress={() => setPlayVideo(true)}
@@ -130,6 +115,7 @@ export default function Video() {
         />
       )}
 
+      {/* Info */}
       <View className="w-full px-4 py-3">
         <Text className="text-purple-900 font-poppinsBold text-[23px]">
           The three village hunters
@@ -138,144 +124,118 @@ export default function Video() {
           Story by Nutifafa Tsikata
         </Text>
 
+        {/* Rating + Quiz Button */}
         <View className="flex-row mt-3 justify-between items-center">
           {renderStars()}
           <TouchableOpacity
-            disabled={score !== null}
-            onPress={() => setShowQuiz(true)}
-            className={`px-4 py-2 rounded-xl ${
-              score !== null ? "bg-gray-400" : "bg-[#5a1786]"
-            }`}
+            onPress={() => {
+              setShowQuiz(true);
+              setCurrentQuestion(0);
+              setSelectedOptions([]);
+              setShowScore(false);
+            }}
+            className="px-4 py-2 rounded-xl bg-[#5a1786]"
           >
-            <Text className="text-white font-poppins">
-              {score !== null ? `Score: ${score}/${quizData.length}` : "Start Quiz"}
-            </Text>
+            <Text className="text-white font-poppins">Start Quiz</Text>
           </TouchableOpacity>
         </View>
       </View>
 
+      {/* QUIZ OVERLAY */}
       {showQuiz && (
-        <View className="absolute inset-0 bg-[#845ec2dd] items-center justify-center px-4">
-          <View className="bg-white p-6 rounded-3xl w-full">
-            <Text className="text-xl text-center font-bold mb-3 text-purple-900">
-              Question {currentQuestion + 1}
-            </Text>
-            <Text className="text-lg text-center mb-5 font-poppins">
-              {quizData[currentQuestion].question}
-            </Text>
+        <View
+          className="absolute top-0 left-0 w-full h-full px-5 py-10"
+          style={{ backgroundColor: "rgba(0,0,0,0.95)" }}
+        >
+          <View className="bg-white rounded-xl p-5 flex-1 justify-between">
+            {showScore ? (
+              <View className="items-center justify-center flex-1">
+                <Text className="text-2xl font-bold text-purple-800 mb-2">
+                  🎉 Quiz Completed!
+                </Text>
+                <Text className="text-xl text-black mb-4">
+                  You got {score} out of {quizData.length} correct!
+                </Text>
+                <TouchableOpacity
+                  onPress={() => setShowQuiz(false)}
+                  className="bg-purple-700 px-6 py-3 rounded-full"
+                >
+                  <Text className="text-white text-lg font-bold">
+                    Back to Video
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            ) : (
+              <>
+                <View>
+                  <Text className="text-lg font-bold text-purple-800 mb-2">
+                    Question {currentQuestion + 1} of {quizData.length}
+                  </Text>
+                  <Text className="text-base text-black font-semibold mb-4">
+                    {quizData[currentQuestion].question}
+                  </Text>
 
-            <View className="flex-row flex-wrap justify-between mb-4">
-              {quizData[currentQuestion].options.map((option, idx) => {
-                const isSelected = selectedOptions[currentQuestion] === option;
-                const isCorrect = option === quizData[currentQuestion].answer;
+                  {quizData[currentQuestion].options.map((option, i) => {
+                    const selected = selectedOptions[currentQuestion];
+                    const isCorrect =
+                      selected &&
+                      option === quizData[currentQuestion].answer;
+                    const isWrong =
+                      selected === option &&
+                      option !== quizData[currentQuestion].answer;
 
-                let bgColor = "bg-white";
-                if (score !== null) {
-                  if (isCorrect) bgColor = "bg-green-300";
-                  else if (isSelected) bgColor = "bg-red-300";
-                } else if (isSelected) {
-                  bgColor = "bg-yellow-300";
-                }
+                    let bgColor = "bg-gray-100";
+                    if (selected) {
+                      if (isCorrect) bgColor = "bg-green-400";
+                      else if (isWrong) bgColor = "bg-red-400";
+                    }
 
-                return (
+                    return (
+                      <TouchableOpacity
+                        key={i}
+                        onPress={() => handleOptionSelect(option)}
+                        className={`flex-row items-center gap-3 px-4 py-3 mb-2 rounded-lg ${bgColor}`}
+                        disabled={!!selected}
+                      >
+                        {selected === option ? (
+                          <CheckSquare color="#4b0082" size={24} />
+                        ) : (
+                          <Square color="#4b0082" size={24} />
+                        )}
+                        <Text className="text-black text-base">{option}</Text>
+                      </TouchableOpacity>
+                    );
+                  })}
+                </View>
+
+                {/* Navigation */}
+                <View className="flex-row justify-between items-center mt-4">
                   <TouchableOpacity
-                    key={idx}
-                    onPress={() => handleOptionSelect(option)}
-                    className={`w-[48%] ${bgColor} rounded-md p-2 mb-2`}
-                    disabled={score !== null}
+                    onPress={handlePrevious}
+                    disabled={currentQuestion === 0}
+                    className="px-4 py-2 rounded-lg bg-gray-300"
                   >
-                    <Text className="text-sm text-center text-purple-800 font-poppins">
-                      {option}
+                    <Text className="text-black">Previous</Text>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity
+                    onPress={handleNext}
+                    disabled={!selectedOptions[currentQuestion]}
+                    className={`px-4 py-2 rounded-lg ${
+                      selectedOptions[currentQuestion]
+                        ? "bg-purple-700"
+                        : "bg-gray-300"
+                    }`}
+                  >
+                    <Text className="text-white">
+                      {currentQuestion === quizData.length - 1
+                        ? "Finish"
+                        : "Next"}
                     </Text>
                   </TouchableOpacity>
-                );
-              })}
-            </View>
-
-            <View className="flex-row justify-between items-center mb-4">
-              <TouchableOpacity
-                disabled={currentQuestion === 0}
-                onPress={() => setCurrentQuestion((prev) => prev - 1)}
-              >
-                <ChevronLeft color="#6b21a8" size={28} />
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                disabled={currentQuestion === quizData.length - 1}
-                onPress={() => setCurrentQuestion((prev) => prev + 1)}
-              >
-                <ChevronRight color="#6b21a8" size={28} />
-              </TouchableOpacity>
-            </View>
-
-            <View className="flex-row justify-between items-center">
-              <TouchableOpacity
-                onPress={() => {
-                  setShowQuiz(false);
-                  setCurrentQuestion(0);
-                }}
-                className="px-4 py-2 bg-gray-300 rounded-lg"
-              >
-                <Text>Skip</Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                disabled={selectedOptions.length < quizData.length}
-                onPress={submitQuiz}
-                className={`px-4 py-2 rounded-full ${
-                  selectedOptions.length < quizData.length
-                    ? "bg-gray-400"
-                    : "bg-[#5a1786]"
-                }`}
-              >
-                <Text className="text-white">Submit</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-      )}
-
-      {showPopup && (
-        <View className="absolute inset-0 bg-black/40 items-center justify-center px-6">
-          <View className="bg-white p-6 rounded-3xl items-center w-full">
-            <Image
-              source={
-                score >= 3
-                  ? require("@/assets/images/avatar.png")
-                  : require("@/assets/images/oops.png")
-              }
-              className="w-32 h-32 mb-4"
-              resizeMode="contain"
-            />
-            <Text className="text-2xl font-caprasimo text-purple-800 mb-2">
-              {score >= 3 ? "Well done!" : "Oops!"}
-            </Text>
-            <Text className="text-lg font-poppins text-black mb-4">
-              You scored {score} out of {quizData.length}
-            </Text>
-
-            {score < 3 && (
-              <TouchableOpacity
-                onPress={handleRetry}
-                className="bg-yellow-400 px-6 py-3 rounded-full mb-3"
-              >
-                <Text className="text-black text-lg font-poppinsBold">
-                  Try Again
-                </Text>
-              </TouchableOpacity>
+                </View>
+              </>
             )}
-
-            <TouchableOpacity
-              onPress={() => {
-                setShowQuiz(false);
-                setShowPopup(false);
-              }}
-              className="bg-purple-700 px-6 py-3 rounded-full"
-            >
-              <Text className="text-white text-lg font-poppinsBold">
-                Back to Video
-              </Text>
-            </TouchableOpacity>
           </View>
         </View>
       )}
