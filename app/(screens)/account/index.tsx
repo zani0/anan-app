@@ -64,10 +64,7 @@ export default function ParentAccount() {
             Top Picks for {childName}
           </Text>
         </View>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-        >
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {data.map((_, index) => (
             <TouchableOpacity
               key={`${childName}-${index}`}
@@ -169,7 +166,7 @@ export default function ParentAccount() {
               {children.map((child, i) => (
                 <View
                   key={i}
-                  className="flex-row justify-between items-center border-t border-[#60178b] py-2"
+                  className="flex-row justify-between items-center border-[#60178b] py-2"
                 >
                   <Text className="font-poppins text-black">{child.name}</Text>
                   <TouchableOpacity className="bg-gray-200 px-3 py-1 rounded-full">
@@ -180,18 +177,31 @@ export default function ParentAccount() {
             </View>
 
             {/* Comprehension for each child */}
-            {children.map((child, i) => (
-              <View key={i} className="bg-[#f6f3fa] rounded-xl p-4 mb-6">
-                <Text className="text-lg font-poppinsBold text-[#60178b] mb-2">
-                  {child.name}'s Comprehension Progress
-                </Text>
-                <Image
-                  source={require("@/assets/images/chart.png")}
-                  className="w-full h-[100px] rounded-md"
-                  resizeMode="contain"
-                />
+            {/* Comprehension for each child (2 columns) */}
+            <View className="bg-[#f6f3fa] rounded-xl p-4 mb-6">
+              <Text className="text-lg font-poppinsBold text-[#60178b] mb-4">
+                Comprehension Progress
+              </Text>
+
+              <View className="flex-row flex-wrap justify-between">
+                {children.map((child, i) => (
+                  <View
+                    key={i}
+                    className="bg-white rounded-lg mb-4 p-3"
+                    style={{ width: "48%" }}
+                  >
+                    <Text className="font-poppinsBold text-[#60178b] mb-2">
+                      {child.name}
+                    </Text>
+                    <Image
+                      source={require("@/assets/images/chart.png")}
+                      className="w-full h-[80px] rounded-md"
+                      resizeMode="contain"
+                    />
+                  </View>
+                ))}
               </View>
-            ))}
+            </View>
 
             {/* Top Picks */}
             {children.map((child) => renderTopPicks(child.name))}
