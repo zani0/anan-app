@@ -104,12 +104,10 @@ export default function ChooseProfile() {
         showsVerticalScrollIndicator={false}
       >
         <View className="w-full max-w-[360px]">
-          {/* Title */}
           <Text className="text-[30px] font-caprasimo text-[#D0EE30] text-center mb-4">
             Who’s watching?
           </Text>
 
-          {/* Subtitle */}
           <Text className="font-poppins text-white text-base text-center mb-8">
             Select a profile to continue learning
           </Text>
@@ -168,8 +166,11 @@ export default function ChooseProfile() {
               </Text>
             </TouchableOpacity>
 
-                        {/* Manage profiles button  */}
-            <TouchableOpacity className="py-3 px-8 rounded-xl w-[50vw] justify-center mt-6 bg-[#60178b] border-white border-[1px] border-solid">
+            {/* Manage profiles button  */}
+            <TouchableOpacity
+              onPress={() => router.push("/account/manage-profiles")}
+              className="py-3 px-8 rounded-xl w-[50vw] justify-center mt-6 bg-[#60178b] border-white border-[1px] border-solid"
+            >
               <Text className="font-poppins text-[13px] text-center text-white">
                 Manage Profiles
               </Text>
