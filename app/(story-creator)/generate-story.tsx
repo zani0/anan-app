@@ -200,7 +200,7 @@ export default function StoryCreatorForm() {
         <Header />
         <CategorySlider />
         <View className="mt-6">
-          <View className="bg-[#5D1889] px-4 py-2 rounded-l-[40px] rounded-tr-[40px] rounded-br-0  w-[55vw]">
+          <View className="bg-[#5D1889] px-4 py-2 rounded-l-[40px] rounded-tr-[40px] rounded-br-0  w-[50vw]">
             <Text className="text-white font-poppinsBold text-base">
               Create your own story
             </Text>
@@ -209,7 +209,9 @@ export default function StoryCreatorForm() {
       </View>
 
       <View className="mx-8 mt-6 mb-4">
-        <Text className="font-poppinsBold text-[#60178b]">What kind of story do you want to create?</Text>
+        <Text className="font-poppinsBold text-[#60178b]">
+          What kind of story do you want to create?
+        </Text>
       </View>
 
       {/* Tabs */}
@@ -217,7 +219,7 @@ export default function StoryCreatorForm() {
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{ paddingHorizontal: 24, gap: 16 }}
-        className="mt-4 pb-6"
+        className="mt-4 mb-4 pb-8"
       >
         {[
           {
@@ -261,12 +263,18 @@ export default function StoryCreatorForm() {
       >
         {activeTab === "book" && (
           <>
+            <Text className="text-[#5D1889] text-lg font-poppinsBold mb-2">
+              What is the title of your book?
+            </Text>
             <TextInput
               placeholder="Book Title"
               value={title}
               onChangeText={setTitle}
               className={inputClass}
             />
+            <Text className="text-[#5D1889] text-lg font-poppinsBold mb-2">
+              What is the language of your book?
+            </Text>
             <DropDownPicker
               open={languageOpen}
               value={language}
@@ -279,6 +287,9 @@ export default function StoryCreatorForm() {
               dropDownContainerStyle={dropdownStyle}
               zIndex={5000}
             />
+            <Text className="text-[#5D1889] text-lg font-poppinsBold mb-2">
+              What is the category of your story?
+            </Text>
             <DropDownPicker
               open={categoryOpen}
               value={category}
@@ -291,6 +302,9 @@ export default function StoryCreatorForm() {
               dropDownContainerStyle={dropdownStyle}
               zIndex={4000}
             />
+            <Text className="text-[#5D1889] text-lg font-poppinsBold mb-2">
+              How many pages is your book?
+            </Text>
             <DropDownPicker
               open={pagesOpen}
               value={pages}
@@ -308,12 +322,18 @@ export default function StoryCreatorForm() {
 
         {activeTab === "character" && (
           <>
+            <Text className="text-[#5D1889] text-lg font-poppinsBold mb-2">
+              What is the name of your main characater?
+            </Text>
             <TextInput
               placeholder="Character Name"
               value={characterName}
               onChangeText={setCharacterName}
               className={inputClass}
             />
+            <Text className="text-[#5D1889] text-lg font-poppinsBold mb-2">
+              What gender is your main character?
+            </Text>
             <DropDownPicker
               open={genderOpen}
               value={gender}
@@ -326,6 +346,9 @@ export default function StoryCreatorForm() {
               dropDownContainerStyle={dropdownStyle}
               zIndex={2000}
             />
+            <Text className="text-[#5D1889] text-lg font-poppinsBold mb-2">
+              How many pages does your story have?
+            </Text>
             <DropDownPicker
               open={ageOpen}
               value={age}
