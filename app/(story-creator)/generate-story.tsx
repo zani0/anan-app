@@ -6,11 +6,16 @@ import {
   TextInput,
   TouchableOpacity,
   ScrollView,
-  KeyboardAvoidingView,
   Platform,
+  LogBox,
 } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+
+// Silence VirtualizedList warning from DropDownPicker
+LogBox.ignoreLogs([
+  "VirtualizedLists should never be nested inside plain ScrollViews",
+]);
 
 export default function StoryCreatorForm() {
   const insets = useSafeAreaInsets();
@@ -77,14 +82,16 @@ export default function StoryCreatorForm() {
   return (
     <View className="flex-1 bg-white" style={{ paddingTop: insets.top }}>
       <View className="mx-6">
-      <Header />
+        <Header />
       </View>
 
       <ScrollView
         className="px-5 py-4"
         contentContainerStyle={{ paddingBottom: 100 }}
-        nestedScrollEnabled={true}
+        keyboardShouldPersistTaps="handled"
+        nestedScrollEnabled
       >
+        {/* Header */}
         <View className="justify-between items-center px-4 py-3 bg-white rounded-b-3xl">
           <Text className="text-4xl text-[#5a1786] font-caprasimo">
             AI Story Creator
@@ -95,9 +102,10 @@ export default function StoryCreatorForm() {
           </Text>
         </View>
 
-        <View className="mb-3 mt-4 flex-row items-center space-x-4">
+        {/* Book Info */}
+        <View className="mb-3 mt-4 flex-row items-center">
           <View className="w-4 h-4 rounded-full bg-purple-300 mr-4" />
-          <Text className="text-[#5a1786] font-poppinsBold text-xl ml-4">
+          <Text className="text-[#5a1786] font-poppinsBold text-xl">
             Book Info
           </Text>
         </View>
@@ -119,6 +127,7 @@ export default function StoryCreatorForm() {
             setItems={setLanguages}
             placeholder="Select Language"
             style={dropdownStyle}
+            dropDownContainerStyle={dropdownStyle}
           />
         </View>
 
@@ -132,6 +141,7 @@ export default function StoryCreatorForm() {
             setItems={setCategories}
             placeholder="Select Category"
             style={dropdownStyle}
+            dropDownContainerStyle={dropdownStyle}
           />
         </View>
 
@@ -145,12 +155,14 @@ export default function StoryCreatorForm() {
             setItems={setPageOptions}
             placeholder="Number of Pages"
             style={dropdownStyle}
+            dropDownContainerStyle={dropdownStyle}
           />
         </View>
 
-        <View className="mb-3 mt-4 flex-row items-center space-x-4">
+        {/* Character Info */}
+        <View className="mb-3 mt-4 flex-row items-center">
           <View className="w-4 h-4 rounded-full bg-purple-300 mr-4" />
-          <Text className="text-[#5a1786] font-poppinsBold text-xl ml-4">
+          <Text className="text-[#5a1786] font-poppinsBold text-xl">
             Character Info
           </Text>
         </View>
@@ -172,6 +184,7 @@ export default function StoryCreatorForm() {
             setItems={setGenders}
             placeholder="Gender"
             style={dropdownStyle}
+            dropDownContainerStyle={dropdownStyle}
           />
         </View>
 
@@ -185,12 +198,14 @@ export default function StoryCreatorForm() {
             setItems={setAgeOptions}
             placeholder="Age"
             style={dropdownStyle}
+            dropDownContainerStyle={dropdownStyle}
           />
         </View>
 
-        <View className="mb-3 mt-4 flex-row items-center space-x-4">
+        {/* Description */}
+        <View className="mb-3 mt-4 flex-row items-center">
           <View className="w-4 h-4 rounded-full bg-purple-300 mr-4" />
-          <Text className="text-[#5a1786] font-poppinsBold text-xl ml-4">
+          <Text className="text-[#5a1786] font-poppinsBold text-xl">
             Describe Your Story
           </Text>
         </View>
@@ -199,11 +214,12 @@ export default function StoryCreatorForm() {
           value={description}
           onChangeText={setDescription}
           multiline
-          numberOfLines={8}
           textAlignVertical="top"
           className="border border-purple-300 bg-[#fdf9ff] rounded-xl px-4 py-3 text-base shadow-sm mb-6"
+          style={{ minHeight: 160 }}
         />
 
+        {/* Button */}
         <TouchableOpacity className="bg-[#60178b] rounded-full py-4 mb-10">
           <Text className="text-white text-center text-lg font-poppinsBold">
             Generate Story
