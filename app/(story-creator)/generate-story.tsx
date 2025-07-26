@@ -70,7 +70,7 @@ export default function StoryCreatorForm() {
   const [description, setDescription] = useState("");
 
   const inputClass =
-    "border border-purple-300 bg-[#fdf9ff] rounded-xl px-4 py-3 text-base shadow-sm mb-4";
+    "border border-purple-300 text-[#60178b] bg-[#fdf9ff] rounded-xl px-4 py-3 text-base shadow-sm mb-4 font-poppins";
 
   const dropdownStyle = {
     marginBottom: 20,
@@ -228,7 +228,7 @@ export default function StoryCreatorForm() {
           {[
             {
               key: "book",
-              label: "Book Info",
+              label: "Story Info",
               image: require("@/assets/images/vid.png"),
             },
             {
@@ -376,7 +376,7 @@ export default function StoryCreatorForm() {
               multiline
               textAlignVertical="top"
               maxLength={5000}
-              className="rounded-xl bg-[#fdf9ff] border border-purple-300 px-4 py-4 text-base shadow-sm mb-2"
+              className="rounded-xl bg-[#fdf9ff] border border-purple-300 px-4 py-4 text-base font-poppins shadow-sm mb-2"
               style={{ minHeight: 160 }}
             />
             <Text className="text-right text-sm text-gray-500 mb-6">

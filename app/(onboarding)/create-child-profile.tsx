@@ -260,14 +260,14 @@ export default function CreateChildProfile() {
                 >
                   <Image
                     source={item.image}
-                    className="w-14 h-14 mr-4"
+                    className="w-20 h-20 mr-4"
                     resizeMode="contain"
                   />
                   <View>
-                    <Text className="text-base font-poppinsBold text-[#60178b]">
+                    <Text className="text-lg font-poppinsBold text-[#60178b]">
                       {item.label}
                     </Text>
-                    <Text className="text-sm text-gray-500">
+                    <Text className="text-base text-gray-500 font-poppins">
                       {item.description}
                     </Text>
                   </View>
