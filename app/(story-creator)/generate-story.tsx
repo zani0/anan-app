@@ -199,8 +199,8 @@ export default function StoryCreatorForm() {
       <View className="mx-6">
         <Header />
         <CategorySlider />
-        <View className="">
-          <View className="bg-[#5D1889] px-4 py-2 rounded-l-[40px] rounded-tr-[40px] rounded-br-0  w-[65vw]">
+        <View className="mt-6">
+          <View className="bg-[#5D1889] px-4 py-2 rounded-l-[40px] rounded-tr-[40px] rounded-br-0  w-[55vw]">
             <Text className="text-white font-poppinsBold text-base">
               Create your own story
             </Text>
@@ -208,12 +208,16 @@ export default function StoryCreatorForm() {
         </View>
       </View>
 
+      <View className="mx-8 mt-6 mb-4">
+        <Text className="font-poppinsBold text-[#60178b]">What kind of story do you want to create?</Text>
+      </View>
+
       {/* Tabs */}
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{ paddingHorizontal: 24, gap: 16 }}
-        className="mt-4"
+        className="mt-4 pb-6"
       >
         {[
           {
@@ -235,8 +239,8 @@ export default function StoryCreatorForm() {
           <TouchableOpacity
             key={tab.key}
             onPress={() => setActiveTab(tab.key as any)}
-            className={`w-32 h-36 items-center justify-between p-4 rounded-2xl ${
-              activeTab === tab.key ? "bg-[#d5ff32]" : "bg-purple-100"
+            className={`w-32 h-36 items-center justify-around p-4 rounded-2xl border-[#60178b] border-solid border-[1px] ${
+              activeTab === tab.key ? "bg-[#d5ff32]" : "bg-white"
             }`}
           >
             <Image
@@ -244,7 +248,7 @@ export default function StoryCreatorForm() {
               className="w-12 h-12"
               resizeMode="contain"
             />
-            <Text className="text-center font-poppinsBold text-[#5D1889] mt-2">
+            <Text className="text-center font-poppinsBold text-[#5D1889] text-[12px]">
               {tab.label}
             </Text>
           </TouchableOpacity>
