@@ -62,7 +62,7 @@ export default function VerifyAgePopup({ visible, onClose }: Props) {
         setModalVisible(false);
         onClose();
         await SecureStore.deleteItemAsync("age_verify_source");
-        await SecureStore.deleteItemAsync("userToken");
+        await SecureStore.deleteItemAsync("token");
         router.replace("/(onboarding)/sign-in");
       }, 1500);
     } else {
@@ -84,9 +84,9 @@ export default function VerifyAgePopup({ visible, onClose }: Props) {
             </Text>
 
             {/* Subtitle */}
-            <Text className="font-poppins text-white text-sm text-center mb-6">
+            {/* <Text className="font-poppins text-white text-sm text-center mb-6">
               We won’t store your age — it's just a quick check!
-            </Text>
+            </Text> */}
 
             {/* Year Inputs */}
             <View className="flex-row justify-center mb-6">
