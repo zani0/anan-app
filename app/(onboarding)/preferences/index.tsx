@@ -1,49 +1,20 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  ScrollView,
-  TouchableOpacity,
-  Image,
-} from "react-native";
+import { View, Text, ScrollView, TouchableOpacity, Image } from "react-native";
 
 const purple = "#60178b";
 const yellow = "#D0EE30";
-const green = "#2ecc71";
 
-const interests = [
-  "Animals", "Magic", "Sports", "Adventure", "Science", "Art", "Space"
-];
+const interests = ["Animals", "Magic", "Sports", "Adventure", "Science", "Art", "Space"];
+const learningStyles = ["Visual", "Logical", "Linguistic", "Informational", "Egyptian Tales", "Sound"];
+const storyGenres = ["Fairy Tales", "Mystery", "Adventure", "Folktales", "Funny", "Historical", "Fantasy", "Realistic Fiction"];
 
-const learningStyles = [
-  "Visual", "Logical", "Linguistic", "Informational", "Egyptian Tales", "Sound"
-];
-
-const storyGenres = [
-  "Fairy Tales", "Mystery", "Adventure", "Folktales", "Funny", "Historical", "Fantasy", "Realistic Fiction"
-];
-
-const Pill = ({
-  label,
-  selected,
-  onPress,
-}: {
-  label: string;
-  selected: boolean;
-  onPress: () => void;
-}) => (
+const Pill = ({ label, selected, onPress }: { label: string; selected: boolean; onPress: () => void }) => (
   <TouchableOpacity
     onPress={onPress}
-    className={`px-4 py-2 rounded-full border mr-2 mb-3 ${
-      selected ? "bg-[#2ecc71]" : "bg-white"
-    }`}
-    style={{
-      borderColor: purple,
-    }}
+    className={`px-4 py-2 rounded-full border mr-2 mb-3 ${selected ? "bg-[#D0EE30]" : "bg-white"}`}
+    style={{ borderColor: purple }}
   >
-    <Text style={{ color: selected ? "white" : purple, fontWeight: "600" }}>
-      {label}
-    </Text>
+    <Text style={{ color: purple, fontWeight: "600" }}>{label}</Text>
   </TouchableOpacity>
 );
 
@@ -60,7 +31,7 @@ export default function ChoosePreferences({ navigation }: any) {
   ) => {
     if (selectedList.includes(item)) {
       setList(selectedList.filter((i) => i !== item));
-    } else if (selectedList.length < 3) {
+    } else {
       setList([...selectedList, item]);
     }
   };
@@ -74,8 +45,13 @@ export default function ChoosePreferences({ navigation }: any) {
     if (step < 3) {
       setStep(step + 1);
     } else {
-      // Save preferences or navigate
       navigation.navigate("NextScreen");
+    }
+  };
+
+  const handleBack = () => {
+    if (step > 1) {
+      setStep(step - 1);
     }
   };
 
@@ -84,11 +60,8 @@ export default function ChoosePreferences({ navigation }: any) {
       case 1:
         return (
           <>
-            <Text className="text-[20px] font-bold text-[#60178b] mb-2 text-center">
+            <Text className="text-[20px] font-bold text-[#60178b] mb-4 text-center">
               What is your child interested in?
-            </Text>
-            <Text className="text-center text-gray-600 mb-4">
-              Select as many that apply (up to 3)
             </Text>
             <View className="flex-row flex-wrap">
               {interests.map((item) => (
@@ -96,9 +69,7 @@ export default function ChoosePreferences({ navigation }: any) {
                   key={item}
                   label={item}
                   selected={selectedInterests.includes(item)}
-                  onPress={() =>
-                    toggleSelection(item, selectedInterests, setSelectedInterests)
-                  }
+                  onPress={() => toggleSelection(item, selectedInterests, setSelectedInterests)}
                 />
               ))}
             </View>
@@ -107,7 +78,7 @@ export default function ChoosePreferences({ navigation }: any) {
       case 2:
         return (
           <>
-            <Text className="text-[20px] font-bold text-[#60178b] mb-2 text-center">
+            <Text className="text-[20px] font-bold text-[#60178b] mb-4 text-center">
               What is your child’s learning style?
             </Text>
             <View className="flex-row flex-wrap">
@@ -116,9 +87,7 @@ export default function ChoosePreferences({ navigation }: any) {
                   key={item}
                   label={item}
                   selected={selectedStyles.includes(item)}
-                  onPress={() =>
-                    toggleSelection(item, selectedStyles, setSelectedStyles)
-                  }
+                  onPress={() => toggleSelection(item, selectedStyles, setSelectedStyles)}
                 />
               ))}
             </View>
@@ -127,7 +96,7 @@ export default function ChoosePreferences({ navigation }: any) {
       case 3:
         return (
           <>
-            <Text className="text-[20px] font-bold text-[#60178b] mb-2 text-center">
+            <Text className="text-[20px] font-bold text-[#60178b] mb-4 text-center">
               What story genres does your child like?
             </Text>
             <View className="flex-row flex-wrap">
@@ -136,9 +105,7 @@ export default function ChoosePreferences({ navigation }: any) {
                   key={item}
                   label={item}
                   selected={selectedGenres.includes(item)}
-                  onPress={() =>
-                    toggleSelection(item, selectedGenres, setSelectedGenres)
-                  }
+                  onPress={() => toggleSelection(item, selectedGenres, setSelectedGenres)}
                 />
               ))}
             </View>
@@ -151,41 +118,63 @@ export default function ChoosePreferences({ navigation }: any) {
 
   return (
     <View className="flex-1 bg-[#60178b] px-6 pt-20">
-      <Image
-        source={require("@/assets/images/spider-web-1.png")}
-        className="w-[150px] h-[120px] absolute top-[-20px] right-[-30px]"
-      />
-      <Image
-        source={require("@/assets/images/spider-web-2.png")}
-        className="w-[170px] h-[80px] absolute bottom-0 left-0"
-      />
+      <Image source={require("@/assets/images/spider-web-1.png")} className="w-[150px] h-[120px] absolute top-[-20px] right-[-30px]" />
+      <Image source={require("@/assets/images/spider-web-2.png")} className="w-[170px] h-[80px] absolute bottom-0 left-0" />
 
-      <ScrollView
-        contentContainerStyle={{
-          flexGrow: 1,
-          justifyContent: "center",
-        }}
-        showsVerticalScrollIndicator={false}
-      >
-        <View className="bg-white p-6 rounded-2xl w-full space-y-4">
-          {renderStep()}
+      <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }} showsVerticalScrollIndicator={false}>
+        <Text className="text-[30px] font-caprasimo text-[#D0EE30] text-center mb-4">
+          What is your child interested in?
+        </Text>
+        <Text className="font-poppins text-white text-base text-center mb-8">
+          Select at least 3 options. You can pick as many as you'd like!
+        </Text>
 
-          <TouchableOpacity
-            disabled={!canProceed}
-            onPress={handleNext}
-            className={`py-3 mt-6 rounded-xl ${
-              canProceed ? "bg-[#D0EE30]" : "bg-gray-300"
-            }`}
-          >
-            <Text
-              className={`text-center font-poppinsBold text-[18px] ${
-                canProceed ? "text-[#60178b]" : "text-gray-600"
-              }`}
+        <View className="relative">
+          {/* Arrows */}
+          {/* {step > 1 && (
+            <TouchableOpacity
+              onPress={handleBack}
+              className="absolute left-[-25px] top-[40%] z-10"
             >
-              {step < 3 ? "Next" : "Finish"}
-            </Text>
-          </TouchableOpacity>
+              <Text className="text-[#60178b] text-[24px]">{`<`}</Text>
+            </TouchableOpacity>
+          )}
+          {step < 3 && (
+            <TouchableOpacity
+              onPress={handleNext}
+              disabled={!canProceed}
+              className="absolute right-[-25px] top-[40%] z-10"
+            >
+              <Text className="text-[#60178b] text-[24px]" style={{ opacity: canProceed ? 1 : 0.4 }}>
+                {`>`}
+              </Text>
+            </TouchableOpacity>
+          )} */}
+
+          {/* Form Content */}
+          <View className="bg-white p-6 rounded-2xl w-full space-y-4">
+            {renderStep()}
+
+            <TouchableOpacity
+              disabled={!canProceed}
+              onPress={handleNext}
+              className="py-3 mt-6 rounded-xl"
+              style={{
+                backgroundColor: yellow,
+                opacity: canProceed ? 1 : 0.5,
+              }}
+            >
+              <Text className="text-center font-poppinsBold text-[18px]" style={{ color: purple }}>
+                {step < 3 ? "Next" : "Finish"}
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
+
+        {/* Skip this for now link */}
+        <TouchableOpacity onPress={() => navigation.navigate("NextScreen")}>
+          <Text className="text-center text-white mt-4 underline font-poppins">Skip this for now</Text>
+        </TouchableOpacity>
       </ScrollView>
     </View>
   );
