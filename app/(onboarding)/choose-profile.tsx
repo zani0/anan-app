@@ -139,7 +139,7 @@ export default function ChooseProfile() {
                       <Text className="text-[#D0EE30] text-5xl">+</Text>
                     </View>
                     <Text className="text-white font-poppins text-[14px] text-center">
-                      Add Arofile
+                      Add Profile
                     </Text>
                   </TouchableOpacity>
                 ) : (
@@ -168,7 +168,7 @@ export default function ChooseProfile() {
 
             {/* Manage profiles button  */}
             <TouchableOpacity
-              onPress={() => router.push("/account/manage-profiles")}
+              onPress={() => router.push("/(screens)/account/manage-profiles")}
               className="py-3 px-8 rounded-xl w-[50vw] justify-center mt-6 bg-[#60178b] border-white border-[1px] border-solid"
             >
               <Text className="font-poppins text-[13px] text-center text-white">
