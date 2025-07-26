@@ -83,16 +83,16 @@ export default function CreateChildProfile() {
             },
             body: JSON.stringify({
               bio: {
-                nickName: form.name, 
+                nickName: form.name,
                 avatar: `https://ui-avatars.com/api/?name=${form.name}`,
                 fullName: form.name,
-                dateOfBirth: "2023-05-23T00:00:00.000Z", 
-                gender: form.gender.toUpperCase(), 
-                preferredLanguage: "ENGLISH", 
-                readingLevel: "Advanced", 
+                dateOfBirth: "2023-05-23T00:00:00.000Z",
+                gender: form.gender.toUpperCase(),
+                preferredLanguage: "ENGLISH",
+                readingLevel: "Advanced",
               },
               interests: {
-                favoriteStoryGenre: "MYSTERY", 
+                favoriteStoryGenre: "MYSTERY",
                 favoriteCharacter: "Monkey D. Luffy",
                 creativePreference: "READING",
                 favoriteColor: "Black",
@@ -396,19 +396,18 @@ export default function CreateChildProfile() {
 
   return (
     <View className="flex-1 bg-[#60178b] px-6 justify-center items-center">
+      <Image
+        source={require("@/assets/images/spider-web-1.png")}
+        className="w-[150px] h-[120px] absolute top-[-20] right-[-30]"
+      />
+      <Image
+        source={require("@/assets/images/spider-web-2.png")}
+        className="w-[170px] h-[80px] absolute bottom-0 left-0"
+      />
       <ScrollView
         contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }}
         showsVerticalScrollIndicator={false}
       >
-        <Image
-          source={require("@/assets/images/spider-web-1.png")}
-          className="w-[150px] h-[120px] absolute top-[-20] right-[-30]"
-        />
-        <Image
-          source={require("@/assets/images/spider-web-2.png")}
-          className="w-[170px] h-[80px] absolute bottom-0 left-0"
-        />
-
         <Text className="text-[30px] font-caprasimo text-[#D0EE30] text-center mb-4">
           Create a profile for your child
         </Text>
