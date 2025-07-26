@@ -83,16 +83,16 @@ export default function CreateChildProfile() {
             },
             body: JSON.stringify({
               bio: {
-                nickName: form.name, // or a separate nickname field if needed
+                nickName: form.name, 
                 avatar: `https://ui-avatars.com/api/?name=${form.name}`,
                 fullName: form.name,
-                dateOfBirth: "2023-05-23T00:00:00.000Z", // replace this with actual date later
-                gender: form.gender.toUpperCase(), // e.g. "MALE"
-                preferredLanguage: "ENGLISH", // default or let user pick later
-                readingLevel: "Advanced", // default or from future screen
+                dateOfBirth: "2023-05-23T00:00:00.000Z", 
+                gender: form.gender.toUpperCase(), 
+                preferredLanguage: "ENGLISH", 
+                readingLevel: "Advanced", 
               },
               interests: {
-                favoriteStoryGenre: "MYSTERY", // default or future form field
+                favoriteStoryGenre: "MYSTERY", 
                 favoriteCharacter: "Monkey D. Luffy",
                 creativePreference: "READING",
                 favoriteColor: "Black",
@@ -118,7 +118,7 @@ export default function CreateChildProfile() {
         });
 
         setTimeout(() => {
-          router.replace("/(tabs)");
+          router.replace("/preferences");
         }, 1500);
       } catch (err: any) {
         Toast.show({
