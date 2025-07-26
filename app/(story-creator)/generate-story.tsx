@@ -158,7 +158,6 @@ export default function StoryCreatorForm() {
 
   return (
     <View className="flex-1 bg-white" style={{ paddingTop: insets.top }}>
-      {/* Modals (same as before) */}
       <Modal transparent visible={loading} animationType="fade">
         <View className="flex-1 justify-center items-center bg-black/50">
           <View className="bg-white px-6 py-8 rounded-3xl items-center w-4/5 shadow-xl">
@@ -195,72 +194,73 @@ export default function StoryCreatorForm() {
           </View>
         </View>
       </Modal>
-
       <View className="mx-6">
         <Header />
         <CategorySlider />
-        <View className="mt-6">
-          <View className="bg-[#5D1889] px-4 py-2 rounded-l-[40px] rounded-tr-[40px] rounded-br-0  w-[50vw]">
-            <Text className="text-white font-poppinsBold text-base">
-              Create your own story
-            </Text>
-          </View>
-        </View>
       </View>
-
-      <View className="mx-8 mt-6 mb-4">
-        <Text className="font-poppinsBold text-[#60178b]">
-          What kind of story do you want to create?
-        </Text>
-      </View>
-
-      {/* Tabs */}
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ paddingHorizontal: 24, gap: 16 }}
-        className="mt-4 mb-4 pb-8"
-      >
-        {[
-          {
-            key: "book",
-            label: "Book Info",
-            image: require("@/assets/images/vid.png"),
-          },
-          {
-            key: "character",
-            label: "Create a character",
-            image: require("@/assets/images/char.png"),
-          },
-          {
-            key: "story",
-            label: "Create a book",
-            image: require("@/assets/images/story.png"),
-          },
-        ].map((tab) => (
-          <TouchableOpacity
-            key={tab.key}
-            onPress={() => setActiveTab(tab.key as any)}
-            className={`w-32 h-36 items-center justify-around p-4 rounded-2xl border-[#60178b] border-solid border-[1px] ${
-              activeTab === tab.key ? "bg-[#d5ff32]" : "bg-white"
-            }`}
-          >
-            <Image
-              source={tab.image}
-              className="w-12 h-12"
-              resizeMode="contain"
-            />
-            <Text className="text-center font-poppinsBold text-[#5D1889] text-[12px]">
-              {tab.label}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
-
       <ScrollView
         className="px-5 py-4"
         contentContainerStyle={{ paddingBottom: 100 }}
       >
+        <View className="">
+          <View className="mt-6">
+            <View className="bg-[#5D1889] px-4 py-2 rounded-l-[40px] rounded-tr-[40px] rounded-br-0  w-[50vw]">
+              <Text className="text-white font-poppinsBold text-base">
+                Create your own story
+              </Text>
+            </View>
+          </View>
+        </View>
+
+        <View className="mt-6 mb-4">
+          <Text className="font-poppinsBold text-[#60178b]">
+            What kind of story do you want to create?
+          </Text>
+        </View>
+
+        {/* Tabs */}
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{ gap: 16 }}
+          className="mt-4 mb-4 pb-6"
+        >
+          {[
+            {
+              key: "book",
+              label: "Book Info",
+              image: require("@/assets/images/vid.png"),
+            },
+            {
+              key: "character",
+              label: "Create a character",
+              image: require("@/assets/images/char.png"),
+            },
+            {
+              key: "story",
+              label: "Create a book",
+              image: require("@/assets/images/story.png"),
+            },
+          ].map((tab) => (
+            <TouchableOpacity
+              key={tab.key}
+              onPress={() => setActiveTab(tab.key as any)}
+              className={`w-32 h-36 items-center justify-around p-4 rounded-2xl border-[#60178b] border-solid border-[1px] ${
+                activeTab === tab.key ? "bg-[#d5ff32]" : "bg-white"
+              }`}
+            >
+              <Image
+                source={tab.image}
+                className="w-12 h-12"
+                resizeMode="contain"
+              />
+              <Text className="text-center font-poppinsBold text-[#5D1889] text-[12px]">
+                {tab.label}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
+
         {activeTab === "book" && (
           <>
             <Text className="text-[#5D1889] text-lg font-poppinsBold mb-2">
