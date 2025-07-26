@@ -79,7 +79,7 @@ export default function ManageProfiles() {
         }}
         showsVerticalScrollIndicator={false}
       >
-        <View className="bg-white rounded-2xl p-6 py-12 shadow-md mb-6">
+        <View className="bg-white rounded-2xl p-6 py-16 shadow-md mb-6">
           <Text className="text-[30px] font-caprasimo text-[#6e1e9a] text-center mb-12">
             Manage Your Children Profiles
           </Text>
