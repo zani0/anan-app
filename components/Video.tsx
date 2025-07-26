@@ -5,11 +5,11 @@ import {
   TouchableOpacity,
   Image,
   Dimensions,
+  Modal,
   ScrollView,
 } from "react-native";
 import YoutubePlayer from "react-native-youtube-iframe";
-import { Star, ChevronLeft, ChevronRight } from "lucide-react-native";
-import { CheckSquare, Square } from "lucide-react-native";
+import { Star, ChevronLeft, ChevronRight, CheckSquare, Square } from "lucide-react-native";
 
 const quizData = [
   {
@@ -35,7 +35,7 @@ export default function Video() {
   const [showScore, setShowScore] = useState(false);
 
   const handleOptionSelect = (option: string) => {
-    if (selectedOptions[currentQuestion]) return; // prevent reselect
+    if (selectedOptions[currentQuestion]) return;
     const updated = [...selectedOptions];
     updated[currentQuestion] = option;
     setSelectedOptions(updated);
@@ -141,45 +141,50 @@ export default function Video() {
         </View>
       </View>
 
-      {/* QUIZ OVERLAY */}
-      {showQuiz && (
-        <View
-          className="absolute top-0 left-0 w-full h-full px-5 py-10"
-          style={{ backgroundColor: "rgba(0,0,0,0.95)" }}
-        >
-          <View className="bg-white rounded-xl p-5 flex-1 justify-between">
-            {showScore ? (
-              <View className="items-center justify-center flex-1">
-                <Text className="text-2xl font-bold text-purple-800 mb-2">
-                  🎉 Quiz Completed!
-                </Text>
-                <Text className="text-xl text-black mb-4">
-                  You got {score} out of {quizData.length} correct!
-                </Text>
-                <TouchableOpacity
-                  onPress={() => setShowQuiz(false)}
-                  className="bg-purple-700 px-6 py-3 rounded-full"
-                >
-                  <Text className="text-white text-lg font-bold">
-                    Back to Video
+      {/* Quiz Popup */}
+      <Modal transparent visible={showQuiz} animationType="fade">
+        <View className="flex-1 justify-center items-center bg-black/50 px-4">
+          <View className="bg-white p-6 rounded-3xl w-full max-w-xl shadow-xl">
+            <ScrollView
+              contentContainerStyle={{ paddingBottom: 20 }}
+              showsVerticalScrollIndicator={false}
+            >
+              <Image
+                source={require("@/assets/images/avatar.png")}
+                className="w-24 h-24 mx-auto mb-4"
+                resizeMode="contain"
+              />
+
+              {showScore ? (
+                <View className="items-center">
+                  <Text className="text-2xl font-bold text-purple-800 mb-2">
+                    🎉 Quiz Completed!
                   </Text>
-                </TouchableOpacity>
-              </View>
-            ) : (
-              <>
-                <View>
-                  <Text className="text-lg font-bold text-purple-800 mb-2">
+                  <Text className="text-lg text-black mb-4 text-center">
+                    You got {score} out of {quizData.length} correct!
+                  </Text>
+                  <TouchableOpacity
+                    onPress={() => setShowQuiz(false)}
+                    className="bg-purple-700 px-6 py-3 rounded-full"
+                  >
+                    <Text className="text-white text-lg font-bold">
+                      Back to Video
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              ) : (
+                <>
+                  <Text className="text-lg font-bold text-purple-800 mb-2 text-center">
                     Question {currentQuestion + 1} of {quizData.length}
                   </Text>
-                  <Text className="text-base text-black font-semibold mb-4">
+                  <Text className="text-base text-black font-semibold mb-4 text-center">
                     {quizData[currentQuestion].question}
                   </Text>
 
                   {quizData[currentQuestion].options.map((option, i) => {
                     const selected = selectedOptions[currentQuestion];
                     const isCorrect =
-                      selected &&
-                      option === quizData[currentQuestion].answer;
+                      selected && option === quizData[currentQuestion].answer;
                     const isWrong =
                       selected === option &&
                       option !== quizData[currentQuestion].answer;
@@ -206,39 +211,39 @@ export default function Video() {
                       </TouchableOpacity>
                     );
                   })}
-                </View>
 
-                {/* Navigation */}
-                <View className="flex-row justify-between items-center mt-4">
-                  <TouchableOpacity
-                    onPress={handlePrevious}
-                    disabled={currentQuestion === 0}
-                    className="px-4 py-2 rounded-lg bg-gray-300"
-                  >
-                    <Text className="text-black">Previous</Text>
-                  </TouchableOpacity>
+                  {/* Navigation */}
+                  <View className="flex-row justify-between items-center mt-4">
+                    <TouchableOpacity
+                      onPress={handlePrevious}
+                      disabled={currentQuestion === 0}
+                      className="px-4 py-2 rounded-lg bg-gray-300"
+                    >
+                      <Text className="text-black">Previous</Text>
+                    </TouchableOpacity>
 
-                  <TouchableOpacity
-                    onPress={handleNext}
-                    disabled={!selectedOptions[currentQuestion]}
-                    className={`px-4 py-2 rounded-lg ${
-                      selectedOptions[currentQuestion]
-                        ? "bg-purple-700"
-                        : "bg-gray-300"
-                    }`}
-                  >
-                    <Text className="text-white">
-                      {currentQuestion === quizData.length - 1
-                        ? "Finish"
-                        : "Next"}
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-              </>
-            )}
+                    <TouchableOpacity
+                      onPress={handleNext}
+                      disabled={!selectedOptions[currentQuestion]}
+                      className={`px-4 py-2 rounded-lg ${
+                        selectedOptions[currentQuestion]
+                          ? "bg-purple-700"
+                          : "bg-gray-300"
+                      }`}
+                    >
+                      <Text className="text-white">
+                        {currentQuestion === quizData.length - 1
+                          ? "Finish"
+                          : "Next"}
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                </>
+              )}
+            </ScrollView>
           </View>
         </View>
-      )}
+      </Modal>
     </View>
   );
 }
