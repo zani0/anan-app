@@ -73,7 +73,7 @@ export default function ChooseProfile() {
         }`}
         resizeMode="cover"
       />
-      <Text className="text-white font-poppins text-sm text-center">
+      <Text className="text-white font-poppins text-[14px] text-center">
         {item.name}
       </Text>
     </TouchableOpacity>
@@ -104,13 +104,13 @@ export default function ChooseProfile() {
         showsVerticalScrollIndicator={false}
       >
         <View className="w-full max-w-[360px]">
-          <Text className="text-[30px] font-caprasimo text-[#D0EE30] text-center mb-4">
+          <Text className="text-[30px] font-caprasimo text-[#D0EE30] text-center mb-12">
             Who’s watching?
           </Text>
 
-          <Text className="font-poppins text-white text-base text-center mb-8">
+          {/* <Text className="font-poppins text-white text-base text-center mb-8">
             Select a profile to continue learning
-          </Text>
+          </Text> */}
 
           {/* Grid of Profiles */}
           {loading ? (
@@ -126,7 +126,7 @@ export default function ChooseProfile() {
               keyExtractor={(item) => item.id}
               contentContainerStyle={{ gap: 20 }}
               columnWrapperStyle={{
-                justifyContent: "space-around",
+                justifyContent: "space-evenly",
                 marginBottom: 20,
               }}
               renderItem={({ item }) =>
@@ -138,8 +138,8 @@ export default function ChooseProfile() {
                     <View className="w-[100px] h-[100px] rounded-full bg-[#60178b] justify-center items-center mb-2 border-[#D0EE30] border-solid border-[1px]">
                       <Text className="text-[#D0EE30] text-5xl">+</Text>
                     </View>
-                    <Text className="text-white font-poppins text-sm text-center">
-                      Add
+                    <Text className="text-white font-poppins text-[14px] text-center">
+                      Add Arofile
                     </Text>
                   </TouchableOpacity>
                 ) : (
