@@ -150,7 +150,11 @@ export default function ChooseProfile() {
               }
             />
           )}
-
+          <TouchableOpacity className="py-3 px-10 rounded-xl w-full mt-6 bg-[#60178b] border-white border-[1px] border-solid">
+            <Text className="font-poppinsBold text-[13px] text-center text-white">
+              Manage Profiles
+            </Text>
+          </TouchableOpacity>
           {/* Continue Button */}
           <TouchableOpacity
             disabled={!selectedId}
