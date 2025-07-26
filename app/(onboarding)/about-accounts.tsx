@@ -5,7 +5,6 @@ import Toast from "react-native-toast-message";
 export default function ParentalConsent() {
   const router = useRouter();
 
-
   return (
     <View className="flex-1 justify-center items-center bg-[#60178b] px-6 relative">
       {/* Top Right Spiderweb */}
@@ -33,11 +32,17 @@ export default function ParentalConsent() {
 
         {/* Consent Text */}
         <View className="bg-white rounded-2xl p-6 shadow-md mb-6">
+          <Text className="uppercase font-poppins text-[17px] mb-5">
+            Parents
+          </Text>
           <Text className="font-poppins text-gray-800 text-base text-left mb-3">
             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vitae
             fugiat ipsam itaque ipsum cupiditate, mollitia ex perferendis
             delectus, ullam hic excepturi dolores voluptatibus eveniet quos
             quibusdam? Totam doloremque repellendus corporis!
+          </Text>
+          <Text className="uppercase font-poppins text-[17px] mb-5">
+            Children
           </Text>
           <Text className="font-poppins text-gray-800 text-base text-left">
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Veritatis,

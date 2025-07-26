@@ -38,13 +38,13 @@ export default function OopsScreen() {
             {/* Okay Button */}
             <View className="w-full px-6">
                 <TouchableOpacity
-                    onPress={() => router.push("/")}
+                    onPress={() => router.back()}
                     className="bg-[#D0EE30] py-3 rounded-xl"
                 >
                     <Text className="text-[#60178b] text-center font-poppinsBold">Okay</Text>
                 </TouchableOpacity>
             </View>
-            <TouchableOpacity className="mt-20">
+            <TouchableOpacity className="mt-20" onPress={() => router.push("/about-accounts")}>
                 <Text className="text-white font-poppins underline underline-offset-[5px]">
                     Learn more about Anansesem accounts
                 </Text>
