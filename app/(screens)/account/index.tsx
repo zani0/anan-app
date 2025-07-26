@@ -158,18 +158,20 @@ export default function ParentAccount() {
               </Text>
               {children.map((child, i) => (
                 <View
-                  key={i}
+                  key={child.name}
                   className="flex-row justify-between items-center border-[#60178b] py-2"
                 >
                   <Text className="font-poppins text-black">{child.name}</Text>
-                  <TouchableOpacity className="bg-gray-200 px-3 py-1 rounded-full">
+                  <TouchableOpacity
+                    className="bg-gray-200 px-3 py-1 rounded-full"
+                    onPress={() => router.push('/account/edit-child-profile')}
+                  >
                     <Text className="text-xs font-poppins">Manage</Text>
                   </TouchableOpacity>
                 </View>
               ))}
             </View>
 
-            {/* Comprehension (2-column layout) */}
             <View className="bg-[#f6f3fa] rounded-xl p-4 mb-6">
               <Text className="text-lg font-poppinsBold text-[#60178b] mb-4">
                 Comprehension Progress

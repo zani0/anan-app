@@ -153,7 +153,7 @@ export default function EditChildProfile() {
           className="w-[120px] h-[120px] rounded-full"
           resizeMode="cover"
         />
-        <Text className="text-[#60178b] text-center mt-2 font-poppins">
+        <Text className="text-[#60178b] text-center mt-2 font-poppinsBold">
           Change Picture
         </Text>
       </TouchableOpacity>

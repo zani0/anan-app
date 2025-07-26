@@ -69,7 +69,7 @@ export default function AccountType() {
           </Text>
 
           {/* Options */}
-          <View>
+          <View> 
             <OptionCard
               type="parent"
               title="Use Parent Account"

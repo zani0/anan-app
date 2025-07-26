@@ -1,4 +1,3 @@
-// imports (same as before)
 import CategorySlider from "@/components/CategorySlider";
 import Header from "@/components/HeaderGoBack";
 import React, { useState } from "react";
