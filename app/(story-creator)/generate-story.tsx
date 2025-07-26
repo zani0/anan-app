@@ -23,6 +23,7 @@ export default function StoryCreatorForm() {
   const insets = useSafeAreaInsets();
 
   const [loading, setLoading] = useState(false);
+  const [incompleteModal, setIncompleteModal] = useState(false);
 
   // Dropdown states...
   const [languageOpen, setLanguageOpen] = useState(false);
@@ -85,15 +86,31 @@ export default function StoryCreatorForm() {
   };
 
   const handleGenerate = () => {
-    setLoading(true);
+    const isComplete =
+      title &&
+      language &&
+      category &&
+      pages &&
+      characterName &&
+      gender &&
+      age &&
+      description;
 
+    if (!isComplete) {
+      setIncompleteModal(true);
+      return;
+    }
+
+    setLoading(true);
     setTimeout(() => {
       setLoading(false);
+      // Navigate or show results here...
     }, 3000);
   };
 
   return (
     <View className="flex-1 bg-white" style={{ paddingTop: insets.top }}>
+      {/* Loader Modal */}
       <Modal transparent visible={loading} animationType="fade">
         <View className="flex-1 justify-center items-center bg-black/50">
           <View className="bg-white px-6 py-8 rounded-3xl items-center w-4/5 shadow-xl">
@@ -110,6 +127,29 @@ export default function StoryCreatorForm() {
         </View>
       </Modal>
 
+      {/* Incomplete Fields Modal */}
+      <Modal transparent visible={incompleteModal} animationType="fade">
+        <View className="flex-1 justify-center items-center bg-black/50">
+          <View className="bg-white px-6 py-8 rounded-3xl items-center w-4/5 shadow-xl">
+            <Image
+              source={require("@/assets/images/avatar.png")}
+              className="w-20 h-20 mb-4"
+              resizeMode="contain"
+            />
+            <Text className="text-[#5a1786] font-caprasimo text-xl mb-2 text-center">
+              Please complete all fields
+            </Text>
+            <TouchableOpacity
+              onPress={() => setIncompleteModal(false)}
+              className="mt-4 bg-[#5a1786] rounded-full px-6 py-3"
+            >
+              <Text className="text-white font-poppinsBold">Okay</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+
+      {/* Header */}
       <View className="mx-6">
         <Header />
       </View>
