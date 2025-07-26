@@ -1,3 +1,5 @@
+// imports (same as before)
+import CategorySlider from "@/components/CategorySlider";
 import Header from "@/components/HeaderGoBack";
 import React, { useState } from "react";
 import {
@@ -14,20 +16,18 @@ import {
 import DropDownPicker from "react-native-dropdown-picker";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-// Silence VirtualizedList warning from DropDownPicker
-LogBox.ignoreLogs([
-  "VirtualizedLists should never be nested inside plain ScrollViews",
-]);
-
 export default function StoryCreatorForm() {
   const insets = useSafeAreaInsets();
 
   const [loading, setLoading] = useState(false);
   const [incompleteModal, setIncompleteModal] = useState(false);
+  const [activeTab, setActiveTab] = useState<"book" | "character" | "story">(
+    "book"
+  );
 
-  // Dropdown states...
+  // dropdown states (same as before)
   const [languageOpen, setLanguageOpen] = useState(false);
-  const [language, setLanguage] = useState(null);
+  const [language, setLanguage] = useState<string | null>(null);
   const [languages, setLanguages] = useState([
     { label: "English", value: "english" },
     { label: "Twi", value: "twi" },
@@ -35,7 +35,7 @@ export default function StoryCreatorForm() {
   ]);
 
   const [categoryOpen, setCategoryOpen] = useState(false);
-  const [category, setCategory] = useState(null);
+  const [category, setCategory] = useState<string | null>(null);
   const [categories, setCategories] = useState([
     { label: "Adventure", value: "adventure" },
     { label: "Moral", value: "moral" },
@@ -43,7 +43,7 @@ export default function StoryCreatorForm() {
   ]);
 
   const [pagesOpen, setPagesOpen] = useState(false);
-  const [pages, setPages] = useState(null);
+  const [pages, setPages] = useState<string | null>(null);
   const [pageOptions, setPageOptions] = useState([
     { label: "1-3 Pages", value: "short" },
     { label: "4-7 Pages", value: "medium" },
@@ -51,7 +51,7 @@ export default function StoryCreatorForm() {
   ]);
 
   const [genderOpen, setGenderOpen] = useState(false);
-  const [gender, setGender] = useState(null);
+  const [gender, setGender] = useState<string | null>(null);
   const [genders, setGenders] = useState([
     { label: "Boy", value: "boy" },
     { label: "Girl", value: "girl" },
@@ -59,7 +59,7 @@ export default function StoryCreatorForm() {
   ]);
 
   const [ageOpen, setAgeOpen] = useState(false);
-  const [age, setAge] = useState(null);
+  const [age, setAge] = useState<string | null>(null);
   const [ageOptions, setAgeOptions] = useState([
     { label: "3-5", value: "3-5" },
     { label: "6-8", value: "6-8" },
@@ -85,7 +85,7 @@ export default function StoryCreatorForm() {
     elevation: 2,
   };
 
-  const handleGenerate = () => {
+  const handleGenerate = async () => {
     const isComplete =
       title &&
       language &&
@@ -102,14 +102,64 @@ export default function StoryCreatorForm() {
     }
 
     setLoading(true);
-    setTimeout(() => {
+
+    const payload = {
+      story: {
+        prompt: description,
+        moral: "Elvis still loved his friends",
+      },
+      book: {
+        title,
+        language:
+          (language as string).charAt(0).toUpperCase() +
+          (language as string).slice(1),
+        numberOfPages: pages === "short" ? 3 : pages === "medium" ? 5 : 8,
+        images: "illustrations",
+        readingLevel: "Emergent",
+        category: [category?.toUpperCase() || "ADVENTURE"],
+        ambientMusic: "soothing",
+      },
+      mainCharacter: {
+        name: characterName,
+        gender:
+          gender === "boy" ? "male" : gender === "girl" ? "female" : "other",
+        age: age === "3-5" ? 4 : age === "6-8" ? 7 : 10,
+        species: "human",
+        traits: "brave",
+      },
+      reference: "tesaskklsdk2jj4",
+    };
+
+    try {
+      const response = await fetch(
+        "https://anansesem.onrender.com/api/v1/generate-story/4",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log("Generated story:", data);
+        // TODO: Navigate to story preview
+      } else {
+        console.error("API error:", data);
+      }
+    } catch (error) {
+      console.error("Request failed:", error);
+    } finally {
       setLoading(false);
-    }, 3000);
+    }
   };
 
   return (
     <View className="flex-1 bg-white" style={{ paddingTop: insets.top }}>
-      {/* Loader Modal */}
+      {/* Modals (same as before) */}
       <Modal transparent visible={loading} animationType="fade">
         <View className="flex-1 justify-center items-center bg-black/50">
           <View className="bg-white px-6 py-8 rounded-3xl items-center w-4/5 shadow-xl">
@@ -126,7 +176,6 @@ export default function StoryCreatorForm() {
         </View>
       </Modal>
 
-      {/* Incomplete Fields Modal */}
       <Modal transparent visible={incompleteModal} animationType="fade">
         <View className="flex-1 justify-center items-center bg-black/50">
           <View className="bg-white px-6 py-8 rounded-3xl items-center w-4/5 shadow-xl">
@@ -148,151 +197,148 @@ export default function StoryCreatorForm() {
         </View>
       </Modal>
 
-      {/* Header */}
       <View className="mx-6">
         <Header />
+        <CategorySlider />
+      </View>
+
+      {/* Tabs */}
+      <View className="flex-row justify-around mt-4">
+        {["book", "character", "story"].map((tab) => (
+          <TouchableOpacity
+            key={tab}
+            onPress={() => setActiveTab(tab as any)}
+            className={`py-2 px-4 rounded-full ${
+              activeTab === tab ? "bg-[#5a1786]" : "bg-purple-100"
+            }`}
+          >
+            <Text
+              className={`font-poppinsBold ${
+                activeTab === tab ? "text-white" : "text-[#5a1786]"
+              }`}
+            >
+              {tab === "book"
+                ? "Book Info"
+                : tab === "character"
+                ? "Character Info"
+                : "Story Prompt"}
+            </Text>
+          </TouchableOpacity>
+        ))}
       </View>
 
       <ScrollView
         className="px-5 py-4"
         contentContainerStyle={{ paddingBottom: 100 }}
-        keyboardShouldPersistTaps="handled"
-        nestedScrollEnabled
       >
-        <View className="justify-between items-center px-4 py-3 bg-white rounded-b-3xl">
-          <Text className="text-4xl text-[#5a1786] font-caprasimo">
-            AI Story Creator
-          </Text>
-          <Text className="text-base text-black text-center font-poppins mt-2">
-            Your story will be generated based on the options you select in the
-            following 3 categories
-          </Text>
-        </View>
+        {activeTab === "book" && (
+          <>
+            <TextInput
+              placeholder="Book Title"
+              value={title}
+              onChangeText={setTitle}
+              className={inputClass}
+            />
+            <DropDownPicker
+              open={languageOpen}
+              value={language}
+              items={languages}
+              setOpen={setLanguageOpen}
+              setValue={setLanguage}
+              setItems={setLanguages}
+              placeholder="Select Language"
+              style={dropdownStyle}
+              dropDownContainerStyle={dropdownStyle}
+              zIndex={5000}
+            />
+            <DropDownPicker
+              open={categoryOpen}
+              value={category}
+              items={categories}
+              setOpen={setCategoryOpen}
+              setValue={setCategory}
+              setItems={setCategories}
+              placeholder="Select Category"
+              style={dropdownStyle}
+              dropDownContainerStyle={dropdownStyle}
+              zIndex={4000}
+            />
+            <DropDownPicker
+              open={pagesOpen}
+              value={pages}
+              items={pageOptions}
+              setOpen={setPagesOpen}
+              setValue={setPages}
+              setItems={setPageOptions}
+              placeholder="Number of Pages"
+              style={dropdownStyle}
+              dropDownContainerStyle={dropdownStyle}
+              zIndex={3000}
+            />
+          </>
+        )}
 
-        {/* Book Info */}
-        <View className="mb-3 mt-4 flex-row items-center">
-          <View className="w-4 h-4 rounded-full bg-purple-300 mr-4" />
-          <Text className="text-[#5a1786] font-poppinsBold text-xl">
-            Book Info
-          </Text>
-        </View>
+        {activeTab === "character" && (
+          <>
+            <TextInput
+              placeholder="Character Name"
+              value={characterName}
+              onChangeText={setCharacterName}
+              className={inputClass}
+            />
+            <DropDownPicker
+              open={genderOpen}
+              value={gender}
+              items={genders}
+              setOpen={setGenderOpen}
+              setValue={setGender}
+              setItems={setGenders}
+              placeholder="Gender"
+              style={dropdownStyle}
+              dropDownContainerStyle={dropdownStyle}
+              zIndex={2000}
+            />
+            <DropDownPicker
+              open={ageOpen}
+              value={age}
+              items={ageOptions}
+              setOpen={setAgeOpen}
+              setValue={setAge}
+              setItems={setAgeOptions}
+              placeholder="Age"
+              style={dropdownStyle}
+              dropDownContainerStyle={dropdownStyle}
+              zIndex={1000}
+            />
+          </>
+        )}
 
-        <TextInput
-          placeholder="Book Title"
-          value={title}
-          onChangeText={setTitle}
-          className={inputClass}
-        />
-
-        <View style={{ zIndex: 5000 }}>
-          <DropDownPicker
-            open={languageOpen}
-            value={language}
-            items={languages}
-            setOpen={setLanguageOpen}
-            setValue={setLanguage}
-            setItems={setLanguages}
-            placeholder="Select Language"
-            style={dropdownStyle}
-            dropDownContainerStyle={dropdownStyle}
-          />
-        </View>
-
-        <View style={{ zIndex: 4000 }}>
-          <DropDownPicker
-            open={categoryOpen}
-            value={category}
-            items={categories}
-            setOpen={setCategoryOpen}
-            setValue={setCategory}
-            setItems={setCategories}
-            placeholder="Select Category"
-            style={dropdownStyle}
-            dropDownContainerStyle={dropdownStyle}
-          />
-        </View>
-
-        <View style={{ zIndex: 3000 }}>
-          <DropDownPicker
-            open={pagesOpen}
-            value={pages}
-            items={pageOptions}
-            setOpen={setPagesOpen}
-            setValue={setPages}
-            setItems={setPageOptions}
-            placeholder="Number of Pages"
-            style={dropdownStyle}
-            dropDownContainerStyle={dropdownStyle}
-          />
-        </View>
-
-        {/* Character Info */}
-        <View className="mb-3 mt-4 flex-row items-center">
-          <View className="w-4 h-4 rounded-full bg-purple-300 mr-4" />
-          <Text className="text-[#5a1786] font-poppinsBold text-xl">
-            Character Info
-          </Text>
-        </View>
-
-        <TextInput
-          placeholder="Character Name"
-          value={characterName}
-          onChangeText={setCharacterName}
-          className={inputClass}
-        />
-
-        <View style={{ zIndex: 2000 }}>
-          <DropDownPicker
-            open={genderOpen}
-            value={gender}
-            items={genders}
-            setOpen={setGenderOpen}
-            setValue={setGender}
-            setItems={setGenders}
-            placeholder="Gender"
-            style={dropdownStyle}
-            dropDownContainerStyle={dropdownStyle}
-          />
-        </View>
-
-        <View style={{ zIndex: 1000 }}>
-          <DropDownPicker
-            open={ageOpen}
-            value={age}
-            items={ageOptions}
-            setOpen={setAgeOpen}
-            setValue={setAge}
-            setItems={setAgeOptions}
-            placeholder="Age"
-            style={dropdownStyle}
-            dropDownContainerStyle={dropdownStyle}
-          />
-        </View>
-
-        {/* Description */}
-        <View className="mb-3 mt-4 flex-row items-center">
-          <View className="w-4 h-4 rounded-full bg-purple-300 mr-4" />
-          <Text className="text-[#5a1786] font-poppinsBold text-xl">
-            Describe Your Story
-          </Text>
-        </View>
-        <TextInput
-          placeholder="Describe your story idea..."
-          value={description}
-          onChangeText={setDescription}
-          multiline
-          textAlignVertical="top"
-          className="border border-purple-300 bg-[#fdf9ff] rounded-xl px-4 py-3 text-base shadow-sm mb-6"
-          style={{ minHeight: 160 }}
-        />
-
-        {/* Button */}
+        {activeTab === "story" && (
+          <>
+            <Text className="text-[#5a1786] text-lg font-poppinsBold mb-2">
+              What is your story about?
+            </Text>
+            <TextInput
+              placeholder="Describe and narrate your story"
+              value={description}
+              onChangeText={setDescription}
+              multiline
+              textAlignVertical="top"
+              maxLength={5000}
+              className="rounded-xl bg-[#fdf9ff] border border-purple-300 px-4 py-4 text-base shadow-sm mb-2"
+              style={{ minHeight: 160 }}
+            />
+            <Text className="text-right text-sm text-gray-500 mb-6">
+              {description.length}/5000 Characters
+            </Text>
+          </>
+        )}
         <TouchableOpacity
           onPress={handleGenerate}
-          className="bg-[#60178b] rounded-full py-4 mb-10"
+          className="bg-[#d5ff32] rounded-full py-4 mb-4 w-full"
         >
-          <Text className="text-white text-center text-lg font-poppinsBold">
-            Generate Story
+          <Text className="text-center text-[#5a1786] text-lg font-poppinsBold">
+            Generate
           </Text>
         </TouchableOpacity>
       </ScrollView>

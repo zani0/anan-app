@@ -13,7 +13,6 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Heart, Flag } from "lucide-react-native";
 import Header from "@/components/HeaderGoBack";
-import VerifyAgePopup from "@/components/VerifyAgePopup";
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -25,7 +24,6 @@ export default function ParentAccount() {
 
   const [selectedTab, setSelectedTab] = useState("Dashboard");
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
-  const [showVerifyAge, setShowVerifyAge] = useState(false);
   const [name, setName] = useState("Parent");
   const children = [{ name: "Elliot" }, { name: "Maya" }];
 
@@ -47,16 +45,11 @@ export default function ParentAccount() {
 
   const confirmLogout = () => {
     setShowLogoutConfirm(false);
-    setShowVerifyAge(true);
-  };
-
-  const handleVerifyComplete = (age: number) => {
-    setShowVerifyAge(false);
-    if (age < 18) router.back();
+    router.back(); // ✅ Direct logout / go back
   };
 
   const renderTopPicks = (childName: string) => {
-    const data = [1, 2, 3, 4]; // Sample data
+    const data = [1, 2, 3, 4];
     return (
       <View className="mb-8">
         <View className="bg-[#60178b] px-4 py-2 rounded-l-[40px] rounded-tr-[40px] rounded-br-0 mb-5 w-[55vw]">
@@ -176,13 +169,11 @@ export default function ParentAccount() {
               ))}
             </View>
 
-            {/* Comprehension for each child */}
-            {/* Comprehension for each child (2 columns) */}
+            {/* Comprehension (2-column layout) */}
             <View className="bg-[#f6f3fa] rounded-xl p-4 mb-6">
               <Text className="text-lg font-poppinsBold text-[#60178b] mb-4">
                 Comprehension Progress
               </Text>
-
               <View className="flex-row flex-wrap justify-between">
                 {children.map((child, i) => (
                   <View
@@ -238,9 +229,7 @@ export default function ParentAccount() {
               onPress={confirmLogout}
               className="bg-yellow-400 px-6 py-3 rounded-full mb-2"
             >
-              <Text className="text-black font-poppinsBold">
-                Yes, verify age
-              </Text>
+              <Text className="text-black font-poppinsBold">Yes, log out</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => setShowLogoutConfirm(false)}>
               <Text className="text-gray-500 font-poppins text-sm underline">
@@ -250,14 +239,6 @@ export default function ParentAccount() {
           </View>
         </View>
       </Modal>
-
-      {showVerifyAge && (
-        <VerifyAgePopup
-          visible={showVerifyAge}
-          onClose={() => setShowVerifyAge(false)}
-          onVerified={handleVerifyComplete}
-        />
-      )}
     </View>
   );
 }
