@@ -137,8 +137,8 @@ export default function ChooseProfile() {
                     onPress={() => router.push("/create-child-profile")}
                     className="items-center w-[100px] self-center"
                   >
-                    <View className="w-[100px] h-[100px] rounded-full bg-white justify-center items-center mb-2">
-                      <Text className="text-[#60178b] text-5xl">+</Text>
+                    <View className="w-[100px] h-[100px] rounded-full bg-[#60178b] justify-center items-center mb-2 border-[#D0EE30] border-solid border-[1px]">
+                      <Text className="text-[#D0EE30] text-5xl">+</Text>
                     </View>
                     <Text className="text-white font-poppins text-sm text-center">
                       Add
@@ -150,34 +150,38 @@ export default function ChooseProfile() {
               }
             />
           )}
-          <TouchableOpacity className="py-3 px-10 rounded-xl w-full mt-6 bg-[#60178b] border-white border-[1px] border-solid">
-            <Text className="font-poppinsBold text-[13px] text-center text-white">
-              Manage Profiles
-            </Text>
-          </TouchableOpacity>
-          {/* Continue Button */}
-          <TouchableOpacity
-            disabled={!selectedId}
-            onPress={handleContinue}
-            className={`py-3 px-10 rounded-xl w-full mt-6 ${
-              selectedId ? "bg-[#D0EE30]" : "bg-[#D0EE30]/40"
-            }`}
-          >
-            <Text
-              className={`font-poppinsBold text-[18px] text-center ${
-                selectedId ? "text-[#60178b]" : "text-[#60178b]/50"
+          <View className="items-center">
+            {/* Continue Button */}
+            <TouchableOpacity
+              disabled={!selectedId}
+              onPress={handleContinue}
+              className={`py-3 px-10 rounded-xl w-full mt-6 ${
+                selectedId ? "bg-[#D0EE30]" : "bg-[#D0EE30]/40"
               }`}
             >
-              Continue
-            </Text>
-          </TouchableOpacity>
+              <Text
+                className={`font-poppinsBold text-[18px] text-center ${
+                  selectedId ? "text-[#60178b]" : "text-[#60178b]/50"
+                }`}
+              >
+                Continue
+              </Text>
+            </TouchableOpacity>
 
-          {/* Continue as Parent */}
-          <TouchableOpacity onPress={() => router.replace("/(tabs)")}>
-            <Text className="text-white font-poppins text-sm text-center underline mt-6">
-              Continue with parent account instead
-            </Text>
-          </TouchableOpacity>
+                        {/* Manage profiles button  */}
+            <TouchableOpacity className="py-3 px-8 rounded-xl w-[50vw] justify-center mt-6 bg-[#60178b] border-white border-[1px] border-solid">
+              <Text className="font-poppins text-[13px] text-center text-white">
+                Manage Profiles
+              </Text>
+            </TouchableOpacity>
+
+            {/* Continue as Parent */}
+            {/* <TouchableOpacity onPress={() => router.replace("/(tabs)")}>
+              <Text className="text-white font-poppins text-sm text-center underline mt-6">
+                Continue with parent account instead
+              </Text>
+            </TouchableOpacity> */}
+          </View>
         </View>
       </ScrollView>
     </View>
