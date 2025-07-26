@@ -1,5 +1,4 @@
 import Achievements from "@/components/Achievements";
-import CategorySlider from "@/components/CategorySlider";
 import Header from "@/components/HeaderGoBack";
 import Leaderboard from "@/components/Leaderboard";
 import { ScrollView, Text, View } from "react-native";
@@ -19,7 +18,7 @@ export default function Compete() {
       >
         <Header />
         <View className="justify-between items-center px-4 py-3 mb-4 bg-white rounded-b-3xl">
-          <Text className="text-4xl text-[#5a1786] font-caprasimo">
+          <Text className="text-4xl text-[#5D1889] font-caprasimo">
             Compete
           </Text>
         </View>

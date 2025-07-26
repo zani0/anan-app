@@ -1,8 +1,8 @@
-import { View, Text, TouchableOpacity, Switch, ScrollView } from "react-native";
-import { useState } from "react";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Ionicons } from "@expo/vector-icons";
 import Header from "@/components/Header";
+import { Ionicons } from "@expo/vector-icons";
+import { useState } from "react";
+import { ScrollView, Switch, Text, TouchableOpacity, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function Settings() {
   const insets = useSafeAreaInsets();
@@ -28,7 +28,7 @@ export default function Settings() {
       <Header />
       {/* Header */}
       <View className="justify-between items-center px-4 py-3 bg-white rounded-b-3xl">
-        <Text className="text-4xl text-[#5a1786] font-caprasimo">Settings</Text>
+        <Text className="text-4xl text-[#5D1889] font-caprasimo">Settings</Text>
       </View>
 
       {/* Settings list */}

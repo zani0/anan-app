@@ -1,15 +1,13 @@
-import React, { useRef } from "react";
-import {
-  View,
-  Text,
-  Image,
-  ScrollView,
-  TouchableOpacity,
-  NativeScrollEvent,
-  NativeSyntheticEvent,
-} from "react-native";
 import { useRouter } from "expo-router";
 import { ChevronLeft, ChevronRight } from "lucide-react-native";
+import React, { useRef } from "react";
+import {
+  Image,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View
+} from "react-native";
 
 export default function CategorySlider() {
   const router = useRouter();
@@ -29,7 +27,7 @@ export default function CategorySlider() {
     <View className="my-4 px-0 flex-row items-center">
       {/* Left Arrow */}
       <TouchableOpacity onPress={scrollLeft} className="mr-2">
-        <ChevronLeft size={24} color="#5a1786" />
+        <ChevronLeft size={24} color="#5D1889" />
       </TouchableOpacity>
 
       {/* Scrollable Categories */}
@@ -49,7 +47,7 @@ export default function CategorySlider() {
             resizeMode="contain"
           />
           <Text
-            className="text-[10px] font-poppinsBold text-[#5a1786] text-center"
+            className="text-[10px] font-poppinsBold text-[#5D1889] text-center"
             numberOfLines={1}
             ellipsizeMode="tail"
           >
@@ -66,7 +64,7 @@ export default function CategorySlider() {
             className="w-[50px] h-[50px] mb-1"
             resizeMode="contain"
           />
-          <Text className="text-[10px] font-poppinsBold text-[#5a1786] text-center">
+          <Text className="text-[10px] font-poppinsBold text-[#5D1889] text-center">
             Watch
           </Text>
         </TouchableOpacity>
@@ -80,7 +78,7 @@ export default function CategorySlider() {
             className="w-[50px] h-[50px] mb-1"
             resizeMode="contain"
           />
-          <Text className="text-[10px] font-poppinsBold text-[#5a1786] text-center">
+          <Text className="text-[10px] font-poppinsBold text-[#5D1889] text-center">
             Music
           </Text>
         </TouchableOpacity>
@@ -94,7 +92,7 @@ export default function CategorySlider() {
             className="w-[50px] h-[50px] mb-1"
             resizeMode="contain"
           />
-          <Text className="text-[10px] font-poppinsBold text-[#5a1786] text-center">
+          <Text className="text-[10px] font-poppinsBold text-[#5D1889] text-center">
             Compete
           </Text>
         </TouchableOpacity>
@@ -108,7 +106,7 @@ export default function CategorySlider() {
             className="w-[50px] h-[50px] mb-1"
             resizeMode="contain"
           />
-          <Text className="text-[10px] font-poppinsBold text-[#5a1786] text-center">
+          <Text className="text-[10px] font-poppinsBold text-[#5D1889] text-center">
             Create
           </Text>
         </TouchableOpacity>
@@ -116,7 +114,7 @@ export default function CategorySlider() {
 
       {/* Right Arrow */}
       <TouchableOpacity onPress={scrollRight} className="ml-2">
-        <ChevronRight size={24} color="#5a1786" />
+        <ChevronRight size={24} color="#5D1889" />
       </TouchableOpacity>
     </View>
   );

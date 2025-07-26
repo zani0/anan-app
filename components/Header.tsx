@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useRouter } from "expo-router";
+import React, { useEffect, useState } from "react";
+import { Image, Text, TouchableOpacity, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function Header() {
   const insets = useSafeAreaInsets();
@@ -73,7 +73,7 @@ export default function Header() {
           className="w-[80px] h-10"
           resizeMode="contain"
         />
-        <Text className="text-[18px] font-caprasimo text-[#5a1786]">
+        <Text className="text-[18px] font-caprasimo text-[#5D1889]">
           Anansesem
         </Text>
       </View>

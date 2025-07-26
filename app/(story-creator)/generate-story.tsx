@@ -3,15 +3,14 @@ import CategorySlider from "@/components/CategorySlider";
 import Header from "@/components/HeaderGoBack";
 import React, { useState } from "react";
 import {
-  View,
+  ActivityIndicator,
+  Image,
+  Modal,
+  ScrollView,
   Text,
   TextInput,
   TouchableOpacity,
-  ScrollView,
-  Image,
-  Modal,
-  ActivityIndicator,
-  LogBox,
+  View,
 } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -168,10 +167,10 @@ export default function StoryCreatorForm() {
               className="w-24 h-24 mb-4"
               resizeMode="contain"
             />
-            <Text className="text-[#5a1786] font-caprasimo text-2xl mb-2 text-center">
+            <Text className="text-[#5D1889] font-caprasimo text-2xl mb-2 text-center">
               Hold on, Ananse is generating your story...
             </Text>
-            <ActivityIndicator size="large" color="#5a1786" />
+            <ActivityIndicator size="large" color="#5D1889" />
           </View>
         </View>
       </Modal>
@@ -184,12 +183,12 @@ export default function StoryCreatorForm() {
               className="w-20 h-20 mb-4"
               resizeMode="contain"
             />
-            <Text className="text-[#5a1786] font-caprasimo text-xl mb-2 text-center">
+            <Text className="text-[#5D1889] font-caprasimo text-xl mb-2 text-center">
               Please complete all fields
             </Text>
             <TouchableOpacity
               onPress={() => setIncompleteModal(false)}
-              className="mt-4 bg-[#5a1786] rounded-full px-6 py-3"
+              className="mt-4 bg-[#5D1889] rounded-full px-6 py-3"
             >
               <Text className="text-white font-poppinsBold">Okay</Text>
             </TouchableOpacity>
@@ -200,32 +199,57 @@ export default function StoryCreatorForm() {
       <View className="mx-6">
         <Header />
         <CategorySlider />
+        <View className="">
+          <View className="bg-[#5D1889] px-4 py-2 rounded-l-[40px] rounded-tr-[40px] rounded-br-0  w-[65vw]">
+            <Text className="text-white font-poppinsBold text-base">
+              Create your own story
+            </Text>
+          </View>
+        </View>
       </View>
 
       {/* Tabs */}
-      <View className="flex-row justify-around mt-4">
-        {["book", "character", "story"].map((tab) => (
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{ paddingHorizontal: 24, gap: 16 }}
+        className="mt-4"
+      >
+        {[
+          {
+            key: "book",
+            label: "Book Info",
+            image: require("@/assets/images/vid.png"),
+          },
+          {
+            key: "character",
+            label: "Create a character",
+            image: require("@/assets/images/char.png"),
+          },
+          {
+            key: "story",
+            label: "Create a book",
+            image: require("@/assets/images/story.png"),
+          },
+        ].map((tab) => (
           <TouchableOpacity
-            key={tab}
-            onPress={() => setActiveTab(tab as any)}
-            className={`py-2 px-4 rounded-full ${
-              activeTab === tab ? "bg-[#5a1786]" : "bg-purple-100"
+            key={tab.key}
+            onPress={() => setActiveTab(tab.key as any)}
+            className={`w-32 h-36 items-center justify-between p-4 rounded-2xl ${
+              activeTab === tab.key ? "bg-[#d5ff32]" : "bg-purple-100"
             }`}
           >
-            <Text
-              className={`font-poppinsBold ${
-                activeTab === tab ? "text-white" : "text-[#5a1786]"
-              }`}
-            >
-              {tab === "book"
-                ? "Book Info"
-                : tab === "character"
-                ? "Character Info"
-                : "Story Prompt"}
+            <Image
+              source={tab.image}
+              className="w-12 h-12"
+              resizeMode="contain"
+            />
+            <Text className="text-center font-poppinsBold text-[#5D1889] mt-2">
+              {tab.label}
             </Text>
           </TouchableOpacity>
         ))}
-      </View>
+      </ScrollView>
 
       <ScrollView
         className="px-5 py-4"
@@ -315,7 +339,7 @@ export default function StoryCreatorForm() {
 
         {activeTab === "story" && (
           <>
-            <Text className="text-[#5a1786] text-lg font-poppinsBold mb-2">
+            <Text className="text-[#5D1889] text-lg font-poppinsBold mb-2">
               What is your story about?
             </Text>
             <TextInput
@@ -337,7 +361,7 @@ export default function StoryCreatorForm() {
           onPress={handleGenerate}
           className="bg-[#d5ff32] rounded-full py-4 mb-4 w-full"
         >
-          <Text className="text-center text-[#5a1786] text-lg font-poppinsBold">
+          <Text className="text-center text-[#5D1889] text-lg font-poppinsBold">
             Generate
           </Text>
         </TouchableOpacity>

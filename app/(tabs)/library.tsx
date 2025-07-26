@@ -1,17 +1,17 @@
-import {
-  Text,
-  View,
-  FlatList,
-  Image,
-  TouchableOpacity,
-  ScrollView,
-} from "react-native";
-import { useEffect, useState } from "react";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Header from "@/components/Header";
 import SearchBar from "@/components/Search";
-import { Heart, Flag } from "lucide-react-native";
 import { useRouter } from "expo-router";
+import { Flag, Heart } from "lucide-react-native";
+import { useState } from "react";
+import {
+  FlatList,
+  Image,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const filters = ["All", "Folklore", "Adventure"];
 
@@ -85,7 +85,7 @@ export default function Library() {
             onPress={() => setSelectedFilter(filter)}
             className={`px-4 py-2 mr-3 rounded-full border ${
               isSelected
-                ? "bg-[#5a1786] border-[#5a1786]"
+                ? "bg-[#5D1889] border-[#5D1889]"
                 : "bg-white border-[#ddd]"
             }`}
           >

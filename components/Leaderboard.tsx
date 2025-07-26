@@ -1,9 +1,9 @@
 import React from "react";
 import {
-  View,
+  ScrollView,
   Text,
   TouchableOpacity,
-  ScrollView,
+  View,
 } from "react-native";
 
 const leaderboardData = [
@@ -47,7 +47,7 @@ export default function Leaderboard() {
             <View
               key={index}
               className={`flex-row justify-between items-center rounded-xl px-4 py-3 mb-2 ${
-                isCurrentUser ? "bg-green-600" : "bg-[#5a1786]"
+                isCurrentUser ? "bg-green-600" : "bg-[#5D1889]"
               }`}
             >
               <Text className="text-white font-poppinsBold text-sm">

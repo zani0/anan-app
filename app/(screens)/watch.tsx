@@ -1,16 +1,16 @@
+import Header from "@/components/HeaderGoBack";
+import { useRouter } from "expo-router";
+import { Flag, Heart } from "lucide-react-native";
 import React, { useState } from "react";
 import {
-  View,
-  Text,
+  Dimensions,
   FlatList,
   Image,
+  Text,
   TouchableOpacity,
-  Dimensions,
+  View,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useRouter } from "expo-router";
-import { Heart, Flag } from "lucide-react-native";
-import Header from "@/components/HeaderGoBack";
 
 const screenHeight = Dimensions.get("window").height;
 
@@ -52,7 +52,7 @@ export default function Watch() {
           >
             <Header />
             <View className="justify-center items-center py-4 mb-6">
-              <Text className="text-4xl text-[#5a1786] font-caprasimo">Watch</Text>
+              <Text className="text-4xl text-[#5D1889] font-caprasimo">Watch</Text>
             </View>
           </View>
         }

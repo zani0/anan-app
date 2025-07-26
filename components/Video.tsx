@@ -1,20 +1,20 @@
-import React, { useState } from "react";
 import {
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-  Dimensions,
-  Modal,
-  ScrollView,
-} from "react-native";
-import YoutubePlayer from "react-native-youtube-iframe";
-import {
-  Star,
   CheckSquare,
   Square,
+  Star,
   Star as StarIcon,
 } from "lucide-react-native";
+import React, { useState } from "react";
+import {
+  Dimensions,
+  Image,
+  Modal,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import YoutubePlayer from "react-native-youtube-iframe";
 
 const quizData = [
   {
@@ -149,7 +149,7 @@ export default function Video() {
                 setSelectedOptions([]);
                 setShowScore(false);
               }}
-              className="px-4 py-2 rounded-xl bg-[#5a1786]"
+              className="px-4 py-2 rounded-xl bg-[#5D1889]"
             >
               <Text className="text-white font-poppins">
                 {hasTakenQuiz ? "Retake Quiz" : "Start Quiz"}

@@ -1,27 +1,26 @@
-import React from "react";
-import {
-  View,
-  TouchableOpacity,
-  StyleSheet,
-  Text,
-  Platform,
-} from "react-native";
-import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import Feather from "@expo/vector-icons/Feather";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
+import React from "react";
+import {
+  Platform,
+  StyleSheet,
+  TouchableOpacity,
+  View
+} from "react-native";
 import Animated, {
   FadeIn,
   FadeOut,
   LinearTransition,
-  useSharedValue,
   useAnimatedStyle,
+  useSharedValue,
   withSpring,
 } from "react-native-reanimated";
 
 const AnimatedTouchableOpacity =
   Animated.createAnimatedComponent(TouchableOpacity);
 
-const PRIMARY_COLOR = "#5a1786"; 
+const PRIMARY_COLOR = "#5D1889"; 
 const SECONDARY_COLOR = "#d0ed32"; 
 
 const routeLabels: Record<string, string> = {
@@ -105,19 +104,19 @@ const AnimatedIcon = ({ name, focused }: { name: string; focused: boolean }) => 
 
   switch (name) {
     case "index":
-      IconComponent = <Feather name="home" size={size} color="#5a1786" />;
+      IconComponent = <Feather name="home" size={size} color="#5D1889" />;
       break;
     case "library":
-      IconComponent = <Ionicons name="library-outline" size={size} color="#5a1786" />;
+      IconComponent = <Ionicons name="library-outline" size={size} color="#5D1889" />;
       break;
     case "stats":
-      IconComponent = <Feather name="bar-chart-2" size={size} color="#5a1786" />;
+      IconComponent = <Feather name="bar-chart-2" size={size} color="#5D1889" />;
       break;
     case "settings":
-      IconComponent = <Ionicons name="settings-outline" size={size} color="#5a1786" />;
+      IconComponent = <Ionicons name="settings-outline" size={size} color="#5D1889" />;
       break;
     default:
-      IconComponent = <Feather name="home" size={size} color="#5a1786" />;
+      IconComponent = <Feather name="home" size={size} color="#5D1889" />;
   }
 
   return <Animated.View style={animatedStyle}>{IconComponent}</Animated.View>;
