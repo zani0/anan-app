@@ -178,7 +178,7 @@ export default function StoryCreatorForm() {
         </View>
 
         <TextInput
-          placeholder="Title"
+          placeholder="Book Title"
           value={title}
           onChangeText={setTitle}
           className={inputClass}

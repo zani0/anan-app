@@ -5,10 +5,8 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
-  FlatList,
   Dimensions,
   Modal,
-  TextInput,
 } from "react-native";
 import { useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -19,14 +17,16 @@ import VerifyAgePopup from "@/components/VerifyAgePopup";
 
 const screenWidth = Dimensions.get("window").width;
 
+const TABS = ["Dashboard", "Library", "Subscriptions", "Settings"];
+
 export default function ParentAccount() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
 
+  const [selectedTab, setSelectedTab] = useState("Dashboard");
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
   const [showVerifyAge, setShowVerifyAge] = useState(false);
   const [name, setName] = useState("Parent");
-
   const children = [{ name: "Elliot" }, { name: "Maya" }];
 
   useEffect(() => {
@@ -56,26 +56,23 @@ export default function ParentAccount() {
   };
 
   const renderTopPicks = (childName: string) => {
-    const data = [1, 2, 3, 4]; // Placeholder
+    const data = [1, 2, 3, 4]; // Sample data
     return (
       <View className="mb-8">
-        <Text className="text-lg font-poppinsBold text-[#60178b] mb-4 px-4">
-          Top Picks for {childName}
-        </Text>
-        <FlatList
-          data={data}
-          numColumns={2}
-          keyExtractor={(item, index) => `${childName}-${index}`}
-          columnWrapperStyle={{
-            justifyContent: "space-between",
-            paddingHorizontal: 16,
-            marginBottom: 16,
-          }}
-          scrollEnabled={false}
-          renderItem={({ item }) => (
+        <View className="bg-[#60178b] px-4 py-2 rounded-l-[40px] rounded-tr-[40px] rounded-br-0 mb-5 w-[55vw]">
+          <Text className="text-lg font-poppinsBold text-white px-4">
+            Top Picks for {childName}
+          </Text>
+        </View>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+        >
+          {data.map((_, index) => (
             <TouchableOpacity
-              className="bg-white rounded-xl overflow-hidden shadow-md"
-              style={{ width: screenWidth * 0.44 }}
+              key={`${childName}-${index}`}
+              className="bg-white rounded-xl overflow-hidden shadow-md mr-4"
+              style={{ width: screenWidth * 0.6 }}
               activeOpacity={0.8}
               onPress={() => router.push("/watch-video")}
             >
@@ -110,75 +107,114 @@ export default function ParentAccount() {
                 </View>
               </View>
             </TouchableOpacity>
-          )}
-        />
+          ))}
+        </ScrollView>
       </View>
     );
   };
 
   return (
     <View className="flex-1 bg-white" style={{ paddingTop: insets.top }}>
-      <View className="mx-4">
-      <Header />
+      <View className="px-4">
+        <Header showProfilePicture={false} />
       </View>
 
       <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
-        <Text className="text-center text-3xl font-caprasimo text-[#60178b] my-6">
-          Welcome, {name}
-        </Text>
+        {/* Profile Section */}
+        <View className="items-center mt-6 mb-4">
+          <Image
+            source={require("@/assets/images/avatar.png")}
+            className="w-20 h-20 rounded-full mb-2"
+            resizeMode="cover"
+          />
+          <Text className="text-2xl font-caprasimo text-[#60178b]">
+            Welcome, {name}
+          </Text>
+        </View>
 
-        <View className="px-4">
-          {/* Children */}
-          <View className="bg-[#f6f3fa] rounded-xl p-4 mb-6">
-            <Text className="text-lg font-poppinsBold text-[#60178b] mb-2">
-              Your Children
-            </Text>
-            {children.map((child, i) => (
-              <View
-                key={i}
-                className="flex-row justify-between items-center border-t border-[#60178b] py-2"
+        {/* Pills */}
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{ paddingHorizontal: 16 }}
+          className="mb-6"
+        >
+          {TABS.map((tab) => (
+            <TouchableOpacity
+              key={tab}
+              onPress={() => setSelectedTab(tab)}
+              className={`px-4 py-2 mr-2 rounded-full ${
+                selectedTab === tab ? "bg-[#60178b]" : "bg-[#f2e8fa]"
+              }`}
+            >
+              <Text
+                className={`text-sm font-poppinsBold ${
+                  selectedTab === tab ? "text-white" : "text-[#60178b]"
+                }`}
               >
-                <Text className="font-poppins text-black">{child.name}</Text>
-                <TouchableOpacity className="bg-gray-200 px-3 py-1 rounded-full">
-                  <Text className="text-xs font-poppins">Manage</Text>
-                </TouchableOpacity>
+                {tab}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
+
+        {/* Tab Content */}
+        {selectedTab === "Dashboard" && (
+          <View className="px-4">
+            {/* Children List */}
+            <View className="bg-[#f6f3fa] rounded-xl p-4 mb-6">
+              <Text className="text-lg font-poppinsBold text-[#60178b] mb-2">
+                Your Children
+              </Text>
+              {children.map((child, i) => (
+                <View
+                  key={i}
+                  className="flex-row justify-between items-center border-t border-[#60178b] py-2"
+                >
+                  <Text className="font-poppins text-black">{child.name}</Text>
+                  <TouchableOpacity className="bg-gray-200 px-3 py-1 rounded-full">
+                    <Text className="text-xs font-poppins">Manage</Text>
+                  </TouchableOpacity>
+                </View>
+              ))}
+            </View>
+
+            {/* Comprehension for each child */}
+            {children.map((child, i) => (
+              <View key={i} className="bg-[#f6f3fa] rounded-xl p-4 mb-6">
+                <Text className="text-lg font-poppinsBold text-[#60178b] mb-2">
+                  {child.name}'s Comprehension Progress
+                </Text>
+                <Image
+                  source={require("@/assets/images/chart.png")}
+                  className="w-full h-[100px] rounded-md"
+                  resizeMode="contain"
+                />
               </View>
             ))}
+
+            {/* Top Picks */}
+            {children.map((child) => renderTopPicks(child.name))}
+
+            {/* Buttons */}
+            <TouchableOpacity
+              onPress={() => router.push("/choose-profile")}
+              className="bg-[#60178b] mt-4 py-3 rounded-full items-center"
+            >
+              <Text className="text-white text-lg font-poppinsBold">
+                Switch Profile
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => setShowLogoutConfirm(true)}
+              className="bg-yellow-400 mt-4 py-3 rounded-full items-center mb-10"
+            >
+              <Text className="text-black text-lg font-poppinsBold">
+                Log out
+              </Text>
+            </TouchableOpacity>
           </View>
-
-          {/* Comprehension Chart */}
-          <View className="bg-[#f6f3fa] rounded-xl p-4 mb-6">
-            <Text className="text-lg font-poppinsBold text-[#60178b] mb-2">
-              Comprehension Progress
-            </Text>
-            <Image
-              source={require("@/assets/images/vid1.png")}
-              className="w-full h-[100px] rounded-md"
-              resizeMode="contain"
-            />
-          </View>
-        </View>
-
-        {/* Top Picks per child */}
-        {children.map((child) => renderTopPicks(child.name))}
-
-        {/* Action Buttons */}
-        <View className="px-4">
-          <TouchableOpacity
-            onPress={() => router.push("/choose-profile")}
-            className="bg-[#60178b] mt-4 py-3 rounded-full items-center"
-          >
-            <Text className="text-white text-lg font-poppinsBold">
-              Switch Profile
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => setShowLogoutConfirm(true)}
-            className="bg-yellow-400 mt-4 py-3 rounded-full items-center"
-          >
-            <Text className="text-black text-lg font-poppinsBold">Log out</Text>
-          </TouchableOpacity>
-        </View>
+        )}
       </ScrollView>
 
       {/* Logout Modal */}
@@ -205,11 +241,11 @@ export default function ParentAccount() {
         </View>
       </Modal>
 
-      {/* Age verification */}
       {showVerifyAge && (
         <VerifyAgePopup
           visible={showVerifyAge}
           onClose={() => setShowVerifyAge(false)}
+          onVerified={handleVerifyComplete}
         />
       )}
     </View>
