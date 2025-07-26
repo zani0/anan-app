@@ -9,7 +9,12 @@ import {
   ScrollView,
 } from "react-native";
 import YoutubePlayer from "react-native-youtube-iframe";
-import { Star, ChevronLeft, ChevronRight, CheckSquare, Square } from "lucide-react-native";
+import {
+  Star,
+  CheckSquare,
+  Square,
+  Star as StarIcon,
+} from "lucide-react-native";
 
 const quizData = [
   {
@@ -58,6 +63,8 @@ export default function Video() {
   const score = selectedOptions.filter(
     (option, i) => option === quizData[i].answer
   ).length;
+  const points = score * 10;
+  const hasTakenQuiz = selectedOptions.length > 0;
 
   const renderStars = () => (
     <View className="flex-row items-center">
@@ -124,20 +131,31 @@ export default function Video() {
           Story by Nutifafa Tsikata
         </Text>
 
-        {/* Rating + Quiz Button */}
+        {/* Rating + Quiz Controls */}
         <View className="flex-row mt-3 justify-between items-center">
           {renderStars()}
-          <TouchableOpacity
-            onPress={() => {
-              setShowQuiz(true);
-              setCurrentQuestion(0);
-              setSelectedOptions([]);
-              setShowScore(false);
-            }}
-            className="px-4 py-2 rounded-xl bg-[#5a1786]"
-          >
-            <Text className="text-white font-poppins">Start Quiz</Text>
-          </TouchableOpacity>
+
+          <View className="flex-row items-center space-x-3">
+            {hasTakenQuiz && (
+              <View className="flex-row items-center space-x-1 bg-yellow-100 px-2 py-3 rounded-full mr-2">
+                <StarIcon size={16} color="#facc15" fill="#facc15" />
+                <Text className="text-black font-medium">{points} pts</Text>
+              </View>
+            )}
+            <TouchableOpacity
+              onPress={() => {
+                setShowQuiz(true);
+                setCurrentQuestion(0);
+                setSelectedOptions([]);
+                setShowScore(false);
+              }}
+              className="px-4 py-2 rounded-xl bg-[#5a1786]"
+            >
+              <Text className="text-white font-poppins">
+                {hasTakenQuiz ? "Retake Quiz" : "Start Quiz"}
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
 
@@ -160,9 +178,15 @@ export default function Video() {
                   <Text className="text-2xl font-bold text-purple-800 mb-2">
                     🎉 Quiz Completed!
                   </Text>
-                  <Text className="text-lg text-black mb-4 text-center">
+                  <Text className="text-lg text-black mb-2 text-center">
                     You got {score} out of {quizData.length} correct!
                   </Text>
+                  <View className="flex-row items-center mb-4">
+                    <StarIcon size={20} color="#facc15" fill="#facc15" />
+                    <Text className="ml-2 text-black font-semibold text-lg">
+                      {points} Points
+                    </Text>
+                  </View>
                   <TouchableOpacity
                     onPress={() => setShowQuiz(false)}
                     className="bg-purple-700 px-6 py-3 rounded-full"
