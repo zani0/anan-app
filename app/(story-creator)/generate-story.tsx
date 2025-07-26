@@ -87,10 +87,8 @@ export default function StoryCreatorForm() {
   const handleGenerate = () => {
     setLoading(true);
 
-    // Simulate API generation delay
     setTimeout(() => {
       setLoading(false);
-      // Navigate or show story here
     }, 3000);
   };
 
@@ -104,7 +102,7 @@ export default function StoryCreatorForm() {
               className="w-24 h-24 mb-4"
               resizeMode="contain"
             />
-            <Text className="text-[#5a1786] font-caprasimo text-2xl mb-2">
+            <Text className="text-[#5a1786] font-caprasimo text-2xl mb-2 text-center">
               Ananse is creating your story...
             </Text>
             <ActivityIndicator size="large" color="#5a1786" />
