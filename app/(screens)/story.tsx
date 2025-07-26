@@ -12,7 +12,7 @@ import { ChevronLeft, Heart, Share2 } from 'lucide-react-native';
 
 export default function Story() {
   const insets = useSafeAreaInsets();
-  const router = useRouter();
+  const router = useRouter(); 
 
   return (
     <ScrollView

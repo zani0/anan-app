@@ -49,7 +49,7 @@ export default function ChooseRole() {
           <Text className="text-[#60178b] text-center font-semibold font-poppinsBold">I am a KID</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity className="mt-20">
+        <TouchableOpacity className="mt-20" onPress={() => router.push("/about-accounts")}>
           <Text className="text-white font-poppins underline underline-offset-[5px]">
             Learn more about Anansesem accounts
           </Text>

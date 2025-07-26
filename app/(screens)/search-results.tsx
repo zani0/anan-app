@@ -52,7 +52,7 @@ export default function SearchResults() {
           >
             <Header />
             <SearchBar />
-            <Text className="text-black font-poppins text-lg text-center my-4 mb-6">
+            <Text className="text-[#60178b] font-poppinsBold text-lg text-center my-4 mb-6">
               You searched for: <Text className="font-poppinsBold">{query}</Text>
             </Text>
           </View>

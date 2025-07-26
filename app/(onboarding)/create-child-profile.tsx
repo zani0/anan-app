@@ -166,7 +166,7 @@ export default function CreateChildProfile() {
       case 1:
         return (
           <>
-            <Text className="text-[#60178b] text-[18px] font-poppins text-center mb-3">
+            <Text className="text-[#60178b] text-[18px] font-poppinsBold text-center mb-3">
               Watch this video to learn more
             </Text>
 
@@ -208,8 +208,8 @@ export default function CreateChildProfile() {
 
       case 2:
         return (
-          <>
-            <Text className="text-[#60178b] text-[18px] font-poppins text-center mb-3">
+          <View className="items-center">
+            <Text className="text-[#60178b] text-[18px] font-poppinsBold text-center mb-3">
               What’s your child’s name?
             </Text>
             <TextInput
@@ -217,9 +217,9 @@ export default function CreateChildProfile() {
               onChangeText={(text) => handleChange("name", text)}
               placeholder="Name here"
               placeholderTextColor="#aaa"
-              className="bg-transparent border-b border-dotted border-[#60178b] px-4 py-3 font-poppins text-gray-600 text-center w-full mb-2"
+              className="bg-transparent border-b border-2px border-[#60178b]/30 px-4 py-3 font-poppins text-gray-600 text-center mb-2 text-[18px] w-[50vw]"
             />
-          </>
+          </View>
         );
       case 3:
         const ageGroups = [
@@ -244,7 +244,7 @@ export default function CreateChildProfile() {
         ];
         return (
           <>
-            <Text className="text-[#60178b] font-poppins text-lg text-center mb-6">
+            <Text className="text-[#60178b] font-poppinsBold text-lg text-center mb-6">
               How old is your child?
             </Text>
             <View className="space-y-4">
@@ -297,11 +297,10 @@ export default function CreateChildProfile() {
 
         return (
           <>
-            <Text className="text-[#60178b] font-poppins text-lg text-center mb-6">
+            <Text className="text-[#60178b] font-poppinsBold text-lg text-center mb-6">
               What’s your child’s gender?
             </Text>
 
-            {/* Row with Boy and Girl */}
             <View className="flex-row justify-between mb-4">
               {genderOptions.slice(0, 2).map((option) => (
                 <TouchableOpacity
@@ -315,10 +314,10 @@ export default function CreateChildProfile() {
                 >
                   <Image
                     source={option.image}
-                    className="w-16 h-16 rounded-full mb-2"
+                    className="w-24 h-24 rounded-full mb-2"
                     resizeMode="contain"
                   />
-                  <Text className="text-sm font-poppins text-center text-[#60178b]">
+                  <Text className="text-sm font-poppins text-center text-[16px] text-[#60178b]">
                     {option.label}
                   </Text>
                 </TouchableOpacity>
@@ -337,10 +336,10 @@ export default function CreateChildProfile() {
               >
                 <Image
                   source={genderOptions[2].image}
-                  className="w-16 h-16 rounded-full mb-2"
+                  className="w-24 h-24 rounded-full mb-2"
                   resizeMode="contain"
                 />
-                <Text className="text-sm font-poppins text-center text-[#60178b]">
+                <Text className="text-sm font-poppins text-center text-[16px] text-[#60178b]">
                   {genderOptions[2].label}
                 </Text>
               </TouchableOpacity>
