@@ -104,7 +104,6 @@ export default function StoryCreatorForm() {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-      // Navigate or show results here...
     }, 3000);
   };
 
@@ -120,7 +119,7 @@ export default function StoryCreatorForm() {
               resizeMode="contain"
             />
             <Text className="text-[#5a1786] font-caprasimo text-2xl mb-2 text-center">
-              Ananse is creating your story...
+              Hold on, Ananse is generating your story...
             </Text>
             <ActivityIndicator size="large" color="#5a1786" />
           </View>

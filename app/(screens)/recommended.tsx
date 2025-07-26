@@ -82,7 +82,7 @@ export default function Recommended() {
                 <Text className="text-white text-xs font-medium font-poppins">
                   {item.category}
                 </Text>
-              </View>
+              </View> 
               {item.duration && (
                 <View className="absolute bottom-2 right-2 bg-lime-300 px-2 py-0.5 rounded">
                   <Text className="text-black text-xs font-poppinsBold">
