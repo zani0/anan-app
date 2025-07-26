@@ -6,7 +6,9 @@ import {
   TextInput,
   TouchableOpacity,
   ScrollView,
-  Platform,
+  Image,
+  Modal,
+  ActivityIndicator,
   LogBox,
 } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
@@ -20,6 +22,9 @@ LogBox.ignoreLogs([
 export default function StoryCreatorForm() {
   const insets = useSafeAreaInsets();
 
+  const [loading, setLoading] = useState(false);
+
+  // Dropdown states...
   const [languageOpen, setLanguageOpen] = useState(false);
   const [language, setLanguage] = useState(null);
   const [languages, setLanguages] = useState([
@@ -79,8 +84,34 @@ export default function StoryCreatorForm() {
     elevation: 2,
   };
 
+  const handleGenerate = () => {
+    setLoading(true);
+
+    // Simulate API generation delay
+    setTimeout(() => {
+      setLoading(false);
+      // Navigate or show story here
+    }, 3000);
+  };
+
   return (
     <View className="flex-1 bg-white" style={{ paddingTop: insets.top }}>
+      <Modal transparent visible={loading} animationType="fade">
+        <View className="flex-1 justify-center items-center bg-black/50">
+          <View className="bg-white px-6 py-8 rounded-3xl items-center w-4/5 shadow-xl">
+            <Image
+              source={require("@/assets/images/avatar.png")}
+              className="w-24 h-24 mb-4"
+              resizeMode="contain"
+            />
+            <Text className="text-[#5a1786] font-caprasimo text-2xl mb-2">
+              Ananse is creating your story...
+            </Text>
+            <ActivityIndicator size="large" color="#5a1786" />
+          </View>
+        </View>
+      </Modal>
+
       <View className="mx-6">
         <Header />
       </View>
@@ -91,7 +122,6 @@ export default function StoryCreatorForm() {
         keyboardShouldPersistTaps="handled"
         nestedScrollEnabled
       >
-        {/* Header */}
         <View className="justify-between items-center px-4 py-3 bg-white rounded-b-3xl">
           <Text className="text-4xl text-[#5a1786] font-caprasimo">
             AI Story Creator
@@ -220,7 +250,10 @@ export default function StoryCreatorForm() {
         />
 
         {/* Button */}
-        <TouchableOpacity className="bg-[#60178b] rounded-full py-4 mb-10">
+        <TouchableOpacity
+          onPress={handleGenerate}
+          className="bg-[#60178b] rounded-full py-4 mb-10"
+        >
           <Text className="text-white text-center text-lg font-poppinsBold">
             Generate Story
           </Text>
