@@ -12,7 +12,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import DropDownPicker from "react-native-dropdown-picker";
+import { SelectList } from "react-native-dropdown-select-list";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function StoryCreatorForm() {
@@ -24,46 +24,41 @@ export default function StoryCreatorForm() {
     "book"
   );
 
-  // dropdown states (same as before)
-  const [languageOpen, setLanguageOpen] = useState(false);
   const [language, setLanguage] = useState<string | null>(null);
-  const [languages, setLanguages] = useState([
-    { label: "English", value: "english" },
-    { label: "Twi", value: "twi" },
-    { label: "Ewe", value: "ewe" },
-  ]);
-
-  const [categoryOpen, setCategoryOpen] = useState(false);
   const [category, setCategory] = useState<string | null>(null);
-  const [categories, setCategories] = useState([
-    { label: "Adventure", value: "adventure" },
-    { label: "Moral", value: "moral" },
-    { label: "Fantasy", value: "fantasy" },
-  ]);
-
-  const [pagesOpen, setPagesOpen] = useState(false);
   const [pages, setPages] = useState<string | null>(null);
-  const [pageOptions, setPageOptions] = useState([
-    { label: "1-3 Pages", value: "short" },
-    { label: "4-7 Pages", value: "medium" },
-    { label: "8+ Pages", value: "long" },
-  ]);
-
-  const [genderOpen, setGenderOpen] = useState(false);
   const [gender, setGender] = useState<string | null>(null);
-  const [genders, setGenders] = useState([
-    { label: "Boy", value: "boy" },
-    { label: "Girl", value: "girl" },
-    { label: "Other", value: "other" },
-  ]);
-
-  const [ageOpen, setAgeOpen] = useState(false);
   const [age, setAge] = useState<string | null>(null);
-  const [ageOptions, setAgeOptions] = useState([
-    { label: "3-5", value: "3-5" },
-    { label: "6-8", value: "6-8" },
-    { label: "9-12", value: "9-12" },
-  ]);
+
+  const languages = [
+    { key: "english", value: "English" },
+    { key: "twi", value: "Twi" },
+    { key: "ewe", value: "Ewe" },
+  ];
+
+  const categories = [
+    { key: "adventure", value: "Adventure" },
+    { key: "moral", value: "Moral" },
+    { key: "fantasy", value: "Fantasy" },
+  ];
+
+  const pageOptions = [
+    { key: "short", value: "1-3 Pages" },
+    { key: "medium", value: "4-7 Pages" },
+    { key: "long", value: "8+ Pages" },
+  ];
+
+  const genders = [
+    { key: "boy", value: "Boy" },
+    { key: "girl", value: "Girl" },
+    { key: "other", value: "Other" },
+  ];
+
+  const ageOptions = [
+    { key: "3-5", value: "3-5" },
+    { key: "6-8", value: "6-8" },
+    { key: "9-12", value: "9-12" },
+  ];
 
   const [title, setTitle] = useState("");
   const [characterName, setCharacterName] = useState("");
@@ -72,16 +67,11 @@ export default function StoryCreatorForm() {
   const inputClass =
     "border border-purple-300 text-[#60178b] bg-[#fdf9ff] rounded-xl px-4 py-3 text-base shadow-sm mb-4 font-poppins";
 
-  const dropdownStyle = {
-    marginBottom: 20,
+  const dropdownBoxStyles = {
+    backgroundColor: "#fdf9ff",
     borderColor: "#d6bbf5",
     borderRadius: 14,
-    backgroundColor: "#fdf9ff",
-    shadowColor: "#c79df7",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.15,
-    shadowRadius: 4,
-    elevation: 2,
+    paddingVertical: 12,
   };
 
   const handleGenerate = async () => {
@@ -145,7 +135,6 @@ export default function StoryCreatorForm() {
 
       if (response.ok) {
         console.log("Generated story:", data);
-        // TODO: Navigate to story preview
       } else {
         console.error("API error:", data);
       }
@@ -194,10 +183,12 @@ export default function StoryCreatorForm() {
           </View>
         </View>
       </Modal>
+
       <View className="mx-6">
         <Header />
         <CategorySlider />
       </View>
+
       <ScrollView
         className="px-5 py-4"
         contentContainerStyle={{ paddingBottom: 100 }}
@@ -210,12 +201,6 @@ export default function StoryCreatorForm() {
               </Text>
             </View>
           </View>
-        </View>
-
-        <View className="mt-6 mb-4">
-          <Text className="font-poppinsBold text-[#60178b]">
-            What kind of story do you want to create?
-          </Text>
         </View>
 
         {/* Tabs */}
@@ -272,50 +257,38 @@ export default function StoryCreatorForm() {
               onChangeText={setTitle}
               className={inputClass}
             />
-            <Text className="text-[#5D1889] text-lg font-poppinsBold mb-2">
+
+            <Text className="text-[#5D1889] text-lg font-poppinsBold mb-2 mt-4">
               What is the language of your book?
             </Text>
-            <DropDownPicker
-              open={languageOpen}
-              value={language}
-              items={languages}
-              setOpen={setLanguageOpen}
-              setValue={setLanguage}
-              setItems={setLanguages}
+            <SelectList
+              data={languages}
+              setSelected={setLanguage}
+              boxStyles={dropdownBoxStyles}
               placeholder="Select Language"
-              style={dropdownStyle}
-              dropDownContainerStyle={dropdownStyle}
-              zIndex={5000}
+              save="key"
             />
-            <Text className="text-[#5D1889] text-lg font-poppinsBold mb-2">
+
+            <Text className="text-[#5D1889] text-lg font-poppinsBold mb-2 mt-4">
               What is the category of your story?
             </Text>
-            <DropDownPicker
-              open={categoryOpen}
-              value={category}
-              items={categories}
-              setOpen={setCategoryOpen}
-              setValue={setCategory}
-              setItems={setCategories}
+            <SelectList
+              data={categories}
+              setSelected={setCategory}
+              boxStyles={dropdownBoxStyles}
               placeholder="Select Category"
-              style={dropdownStyle}
-              dropDownContainerStyle={dropdownStyle}
-              zIndex={4000}
+              save="key"
             />
-            <Text className="text-[#5D1889] text-lg font-poppinsBold mb-2">
+
+            <Text className="text-[#5D1889] text-lg font-poppinsBold mb-2 mt-4">
               How many pages is your book?
             </Text>
-            <DropDownPicker
-              open={pagesOpen}
-              value={pages}
-              items={pageOptions}
-              setOpen={setPagesOpen}
-              setValue={setPages}
-              setItems={setPageOptions}
+            <SelectList
+              data={pageOptions}
+              setSelected={setPages}
+              boxStyles={dropdownBoxStyles}
               placeholder="Number of Pages"
-              style={dropdownStyle}
-              dropDownContainerStyle={dropdownStyle}
-              zIndex={3000}
+              save="key"
             />
           </>
         )}
@@ -331,35 +304,27 @@ export default function StoryCreatorForm() {
               onChangeText={setCharacterName}
               className={inputClass}
             />
-            <Text className="text-[#5D1889] text-lg font-poppinsBold mb-2">
+
+            <Text className="text-[#5D1889] text-lg font-poppinsBold mb-2 mt-4">
               What gender is your main character?
             </Text>
-            <DropDownPicker
-              open={genderOpen}
-              value={gender}
-              items={genders}
-              setOpen={setGenderOpen}
-              setValue={setGender}
-              setItems={setGenders}
+            <SelectList
+              data={genders}
+              setSelected={setGender}
+              boxStyles={dropdownBoxStyles}
               placeholder="Gender"
-              style={dropdownStyle}
-              dropDownContainerStyle={dropdownStyle}
-              zIndex={2000}
+              save="key"
             />
-            <Text className="text-[#5D1889] text-lg font-poppinsBold mb-2">
-              How many pages does your story have?
+
+            <Text className="text-[#5D1889] text-lg font-poppinsBold mb-2 mt-4">
+              What is the age group of your main character?
             </Text>
-            <DropDownPicker
-              open={ageOpen}
-              value={age}
-              items={ageOptions}
-              setOpen={setAgeOpen}
-              setValue={setAge}
-              setItems={setAgeOptions}
+            <SelectList
+              data={ageOptions}
+              setSelected={setAge}
+              boxStyles={dropdownBoxStyles}
               placeholder="Age"
-              style={dropdownStyle}
-              dropDownContainerStyle={dropdownStyle}
-              zIndex={1000}
+              save="key"
             />
           </>
         )}
@@ -384,9 +349,10 @@ export default function StoryCreatorForm() {
             </Text>
           </>
         )}
+
         <TouchableOpacity
           onPress={handleGenerate}
-          className="bg-[#d5ff32] rounded-full py-4 mb-4 w-full"
+          className="bg-[#d5ff32] rounded-full py-4 mb-4 w-full mt-6"
         >
           <Text className="text-center text-[#5D1889] text-lg font-poppinsBold">
             Generate

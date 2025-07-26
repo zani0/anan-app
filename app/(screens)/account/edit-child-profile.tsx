@@ -14,6 +14,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import api from "@/utils/api/api";
 import Header from "@/components/HeaderGoBack";
 import Toast from "react-native-toast-message";
+import { SelectList } from "react-native-dropdown-select-list";
 
 export default function EditChildProfile() {
   const { id } = useLocalSearchParams();
@@ -104,6 +105,21 @@ export default function EditChildProfile() {
     }, 1500);
   };
 
+  const genderOptions = [
+    { key: "GIRL", value: "Girl" },
+    { key: "BOY", value: "Boy" },
+  ];
+  const languageOptions = [
+    { key: "ENGLISH", value: "English" },
+    { key: "FRENCH", value: "French" },
+    { key: "YORUBA", value: "Yoruba" },
+  ];
+  const readingOptions = [
+    { key: "BEGINNER", value: "Beginner" },
+    { key: "INTERMEDIATE", value: "Intermediate" },
+    { key: "ADVANCED", value: "Advanced" },
+  ];
+
   if (loading) {
     return (
       <View className="flex-1 justify-center items-center bg-[#60178b]">
@@ -137,26 +153,68 @@ export default function EditChildProfile() {
           className="w-[120px] h-[120px] rounded-full"
           resizeMode="cover"
         />
-        <Text className="text-[#60178b] text-center mt-2">Change Picture</Text>
+        <Text className="text-[#60178b] text-center mt-2 font-poppins">
+          Change Picture
+        </Text>
       </TouchableOpacity>
 
-      {[
-        { label: "Full Name", value: name, setter: setName },
-        { label: "Nickname", value: nickName, setter: setNickName },
-        { label: "Date of Birth", value: dob, setter: setDob },
-        { label: "Gender", value: gender, setter: setGender },
-        { label: "Preferred Language", value: preferredLanguage, setter: setPreferredLanguage },
-        { label: "Reading Level", value: readingLevel, setter: setReadingLevel },
-      ].map((field, index) => (
-        <View key={index} className="mb-4">
-          <Text className="text-[#60178b] mb-1">{field.label}</Text>
-          <TextInput
-            className="bg-white border-[1px] border-[#60178b] rounded-lg px-4 py-3 text-[#60178b]"
-            value={field.value}
-            onChangeText={field.setter}
-          />
-        </View>
-      ))}
+      <View className="mb-4">
+        <Text className="text-[#60178b] mb-1 font-poppinsBold">Full Name</Text>
+        <TextInput
+          className="bg-white border-[1px] border-[#60178b] rounded-lg px-4 py-3 text-[#60178b]"
+          value={name}
+          onChangeText={setName}
+        />
+      </View>
+
+      <View className="mb-4">
+        <Text className="text-[#60178b] mb-1 font-poppinsBold">Nickname</Text>
+        <TextInput
+          className="bg-white border-[1px] border-[#60178b] rounded-lg px-4 py-3 text-[#60178b]"
+          value={nickName}
+          onChangeText={setNickName}
+        />
+      </View>
+
+      <View className="mb-4">
+        <Text className="text-[#60178b] mb-1 font-poppinsBold">Date of Birth</Text>
+        <TextInput
+          placeholder="YYYY-MM-DD"
+          className="bg-white border-[1px] border-[#60178b] rounded-lg px-4 py-3 text-[#60178b]"
+          value={dob}
+          onChangeText={setDob}
+        />
+      </View>
+
+      <View className="mb-4">
+        <Text className="text-[#60178b] mb-1 font-poppinsBold">Gender</Text>
+        <SelectList
+          setSelected={setGender}
+          data={genderOptions}
+          save="key"
+          defaultOption={{ key: gender, value: gender }}
+        />
+      </View>
+
+      <View className="mb-4">
+        <Text className="text-[#60178b] mb-1 font-poppinsBold">Preferred Language</Text>
+        <SelectList
+          setSelected={setPreferredLanguage}
+          data={languageOptions}
+          save="key"
+          defaultOption={{ key: preferredLanguage, value: preferredLanguage }}
+        />
+      </View>
+
+      <View className="mb-6">
+        <Text className="text-[#60178b] mb-1 font-poppinsBold">Reading Level</Text>
+        <SelectList
+          setSelected={setReadingLevel}
+          data={readingOptions}
+          save="key"
+          defaultOption={{ key: readingLevel, value: readingLevel }}
+        />
+      </View>
 
       <TouchableOpacity
         onPress={handleSave}
