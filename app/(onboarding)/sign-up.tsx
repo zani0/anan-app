@@ -3,7 +3,7 @@ import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Checkbox from "expo-checkbox";
 import { useRouter } from "expo-router";
-import moment from 'moment';
+import moment from "moment";
 import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
@@ -22,7 +22,17 @@ export default function SignUp() {
   const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [form, setForm] = useState({ name: "", email: "", password: "" });
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    password: "",
+    phoneNumber: "",
+    dateOfBirth: "", // in yyyy-mm-dd format
+  });
+
+  const formatDateOfBirth = (date: string) => {
+    return `${date}T00:00:00.000Z`;
+  };
 
   useEffect(() => {
     const loadSavedCredentials = async () => {
@@ -32,11 +42,12 @@ export default function SignUp() {
         const savedPassword = await AsyncStorage.getItem("password");
 
         if (savedName && savedEmail && savedPassword) {
-          setForm({
+          setForm((prev) => ({
+            ...prev,
             name: savedName,
             email: savedEmail,
             password: savedPassword,
-          });
+          }));
           setRememberMe(true);
         }
       } catch (e) {
@@ -52,7 +63,9 @@ export default function SignUp() {
   };
 
   const handleSubmit = async () => {
-    if (!form.name || !form.email || !form.password) {
+    const { name, email, password, phoneNumber, dateOfBirth } = form;
+
+    if (!name || !email || !password || !phoneNumber || !dateOfBirth) {
       Toast.show({
         type: "error",
         text1: "Oops!",
@@ -62,7 +75,7 @@ export default function SignUp() {
     }
 
     const emailRegex = /\S+@\S+\.\S+/;
-    if (!emailRegex.test(form.email)) {
+    if (!emailRegex.test(email)) {
       Toast.show({
         type: "error",
         text1: "Invalid Email",
@@ -71,11 +84,14 @@ export default function SignUp() {
       return;
     }
 
-    const dateOfBirth = await AsyncStorage.getItem('DOB');
-
     try {
       setIsLoading(true);
-      const data = await signup({...form, phoneNumber: '1234', dateOfBirth: moment(dateOfBirth, 'yyyy').toISOString()});
+      const payload = {
+        ...form,
+        dateOfBirth: formatDateOfBirth(dateOfBirth),
+      };
+
+      const data = await signup(payload);
 
       if (rememberMe) {
         await AsyncStorage.setItem("user", JSON.stringify(data.user));
@@ -104,7 +120,6 @@ export default function SignUp() {
 
   return (
     <View className="flex-1 justify-center items-center bg-[#60178b] px-6">
-      {/* Decorations */}
       <Image
         source={require("@/assets/images/spider-web-1.png")}
         className="w-[150px] h-[120px] absolute top-[-20] right-[-30]"
@@ -142,6 +157,37 @@ export default function SignUp() {
             className="border border-gray-300 rounded-lg mb-4 px-4 py-3 font-poppins"
             value={form.email}
             onChangeText={(text) => handleChange("email", text)}
+          />
+          <TextInput
+            placeholder="Phone Number"
+            placeholderTextColor="#888"
+            keyboardType="phone-pad"
+            className="border border-gray-300 rounded-lg mb-4 px-4 py-3 font-poppins"
+            value={form.phoneNumber}
+            onChangeText={(text) => handleChange("phoneNumber", text)}
+          />
+          <TextInput
+            placeholder="Date of Birth (YYYY-MM-DD)"
+            placeholderTextColor="#888"
+            keyboardType="numeric"
+            maxLength={10}
+            className="border border-gray-300 rounded-lg mb-4 px-4 py-3 font-poppins"
+            value={form.dateOfBirth}
+            onChangeText={(text) => {
+              const cleaned = text.replace(/\D/g, "");
+
+              let formatted = cleaned;
+              if (cleaned.length > 4 && cleaned.length <= 6) {
+                formatted = `${cleaned.slice(0, 4)}-${cleaned.slice(4)}`;
+              } else if (cleaned.length > 6) {
+                formatted = `${cleaned.slice(0, 4)}-${cleaned.slice(
+                  4,
+                  6
+                )}-${cleaned.slice(6, 8)}`;
+              }
+
+              handleChange("dateOfBirth", formatted);
+            }}
           />
 
           <View className="border border-gray-300 rounded-lg mb-4 flex-row items-center px-4">
@@ -183,7 +229,9 @@ export default function SignUp() {
           <TouchableOpacity
             onPress={handleSubmit}
             disabled={isLoading}
-            className={`py-3 rounded-xl mt-6 mb-6 ${isLoading ? "bg-[#D0EE30]/70" : "bg-[#D0EE30]"}`}
+            className={`py-3 rounded-xl mt-6 mb-6 ${
+              isLoading ? "bg-[#D0EE30]/70" : "bg-[#D0EE30]"
+            }`}
           >
             {isLoading ? (
               <ActivityIndicator size="small" color="#60178b" />

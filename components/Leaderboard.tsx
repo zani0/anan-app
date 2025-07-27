@@ -118,7 +118,7 @@ export default function Leaderboard() {
                   isCurrentUser ? "text-black" : "text-white"
                 }`}
               >
-                {item.score} pts
+                {item.score} Points
               </Text>
             </View>
           );

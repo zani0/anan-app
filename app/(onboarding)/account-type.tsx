@@ -72,15 +72,15 @@ export default function AccountType() {
           <View> 
             <OptionCard
               type="parent"
-              title="Use Parent Account"
+              title="Create one account kid account"
               subtitle="Continue with your account and manage parental controls."
-              image={require("@/assets/images/oops.png")}
+              image={require("@/assets/images/girl.png")}
             />
             <OptionCard
               type="child"
-              title="Create Child Profile"
+              title="Create multiple kid accounts"
               subtitle="Set up a dedicated account for your child to access content."
-              image={require("@/assets/images/oops.png")}
+              image={require("@/assets/images/kids.png")}
             />
           </View>
 

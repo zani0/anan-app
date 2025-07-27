@@ -23,11 +23,11 @@ export default function ChooseProfile() {
     router.push("/(tabs)");
   };
 
-  const getAvatarUrl = (profile: { name: string; avatar?: string }) =>
+  const getAvatarUrl = (profile: { fullName: string; avatar?: string }) =>
     profile.avatar?.startsWith("http") && profile.avatar !== ""
       ? profile.avatar
       : `https://ui-avatars.com/api/?name=${encodeURIComponent(
-          profile.name
+          profile.fullName
         )}&background=random&color=fff&bold=true`;
 
   useEffect(() => {
@@ -35,14 +35,14 @@ export default function ChooseProfile() {
       try {
         const userData = await AsyncStorage.getItem("user");
         if (!userData) return;
-        const user = JSON.parse(userData);
+
         const res = await api.get("/profile");
-        const rawProfiles = res.data;
+        const rawProfiles = res.data?.data || [];
 
         const simplifiedProfiles = rawProfiles.map((profile: any) => ({
-          id: profile.id.toString(),
-          name: profile.bio.fullName,
-          avatar: profile.bio.avatar,
+          id: profile.uuid,
+          fullName: profile.fullName,
+          avatar: profile.avatar,
         }));
 
         setProfiles(simplifiedProfiles);
@@ -74,7 +74,7 @@ export default function ChooseProfile() {
         resizeMode="cover"
       />
       <Text className="text-white font-poppins text-[14px] text-center">
-        {item.name}
+        {item.fullName}
       </Text>
     </TouchableOpacity>
   );
@@ -108,10 +108,6 @@ export default function ChooseProfile() {
             Who’s watching?
           </Text>
 
-          {/* <Text className="font-poppins text-white text-base text-center mb-8">
-            Select a profile to continue learning
-          </Text> */}
-
           {/* Grid of Profiles */}
           {loading ? (
             <ActivityIndicator color="#D0EE30" size="large" />
@@ -119,7 +115,7 @@ export default function ChooseProfile() {
             <FlatList
               data={[
                 ...profiles,
-                { id: "new", name: "Add Profile", avatar: null },
+                { id: "new", fullName: "Add Profile", avatar: null },
               ]}
               numColumns={3}
               scrollEnabled={false}
