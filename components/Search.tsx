@@ -8,9 +8,12 @@ import {
 import { SearchIcon } from "lucide-react-native";
 import { useRouter } from "expo-router";
 
-export default function SearchBar() {
-  const [query, setQuery] = useState("");
+type Props = {
+  isSearchEnabled?: boolean; // made optional
+};
 
+export default function SearchBar({ isSearchEnabled = true }: Props) { // default = true
+  const [query, setQuery] = useState("");
   const router = useRouter();
 
   const handleSearch = () => {
@@ -23,10 +26,11 @@ export default function SearchBar() {
     console.log("Search for:", query);
   };
 
+  if (!isSearchEnabled) return null;
+
   return (
     <View className="px-4 my-4">
       <View style={styles.container}>
-        {/* Input */}
         <TextInput
           value={query}
           onChangeText={setQuery}
@@ -35,8 +39,6 @@ export default function SearchBar() {
           style={styles.input}
           className="font-poppins"
         />
-
-        {/* Slanted Button */}
         <TouchableOpacity onPress={handleSearch} style={styles.buttonContainer}>
           <View style={styles.button}>
             <SearchIcon color="white" size={20} />

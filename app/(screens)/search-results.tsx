@@ -79,9 +79,9 @@ export default function SearchResults() {
           >
             <Header />
             <SearchBar />
-            <Text className="text-[#60178b] font-poppinsBold text-lg text-center my-4 mb-6">
-              You searched for:{" "}
-              <Text className="font-poppinsBold">{query}</Text>
+            <Text className="text-[#60178b] font-poppinsBold text-[20px] text-center my-4 mb-6">
+              You searched for{"  "}
+              <Text className="font-poppinsBold">"{query}"</Text>
             </Text>
           </View>
         }
@@ -172,7 +172,6 @@ export default function SearchResults() {
         </View>
       </Modal>
 
-      {/* 💖 Favorites Modal */}
       <Modal visible={showFavoritePopup} transparent animationType="fade">
         <View className="flex-1 justify-center items-center bg-black/50 px-6">
           <View className="bg-white p-6 rounded-3xl w-full max-w-md items-center shadow-lg">
