@@ -1,10 +1,4 @@
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  ScrollView,
-} from "react-native";
+import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
 import { useState } from "react";
 import { useRouter } from "expo-router";
 
@@ -40,11 +34,17 @@ export default function AccountType() {
     >
       <View className="flex-row items-center">
         {/* Image */}
-        <Image source={image} className="w-16 h-16 mr-4 rounded-md" />
+        <Image
+          source={image}
+          className="w-16 h-16 mr-4 rounded-md"
+          resizeMode="contain"
+        />
 
         {/* Text */}
         <View className="flex-1">
-          <Text className="text-lg font-poppinsBold text-[#60178b]">{title}</Text>
+          <Text className="text-lg font-poppinsBold text-[#60178b]">
+            {title}
+          </Text>
           <Text className="text-sm font-poppins text-gray-600">{subtitle}</Text>
         </View>
       </View>
@@ -65,21 +65,22 @@ export default function AccountType() {
 
           {/* Subtitle */}
           <Text className="text-white text-center font-poppins mb-6">
-            You can either go ahead with your own profile or create a profile for your child.
+            You can either go ahead with your own profile or create a profile
+            for your child.
           </Text>
 
           {/* Options */}
-          <View> 
+          <View>
             <OptionCard
               type="parent"
               title="Create one account kid account"
-              subtitle="Continue with your account and manage parental controls."
+              subtitle="This means you’re creating only one kid account."
               image={require("@/assets/images/girl.png")}
             />
             <OptionCard
               type="child"
               title="Create multiple kid accounts"
-              subtitle="Set up a dedicated account for your child to access content."
+              subtitle="accounts for more than one kid."
               image={require("@/assets/images/kids.png")}
             />
           </View>
