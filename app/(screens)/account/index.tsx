@@ -112,14 +112,14 @@ export default function ParentAccount() {
 
       <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
         {/* Profile Section */}
-        <View className="items-center mt-6 mb-4">
+        <View className="items-center mt-6 mb-12">
           <Image
             source={require("@/assets/images/avatar.png")}
             className="w-20 h-20 rounded-full mb-2"
             resizeMode="cover"
           />
           <Text className="text-2xl font-caprasimo text-[#60178b]">
-            Welcome, {name}
+            Hello, {name}
           </Text>
         </View>
 
@@ -127,8 +127,8 @@ export default function ParentAccount() {
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ paddingHorizontal: 16 }}
-          className="mb-6"
+          contentContainerStyle={{ paddingHorizontal: 24}}
+          className="mb-6 mx-2"
         >
           {TABS.map((tab) => (
             <TouchableOpacity
