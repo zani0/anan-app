@@ -90,12 +90,12 @@ export default function ManageProfiles() {
             profiles.map((profile) => (
               <View
                 key={profile.id}
-                className="flex-row items-center justify-between mb-4 px-4 py-3 bg-[#6e1e9a] rounded-xl border-b border-[1px] border-gray-100"
+                className="flex-row items-center justify-between mb-4 px-4 py-3 bg-white rounded-xl border-b border-[1px] border-gray-100"
               >
-                <View className="flex-row items-stretch gap-4">
+                <View className="flex-row items-center gap-4">
                   <Image
                     source={{ uri: getAvatarUrl(profile) }}
-                    className="w-[60px] h-[60px] rounded-full"
+                    className="w-[40px] h-[40px] rounded-full"
                     resizeMode="cover"
                   />
                   <Text className="text-[#6e1e9a] font-poppins text-[16px]">

@@ -13,6 +13,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Heart, Flag } from "lucide-react-native";
 import Header from "@/components/HeaderGoBack";
+import Settings from "@/components/Settings";
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -45,7 +46,7 @@ export default function ParentAccount() {
 
   const confirmLogout = () => {
     setShowLogoutConfirm(false);
-    router.back(); // ✅ Direct logout / go back
+    router.back();
   };
 
   const renderTopPicks = (childName: string) => {
@@ -164,7 +165,7 @@ export default function ParentAccount() {
                   <Text className="font-poppins text-black">{child.name}</Text>
                   <TouchableOpacity
                     className="bg-gray-200 px-3 py-1 rounded-full"
-                    onPress={() => router.push('/account/edit-child-profile')}
+                    onPress={() => router.push("/account/edit-child-profile")}
                   >
                     <Text className="text-xs font-poppins">Manage</Text>
                   </TouchableOpacity>
@@ -218,6 +219,7 @@ export default function ParentAccount() {
             </TouchableOpacity>
           </View>
         )}
+        {selectedTab === "Settings" && <Settings />}
       </ScrollView>
 
       {/* Logout Modal */}
