@@ -95,14 +95,11 @@ export default function SearchResults() {
                 <Text className="font-poppinsBold">"{query}"</Text>
               </Text>
             ) : (
-              <View className="my-4 mb-6">
-                <Text className="text-[#60178b] font-poppinsBold text-[20px] text-center">
-                  Ananse could not find
+              <View className="my-8 mb-6">
+                <Text className="text-[#60178b] font-poppinsBold text-[22px] text-center">
+                  Ananse could not find “{query}”
                 </Text>
-                <Text className="text-[#60178b] font-poppinsBold text-[20px] text-center mb-2">
-                  “{query}”
-                </Text>
-                <Text className="text-center text-[#60178b] font-poppins text-base">
+                <Text className="text-center text-[#60178b] font-poppinsBold text-[20px] text-base">
                   Watch these instead?
                 </Text>
               </View>
