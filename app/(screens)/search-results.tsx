@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -31,18 +31,26 @@ const mockResults = [
     category: "Folklore",
     thumbnail: require("@/assets/images/cartoon.jpg"),
   },
+  {
+    id: "3",
+    title: "Why the Sky is Far Away",
+    category: "Legends",
+    thumbnail: require("@/assets/images/vid1.png"),
+  },
 ];
 
 export default function SearchResults() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
-  const { query } = useLocalSearchParams();
-  const [results] = useState(mockResults);
-
+  const { query } = useLocalSearchParams<{ query: string }>();
   const [favorites, setFavorites] = useState<string[]>([]);
   const [showFlagPopup, setShowFlagPopup] = useState(false);
   const [videoToFlag, setVideoToFlag] = useState<any>(null);
   const [showFavoritePopup, setShowFavoritePopup] = useState(false);
+
+  const filteredResults = mockResults.filter((item) =>
+    item.title.toLowerCase().includes(query?.toLowerCase() ?? "")
+  );
 
   const toggleFavorite = (id: string) => {
     setFavorites((prev) => {
@@ -70,7 +78,7 @@ export default function SearchResults() {
   return (
     <View className="flex-1 bg-white">
       <FlatList
-        data={results}
+        data={filteredResults.length > 0 ? filteredResults : mockResults}
         keyExtractor={(item) => item.id}
         numColumns={2}
         ListHeaderComponent={
@@ -81,10 +89,24 @@ export default function SearchResults() {
             <Header />
             <SearchBar />
             <CategorySlider />
-            <Text className="text-[#60178b] font-poppinsBold text-[20px] text-center my-4 mb-6">
-              You searched for{"  "}
-              <Text className="font-poppinsBold">"{query}"</Text>
-            </Text>
+            {filteredResults.length > 0 ? (
+              <Text className="text-[#60178b] font-poppinsBold text-[20px] text-center my-4 mb-6">
+                You searched for{" "}
+                <Text className="font-poppinsBold">"{query}"</Text>
+              </Text>
+            ) : (
+              <View className="my-4 mb-6">
+                <Text className="text-[#60178b] font-poppinsBold text-[20px] text-center">
+                  Ananse could not find
+                </Text>
+                <Text className="text-[#60178b] font-poppinsBold text-[20px] text-center mb-2">
+                  “{query}”
+                </Text>
+                <Text className="text-center text-[#60178b] font-poppins text-base">
+                  Watch these instead?
+                </Text>
+              </View>
+            )}
           </View>
         }
         contentContainerStyle={{ paddingBottom: 100 }}
