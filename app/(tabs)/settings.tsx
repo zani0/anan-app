@@ -5,6 +5,7 @@ import { ScrollView, Switch, Text, TouchableOpacity, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 import Settings from "@/components/Settings";
+import CategorySlider from "@/components/CategorySlider";
 
 export default function SettingsScreen() {
   const insets = useSafeAreaInsets();
@@ -30,13 +31,12 @@ export default function SettingsScreen() {
           paddingBottom: 80,
         }}
       >
-        <View className="">
+        <View className="mb-0">
           <Header />
         </View>
 
-        {/* Header */}
-        <View className="justify-between items-center px-4 py-3 bg-[#5D1889] rounded-b-3xl">
-          <Text className="text-4xl text-[#ffffff] font-caprasimo">
+        <View className="bg-[#60178b] mt-4 px-4 py-2 rounded-l-[40px] rounded-tr-[40px] rounded-br-0 w-[50vw]">
+          <Text className="text-[22px] text-[#ffffff] font-poppinsBold">
             Settings
           </Text>
         </View>

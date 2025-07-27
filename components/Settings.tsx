@@ -24,7 +24,6 @@ export default function Settings() {
     <ScrollView
       className="flex-1 bg-white px-4"
       contentContainerStyle={{
-        paddingTop: insets.top + 20,
         paddingBottom: 80,
       }}
     >
