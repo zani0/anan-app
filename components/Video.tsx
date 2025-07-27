@@ -118,7 +118,7 @@ export default function Video() {
         >
           <Vimeo
             videoId="76979871"
-            params="autoplay=1&loop=0&transparent=0&title=0"
+            params="autoplay=0&loop=0&transparent=1&title=0"
           />
         </View>
       )}

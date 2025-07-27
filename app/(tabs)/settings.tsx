@@ -22,14 +22,26 @@ export default function SettingsScreen() {
   ];
 
   return (
-    <>
-      <Header />
+    <View className="flex-1 bg-white">
+      <ScrollView
+        className="flex-1 bg-white px-4"
+        contentContainerStyle={{
+          paddingTop: insets.top + 20,
+          paddingBottom: 80,
+        }}
+      >
+        <View className="">
+          <Header />
+        </View>
 
-      {/* Header */}
-      <View className="justify-between items-center px-4 py-3 bg-white rounded-b-3xl">
-        <Text className="text-4xl text-[#5D1889] font-caprasimo">Settings</Text>
-      </View>
-      <Settings />
-    </>
+        {/* Header */}
+        <View className="justify-between items-center px-4 py-3 bg-[#5D1889] rounded-b-3xl">
+          <Text className="text-4xl text-[#ffffff] font-caprasimo">
+            Settings
+          </Text>
+        </View>
+        <Settings />
+      </ScrollView>
+    </View>
   );
 }
