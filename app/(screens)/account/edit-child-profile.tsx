@@ -15,6 +15,7 @@ import api from "@/utils/api/api";
 import Header from "@/components/HeaderGoBack";
 import Toast from "react-native-toast-message";
 import { SelectList } from "react-native-dropdown-select-list";
+import { Switch } from "react-native";
 
 export default function EditChildProfile() {
   const { id } = useLocalSearchParams();
@@ -29,6 +30,7 @@ export default function EditChildProfile() {
   const [avatar, setAvatar] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
+  const [isSearchEnabled, setIsSearchEnabled] = useState(false);
 
   const fetchProfile = async () => {
     try {
@@ -98,7 +100,10 @@ export default function EditChildProfile() {
       try {
         await api.delete(`/profile/${id}`);
         showToast("success", "Profile has been deleted.");
-        setTimeout(() => router.replace("/(screens)/account/manage-profiles"), 1000);
+        setTimeout(
+          () => router.replace("/(screens)/account/manage-profiles"),
+          1000
+        );
       } catch (err) {
         showToast("error", "Failed to delete profile.");
       }
@@ -157,6 +162,18 @@ export default function EditChildProfile() {
         </Text>
       </TouchableOpacity>
 
+      <View className="mb-6 flex-row items-center justify-between">
+        <Text className="text-[#60178b] font-poppinsBold mr-4 flex-1">
+          Search (Keeps search bar on or off)
+        </Text>
+        <Switch
+          value={isSearchEnabled}
+          onValueChange={setIsSearchEnabled}
+          thumbColor={isSearchEnabled ? "#60178b" : "#ccc"}
+          trackColor={{ false: "#aaa", true: "#D0EE30" }}
+        />
+      </View>
+
       <View className="mb-4">
         <Text className="text-[#60178b] mb-1 font-poppinsBold">Full Name</Text>
         <TextInput
@@ -167,16 +184,9 @@ export default function EditChildProfile() {
       </View>
 
       <View className="mb-4">
-        <Text className="text-[#60178b] mb-1 font-poppinsBold">Nickname</Text>
-        <TextInput
-          className="bg-white border-[1px] border-[#60178b] rounded-lg px-4 py-3 text-[#60178b]"
-          value={nickName}
-          onChangeText={setNickName}
-        />
-      </View>
-
-      <View className="mb-4">
-        <Text className="text-[#60178b] mb-1 font-poppinsBold">Date of Birth</Text>
+        <Text className="text-[#60178b] mb-1 font-poppinsBold">
+          Date of Birth
+        </Text>
         <TextInput
           placeholder="YYYY-MM-DD"
           className="bg-white border-[1px] border-[#60178b] rounded-lg px-4 py-3 text-[#60178b]"
@@ -196,7 +206,9 @@ export default function EditChildProfile() {
       </View>
 
       <View className="mb-4">
-        <Text className="text-[#60178b] mb-1 font-poppinsBold">Preferred Language</Text>
+        <Text className="text-[#60178b] mb-1 font-poppinsBold">
+          Preferred Language
+        </Text>
         <SelectList
           setSelected={setPreferredLanguage}
           data={languageOptions}
@@ -206,7 +218,9 @@ export default function EditChildProfile() {
       </View>
 
       <View className="mb-6">
-        <Text className="text-[#60178b] mb-1 font-poppinsBold">Reading Level</Text>
+        <Text className="text-[#60178b] mb-1 font-poppinsBold">
+          Reading Level
+        </Text>
         <SelectList
           setSelected={setReadingLevel}
           data={readingOptions}
