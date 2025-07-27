@@ -17,7 +17,7 @@ import Settings from "@/components/Settings";
 
 const screenWidth = Dimensions.get("window").width;
 
-const TABS = ["Dashboard", "Library", "Subscriptions", "Settings"];
+const TABS = ["Dashboard", "Library", "Settings"];
 
 export default function ParentAccount() {
   const router = useRouter();
@@ -127,26 +127,32 @@ export default function ParentAccount() {
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ paddingHorizontal: 24}}
+          contentContainerStyle={{
+            paddingHorizontal: 24,
+            justifyContent: "center",
+            flexGrow: 1,
+          }}
           className="mb-6 mx-2"
         >
-          {TABS.map((tab) => (
-            <TouchableOpacity
-              key={tab}
-              onPress={() => setSelectedTab(tab)}
-              className={`px-4 py-2 mr-2 rounded-full ${
-                selectedTab === tab ? "bg-[#60178b]" : "bg-[#f2e8fa]"
-              }`}
-            >
-              <Text
-                className={`text-sm font-poppinsBold ${
-                  selectedTab === tab ? "text-white" : "text-[#60178b]"
+          <View className="flex-row justify-center w-full">
+            {TABS.map((tab) => (
+              <TouchableOpacity
+                key={tab}
+                onPress={() => setSelectedTab(tab)}
+                className={`px-4 py-2 mr-2 rounded-full ${
+                  selectedTab === tab ? "bg-[#60178b]" : "bg-[#f2e8fa]"
                 }`}
               >
-                {tab}
-              </Text>
-            </TouchableOpacity>
-          ))}
+                <Text
+                  className={`text-sm font-poppinsBold ${
+                    selectedTab === tab ? "text-white" : "text-[#60178b]"
+                  }`}
+                >
+                  {tab}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
         </ScrollView>
 
         {/* Tab Content */}
