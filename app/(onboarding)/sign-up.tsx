@@ -27,12 +27,15 @@ export default function SignUp() {
     email: "",
     password: "",
     phoneNumber: "",
-    dateOfBirth: "", // in yyyy-mm-dd format
+    dateOfBirth: "", 
   });
 
   const formatDateOfBirth = (date: string) => {
-    return `${date}T00:00:00.000Z`;
-  };
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+    throw new Error("Invalid date format");
+  }
+  return `${date}T00:00:00.000Z`;
+};
 
   useEffect(() => {
     const loadSavedCredentials = async () => {
@@ -102,6 +105,7 @@ export default function SignUp() {
         text1: "Account Created!",
         text2: "Welcome to Anansesem 💫",
       });
+    
 
       setTimeout(() => {
         router.replace("/(onboarding)/parental-consent");

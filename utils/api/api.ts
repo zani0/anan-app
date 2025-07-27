@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const API_BASE_URL = "https://anansesem.onrender.com/api/v1"; 
+export const API_BASE_URL = "https://anansesem.onrender.com/api/v1";
 // export const API_BASE_URL = "http://192.168.100.25:3000/api/auth";
 
 interface SignupForm {
@@ -39,35 +39,34 @@ interface LoginResponse {
 
 export const signup = async (form: SignupForm): Promise<SignupResponse> => {
   try {
-    console.log('form', form)
+    console.log("form", form);
 
     const response = await axios({
-      method: 'post',
+      method: "post",
       baseURL: API_BASE_URL,
-      url: '/register',
+      url: "/register",
       data: {
         ...form,
-        password: 'P@ssw0rd123'
-      }
-    })
-    // const response = await axios.post(`${API_BASE_URL}/register`, form);
+      },
+    });
 
-    return response.data;
+    const data = response.data;
 
+    if (data?.data?.tokenInfo?.access_token && data?.data?.user) {
+      await AsyncStorage.setItem("token", data.data.tokenInfo.access_token);
+      await AsyncStorage.setItem("user", JSON.stringify(data.data.user));
+    } else {
+      console.warn("Missing token or user data in response");
+    }
+
+    return {
+      message: data.message,
+      token: data.data.tokenInfo.access_token,
+      user: data.data.user,
+    };
   } catch (error: any) {
-
-  console.error(error?.response.data);
-  
-  throw new Error(error.message)
-  
-    // if (axios.isAxiosError(error)) {
-    //   const message = error.response?.data?.message || "Signup failed (Axios)";
-    //   console.error("Signup failed:", message);
-    //   throw new Error(message);
-    // } else {
-    //   console.error("Unexpected signup error:", error);
-    //   throw new Error("Unexpected error occurred during signup.");
-    // }
+    console.error("Signup failed:", error?.response?.data || error.message);
+    throw new Error(error.message);
   }
 };
 
