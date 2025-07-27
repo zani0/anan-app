@@ -1,4 +1,9 @@
-import { CheckSquare, Square, Star, Star as StarIcon } from "lucide-react-native";
+import {
+  CheckSquare,
+  Square,
+  Star,
+  Star as StarIcon,
+} from "lucide-react-native";
 import React, { useState } from "react";
 import {
   Dimensions,
@@ -9,7 +14,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { WebView } from "react-native-webview";
+import { Vimeo } from "react-native-vimeo-iframe";
 
 const quizData = [
   {
@@ -64,7 +69,11 @@ export default function Video() {
   const renderStars = () => (
     <View className="flex-row items-center">
       {[1, 2, 3, 4, 5].map((star) => (
-        <TouchableOpacity key={star} onPress={() => setRating(star)} className="mx-1">
+        <TouchableOpacity
+          key={star}
+          onPress={() => setRating(star)}
+          className="mx-1"
+        >
           <Star
             size={24}
             color={star <= rating ? "#facc15" : "#e5e7eb"}
@@ -100,11 +109,16 @@ export default function Video() {
           </View>
         </TouchableOpacity>
       ) : (
-        <View style={{ height: 220, borderRadius: 16, overflow: "hidden" }}>
-          <WebView
-            source={{ uri: "https://player.vimeo.com/video/76979871" }}
-            style={{ flex: 1 }}
-            allowsFullscreenVideo
+        <View
+          style={{
+            height: (width * 9) / 16,
+            borderRadius: 16,
+            overflow: "hidden",
+          }}
+        >
+          <Vimeo
+            videoId="76979871"
+            params="autoplay=1&loop=0&transparent=0&title=0"
           />
         </View>
       )}
@@ -149,7 +163,10 @@ export default function Video() {
       <Modal transparent visible={showQuiz} animationType="fade">
         <View className="flex-1 justify-center items-center bg-black/50 px-4">
           <View className="bg-white p-6 rounded-3xl w-full max-w-xl shadow-xl">
-            <ScrollView contentContainerStyle={{ paddingBottom: 20 }} showsVerticalScrollIndicator={false}>
+            <ScrollView
+              contentContainerStyle={{ paddingBottom: 20 }}
+              showsVerticalScrollIndicator={false}
+            >
               <Image
                 source={require("@/assets/images/avatar.png")}
                 className="w-24 h-24 mx-auto mb-4"
@@ -157,19 +174,25 @@ export default function Video() {
               />
               {showScore ? (
                 <View className="items-center">
-                  <Text className="text-2xl font-bold text-purple-800 mb-2">🎉 Quiz Completed!</Text>
+                  <Text className="text-2xl font-bold text-purple-800 mb-2">
+                    🎉 Quiz Completed!
+                  </Text>
                   <Text className="text-lg text-black mb-2 text-center">
                     You got {score} out of {quizData.length} correct!
                   </Text>
                   <View className="flex-row items-center mb-4">
                     <StarIcon size={20} color="#facc15" fill="#facc15" />
-                    <Text className="ml-2 text-black font-semibold text-lg">{points} Points</Text>
+                    <Text className="ml-2 text-black font-semibold text-lg">
+                      {points} Points
+                    </Text>
                   </View>
                   <TouchableOpacity
                     onPress={() => setShowQuiz(false)}
                     className="bg-purple-700 px-6 py-3 rounded-full"
                   >
-                    <Text className="text-white text-lg font-bold">Back to Video</Text>
+                    <Text className="text-white text-lg font-bold">
+                      Back to Video
+                    </Text>
                   </TouchableOpacity>
                 </View>
               ) : (
@@ -183,8 +206,11 @@ export default function Video() {
 
                   {quizData[currentQuestion].options.map((option, i) => {
                     const selected = selectedOptions[currentQuestion];
-                    const isCorrect = selected && option === quizData[currentQuestion].answer;
-                    const isWrong = selected === option && option !== quizData[currentQuestion].answer;
+                    const isCorrect =
+                      selected && option === quizData[currentQuestion].answer;
+                    const isWrong =
+                      selected === option &&
+                      option !== quizData[currentQuestion].answer;
 
                     let bgColor = "bg-gray-100";
                     if (selected) {
@@ -222,11 +248,15 @@ export default function Video() {
                       onPress={handleNext}
                       disabled={!selectedOptions[currentQuestion]}
                       className={`px-4 py-2 rounded-lg ${
-                        selectedOptions[currentQuestion] ? "bg-purple-700" : "bg-gray-300"
+                        selectedOptions[currentQuestion]
+                          ? "bg-purple-700"
+                          : "bg-gray-300"
                       }`}
                     >
                       <Text className="text-white">
-                        {currentQuestion === quizData.length - 1 ? "Finish" : "Next"}
+                        {currentQuestion === quizData.length - 1
+                          ? "Finish"
+                          : "Next"}
                       </Text>
                     </TouchableOpacity>
                   </View>

@@ -112,7 +112,6 @@ export default function EditChildProfile() {
   const languageOptions = [
     { key: "ENGLISH", value: "English" },
     { key: "FRENCH", value: "French" },
-    { key: "YORUBA", value: "Yoruba" },
   ];
   const readingOptions = [
     { key: "BEGINNER", value: "Beginner" },
