@@ -12,8 +12,9 @@ import {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { Heart, Flag } from "lucide-react-native";
-import Header from "@/components/Header";
+import Header from "@/components/HeaderGoBack";
 import SearchBar from "@/components/Search";
+import CategorySlider from "@/components/CategorySlider";
 
 const screenHeight = Dimensions.get("window").height;
 
@@ -79,6 +80,7 @@ export default function SearchResults() {
           >
             <Header />
             <SearchBar />
+            <CategorySlider />
             <Text className="text-[#60178b] font-poppinsBold text-[20px] text-center my-4 mb-6">
               You searched for{"  "}
               <Text className="font-poppinsBold">"{query}"</Text>
