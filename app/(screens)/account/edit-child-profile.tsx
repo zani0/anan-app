@@ -231,7 +231,7 @@ export default function EditChildProfile() {
 
       <TouchableOpacity
         onPress={handleSave}
-        className="bg-[#D0EE30] py-4 rounded-xl mb-4"
+        className="bg-[#D0EE30] py-4 rounded-full mb-4"
         disabled={submitting}
       >
         <Text className="text-[#60178b] font-poppinsBold text-center text-[16px]">
@@ -241,7 +241,7 @@ export default function EditChildProfile() {
 
       <TouchableOpacity
         onPress={handleDelete}
-        className="bg-red-600 py-4 rounded-xl"
+        className="bg-red-600 py-4 rounded-xl rounded-full"
       >
         <Text className="text-white font-poppinsBold text-center text-[16px]">
           Delete Profile

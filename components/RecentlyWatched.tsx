@@ -48,7 +48,7 @@ export default function RecentlyWatched() {
   const [favorites, setFavorites] = useState<string[]>([]);
   const [showFlagPopup, setShowFlagPopup] = useState(false);
   const [videoToFlag, setVideoToFlag] = useState<any>(null);
-  const [showFavoritePopup, setShowFavoritePopup] = useState(false); // ✅ NEW
+  const [showFavoritePopup, setShowFavoritePopup] = useState(false); 
 
   const toggleFavorite = (id: string) => {
     setFavorites((prev) => {
@@ -57,7 +57,7 @@ export default function RecentlyWatched() {
         : [...prev, id];
 
       if (!prev.includes(id)) {
-        setShowFavoritePopup(true); // ✅ Show popup only when adding
+        setShowFavoritePopup(true); 
       }
 
       return updated;

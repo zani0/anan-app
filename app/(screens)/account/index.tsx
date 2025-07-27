@@ -163,7 +163,7 @@ export default function ParentAccount() {
               <Text className="text-lg font-poppinsBold text-[#60178b] mb-2">
                 Your Children
               </Text>
-              {children.map((child, i) => (
+              {children.map((child) => (
                 <View
                   key={child.name}
                   className="flex-row justify-between items-center border-[#60178b] py-2"

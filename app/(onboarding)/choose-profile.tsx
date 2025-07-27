@@ -177,11 +177,11 @@ export default function ChooseProfile() {
             </TouchableOpacity>
 
             {/* Continue as Parent */}
-            {/* <TouchableOpacity onPress={() => router.replace("/(tabs)")}>
+            <TouchableOpacity onPress={() => router.replace("/(tabs)")}>
               <Text className="text-white font-poppins text-sm text-center underline mt-6">
                 Continue with parent account instead
               </Text>
-            </TouchableOpacity> */}
+            </TouchableOpacity>
           </View>
         </View>
       </ScrollView>
