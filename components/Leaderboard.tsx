@@ -70,7 +70,7 @@ export default function Leaderboard() {
         </View>
 
         {/* Right box */}
-        <View className="bg-[#d0ed32] items-center justify-center rounded-xl w-[48%] border border-gray-200">
+        <View className="bg-[#d0ed32] items-center justify-center rounded-xl w-[48%] border border-gray-200 px-3">
           {userCrown && (
             <Image
               source={userCrown}
@@ -78,9 +78,14 @@ export default function Leaderboard() {
               resizeMode="contain"
             />
           )}
-          <View className="bg-white px-4 py-2 mt-2 rounded-lg">
-            <Text className="ml-2 font-poppinsBold text-[#5D1889] text-[16px]">
-              You are {userRankLabel}
+          <View className="bg-white px-4 py-2 mt-2 rounded-lg w-full">
+            <Text className="ml-2 font-poppinsBold text-[#5D1889] text-[14px] text-center">
+              You are
+            </Text>
+          </View>
+          <View className="bg-white px-4 py-2 mt-1 rounded-lg w-full">
+            <Text className="ml-2 font-poppinsBold text-[#5D1889] text-[16px] text-center">
+              {userRankLabel}
             </Text>
           </View>
         </View>
