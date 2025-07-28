@@ -29,7 +29,7 @@ export default function SearchBar({ isSearchEnabled = true }: Props) { // defaul
   if (!isSearchEnabled) return null;
 
   return (
-    <View className="px-4 my-4">
+    <View className="px-4 my-4 bg-white">
       <View style={styles.container}>
         <TextInput
           value={query}
