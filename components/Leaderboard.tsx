@@ -75,12 +75,12 @@ export default function Leaderboard() {
                   className={`px-3 py-1 rounded-full border ${
                     activeFilter === tab
                       ? "bg-[#d0ed32] border-[#d0ed32]"
-                      : "bg-gray-100 border-gray-300"
+                      : "bg-white border-[#5D1889]"
                   }`}
                 >
                   <Text
                     className={`text-xs font-poppinsBold ${
-                      activeFilter === tab ? "text-[#5D1889]" : "text-black"
+                      activeFilter === tab ? "text-[#5D1889]" : "text-[#5D1889]"
                     }`}
                   >
                     {tab}
