@@ -36,7 +36,12 @@ const leaderboardData = [
   { name: "Kwame", score: 110 },
   { name: "You", score: 685 },
   { name: "Fatima", score: 95 },
-  { name: "John", score: 80 },
+  { name: "Zuri", score: 160 },
+  { name: "Ama", score: 70 },
+  { name: "James", score: 80 },
+  { name: "Lisa", score: 40 },
+  { name: "Amanda", score: 280 },
+  { name: "Joshua", score: 330 },
 ];
 
 export default function Leaderboard() {
@@ -84,7 +89,7 @@ export default function Leaderboard() {
             </Text>
           </View>
           <View className="bg-white px-4 py-2 mt-1 rounded-lg w-full">
-            <Text className="ml-2 font-poppinsBold text-[#5D1889] text-[16px] text-center">
+            <Text className="ml-2 font-poppinsBold text-[#5D1889] text-[24px] text-center">
               {userRankLabel}
             </Text>
           </View>
