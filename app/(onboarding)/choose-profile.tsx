@@ -70,7 +70,7 @@ export default function ChooseProfile() {
     >
       <Image
         source={{ uri: getAvatarUrl(item) }}
-        className={`w-[100px] h-[100px] rounded-full mb-2 ${
+        className={`w-[80px] h-[80px] rounded-full mb-2 ${
           selectedId === item.id ? "border-4 border-[#D0EE30]" : ""
         }`}
         resizeMode="cover"
