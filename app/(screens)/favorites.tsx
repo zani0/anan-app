@@ -56,7 +56,9 @@ export default function FavoritesScreen() {
       <View className="px-4 bg-white">
         <Header />
         <SearchBar />
-        <CategorySlider />
+        <View className="justify-center items-center py-4 mb-6">
+          <Text className="text-4xl text-[#5D1889] font-caprasimo">My Favorites</Text>
+        </View>
       </View>
       <Favorites />
     </ScrollView>
