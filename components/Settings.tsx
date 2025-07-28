@@ -68,13 +68,13 @@ export default function Settings() {
         ))}
 
         {/* Delete account button */}
-        <View className="mt-16 px-6">
+        {/* <View className="mt-16 px-6">
           <TouchableOpacity className="bg-red-600 rounded-full py-4 items-center justify-center">
             <Text className="text-white font-poppinsBold">
               Delete account
             </Text>
           </TouchableOpacity>
-        </View>
+        </View> */}
       </ScrollView>
     </ScrollView>
   );

@@ -36,7 +36,7 @@ export default function SettingsScreen() {
         </View>
 
         <View className="bg-[#60178b] mt-4 px-4 py-2 rounded-l-[40px] rounded-tr-[40px] rounded-br-0 w-[40vw]">
-          <Text className="text-[22px] text-[#ffffff] font-poppinsBold">
+          <Text className="text-[20px] text-[#ffffff] font-poppinsBold">
             Settings
           </Text>
         </View>
