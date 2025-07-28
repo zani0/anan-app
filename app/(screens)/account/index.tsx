@@ -14,6 +14,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Heart, Flag } from "lucide-react-native";
 import Header from "@/components/HeaderGoBack";
 import Settings from "@/components/Settings";
+import Library from "@/components/Library";
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -225,7 +226,9 @@ export default function ParentAccount() {
             </TouchableOpacity>
           </View>
         )}
+        {selectedTab === "Library" && <Library />}
         {selectedTab === "Settings" && <Settings />}
+
       </ScrollView>
 
       {/* Logout Modal */}

@@ -11,13 +11,13 @@ export default function Settings() {
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
 
   const menuItems = [
-    { label: "Audio settings", route: "/settings/audio" },
-    { label: "Language settings", route: "/settings/language" },
+    // { label: "Audio settings", route: "/settings/audio" },
+    // { label: "Language settings", route: "/settings/language" },
     { label: "Parental controls", route: "/account" },
     { label: "Notifications", isSwitch: true },
-    { label: "Privacy and security", route: "/settings/privacy" },
-    { label: "Subscriptions", route: "/settings/subscriptions" },
-    { label: "Help/Support", route: "/settings/help" },
+    // { label: "Privacy and security", route: "/settings/privacy" },
+    // { label: "Subscriptions", route: "/settings/subscriptions" },
+    // { label: "Help/Support", route: "/settings/help" },
   ];
 
   return (
