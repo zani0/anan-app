@@ -51,21 +51,21 @@ export default function Leaderboard() {
   const userRankLabel = getLabel(userIndex);
 
   return (
-    <View className="my-4 px-4">
+    <View className="my-4">
       {/* Top Stats */}
       <View className="flex-row justify-between mb-4">
         {/* Left box */}
-        <View className="bg-[#d0ed32] items-center p-3 rounded-xl w-[48%] h-[120px]">
+        <View className="bg-[#d0ed32] items-center justify-center p-3 rounded-xl w-[48%] h-[170px]">
           <Image
             source={avatarImage.thumbnail}
-            style={styles.avatar}
-            className="mb-4"
+            className="mb-4 w-[80px] h-[80px]"
+            resizeMode="contain"
           />
           <View className="items-center">
-            <Text className="font-poppinsBold text-[#60178b] text-[16px]">
+            <Text className="font-poppinsBold text-[#60178b] text-[28px]">
               {sortedData[userIndex]?.score}
             </Text>
-            <Text className="font-poppinsBold text-[#60178b] text-[16px]">points</Text>
+            <Text className="font-poppinsBold text-[#60178b] text-[13px]">points</Text>
           </View>
         </View>
 
@@ -74,11 +74,11 @@ export default function Leaderboard() {
           {userCrown && (
             <Image
               source={userCrown}
-              className="w-[40px] h-[40px]"
+              className="w-[60px] h-[60px]"
               resizeMode="contain"
             />
           )}
-          <View className="bg-white px-4 py-3 rounded-lg">
+          <View className="bg-white px-4 py-2 mt-2 rounded-lg">
             <Text className="ml-2 font-poppinsBold text-[#5D1889] text-[16px]">
               You are {userRankLabel}
             </Text>
@@ -145,12 +145,7 @@ export default function Leaderboard() {
 }
 
 const styles = StyleSheet.create({
-  avatar: {
-    width: 50,
-    height: 50,
-    resizeMode: "contain",
-    borderRadius: 20,
-  },
+
 
   crownSmall: {
     width: 16,
