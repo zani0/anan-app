@@ -44,7 +44,8 @@ export default function Leaderboard() {
   const userIndex = sortedData.findIndex((item) => item.name === "You");
 
   const getCrown = (index: number) => crownImages[index]?.thumbnail || null;
-  const getLabel = (index: number) => crownImages[index]?.label || `${index + 1}th`;
+  const getLabel = (index: number) =>
+    crownImages[index]?.label || `${index + 1}th`;
 
   const userCrown = getCrown(userIndex);
   const userRankLabel = getLabel(userIndex);
@@ -54,19 +55,34 @@ export default function Leaderboard() {
       {/* Top Stats */}
       <View className="flex-row justify-between mb-4">
         {/* Left box */}
-        <View className="bg-[#d0ed32] items-center p-3 rounded-xl w-[48%] h-[90px]">
-          <Image source={avatarImage.thumbnail} style={styles.avatar} className="mb-4" />
-          <Text className="ml-3 font-poppinsBold text-[#60178b] text-sm">
-            You have {sortedData[userIndex]?.score} points
-          </Text>
+        <View className="bg-[#d0ed32] items-center p-3 rounded-xl w-[48%] h-[120px]">
+          <Image
+            source={avatarImage.thumbnail}
+            style={styles.avatar}
+            className="mb-4"
+          />
+          <View className="items-center">
+            <Text className="font-poppinsBold text-[#60178b] text-[16px]">
+              {sortedData[userIndex]?.score}
+            </Text>
+            <Text className="font-poppinsBold text-[#60178b] text-[16px]">points</Text>
+          </View>
         </View>
 
         {/* Right box */}
-        <View className="bg-[#d0ed32] items-center justify-center p-3 rounded-xl w-[48%] border border-gray-200">
-          {userCrown && <Image source={userCrown} style={styles.crown} className="w-[80px] h-[80px]" resizeMode="cover" />}
-          <Text className="ml-2 font-poppinsBold text-[#5D1889] text-sm">
-            You are {userRankLabel}
-          </Text>
+        <View className="bg-[#d0ed32] items-center justify-center rounded-xl w-[48%] border border-gray-200">
+          {userCrown && (
+            <Image
+              source={userCrown}
+              className="w-[40px] h-[40px]"
+              resizeMode="contain"
+            />
+          )}
+          <View className="bg-white px-4 py-3 rounded-lg">
+            <Text className="ml-2 font-poppinsBold text-[#5D1889] text-[16px]">
+              You are {userRankLabel}
+            </Text>
+          </View>
         </View>
       </View>
 
@@ -135,11 +151,7 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
     borderRadius: 20,
   },
-  crown: {
-    width: 24,
-    height: 24,
-    resizeMode: "contain",
-  },
+
   crownSmall: {
     width: 16,
     height: 16,

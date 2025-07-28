@@ -112,7 +112,7 @@ export default function StoryCreatorForm() {
         images: "illustrations",
         readingLevel: "Emergent",
         category: selectedCategories.map((c) => c.toUpperCase()),
-        ambientMusic: "soothing", // stays in payload
+        ambientMusic: "soothing",
       },
       mainCharacter: {
         name: characterName,
@@ -157,7 +157,7 @@ export default function StoryCreatorForm() {
   return (
     <View className="flex-1 bg-white" style={{ paddingTop: insets.top }}>
       <Modal transparent visible={loading} animationType="fade">
-        <View className="flex-1 justify-center items-center bg-[#5D1889]/70">
+        <View className="flex-1 justify-center items-center bg-[#5D1889]/80">
           <View className=" px-6 py-8 rounded-3xl items-center w-4/5 shadow-xl">
             <Image
               source={require("@/assets/images/avatar.png")}
