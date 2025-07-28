@@ -20,7 +20,9 @@ export default function StoryCreatorForm() {
 
   const [loading, setLoading] = useState(false);
   const [incompleteModal, setIncompleteModal] = useState(false);
-  const [activeTab, setActiveTab] = useState<"book" | "character" | "story">("book");
+  const [activeTab, setActiveTab] = useState<"book" | "character" | "story">(
+    "book"
+  );
 
   const [language, setLanguage] = useState<string | null>(null);
   const [category, setCategory] = useState<string | null>(null);
@@ -155,14 +157,14 @@ export default function StoryCreatorForm() {
   return (
     <View className="flex-1 bg-white" style={{ paddingTop: insets.top }}>
       <Modal transparent visible={loading} animationType="fade">
-        <View className="flex-1 justify-center items-center bg-black/50">
-          <View className="bg-white px-6 py-8 rounded-3xl items-center w-4/5 shadow-xl">
+        <View className="flex-1 justify-center items-center bg-[#5D1889]/70">
+          <View className=" px-6 py-8 rounded-3xl items-center w-4/5 shadow-xl">
             <Image
               source={require("@/assets/images/avatar.png")}
               className="w-24 h-24 mb-4"
               resizeMode="contain"
             />
-            <Text className="text-[#5D1889] font-caprasimo text-2xl mb-2 text-center">
+            <Text className="text-white font-caprasimo text-2xl mb-2 text-center">
               Hold on, Ananse is generating your story...
             </Text>
             <ActivityIndicator size="large" color="#5D1889" />
