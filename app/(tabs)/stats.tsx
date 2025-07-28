@@ -19,8 +19,9 @@ export default function Stats() {
       >
       <Header />
       <CategorySlider />
+            <Leaderboard />
+
       <Achievements />
-      <Leaderboard />
     </ScrollView>
     </View>
   );
