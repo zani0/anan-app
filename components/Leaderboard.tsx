@@ -11,17 +11,17 @@ import {
 const crownImages = [
   {
     id: 1,
-    label: "first",
+    label: "1st",
     thumbnail: require("@/assets/images/gold-crown.png"),
   },
   {
     id: 2,
-    label: "second",
+    label: "2nd",
     thumbnail: require("@/assets/images/silver-crown.png"),
   },
   {
     id: 3,
-    label: "third",
+    label: "3rd",
     thumbnail: require("@/assets/images/bronze-crown.png"),
   },
 ];
@@ -34,7 +34,7 @@ const avatarImage = {
 const leaderboardData = [
   { name: "Ada", score: 120 },
   { name: "Kwame", score: 110 },
-  { name: "You", score: 155 },
+  { name: "You", score: 685 },
   { name: "Fatima", score: 95 },
   { name: "John", score: 80 },
 ];
