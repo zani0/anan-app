@@ -1,11 +1,13 @@
+// ChooseProfile.tsx (Option 1: Vertical Scroll)
+
 import {
   View,
   Text,
   FlatList,
   Image,
   TouchableOpacity,
-  ScrollView,
   ActivityIndicator,
+  ScrollView,
 } from "react-native";
 import { useState, useEffect } from "react";
 import { useRouter } from "expo-router";
@@ -80,8 +82,8 @@ export default function ChooseProfile() {
   );
 
   return (
-    <View className="flex-1 bg-[#60178b] relative">
-      {/* Spiderwebs */}
+    <View className="flex-1 bg-[#60178b] items-center justify-center">
+      {/* Background spiderwebs */}
       <Image
         source={require("@/assets/images/spider-web-1.png")}
         className="w-[150px] h-[120px] absolute top-[-20] right-[-30]"
@@ -93,22 +95,12 @@ export default function ChooseProfile() {
         resizeMode="cover"
       />
 
-      <ScrollView
-        contentContainerStyle={{
-          flexGrow: 1,
-          justifyContent: "center",
-          alignItems: "center",
-          paddingHorizontal: 24,
-          paddingVertical: 48,
-        }}
-        showsVerticalScrollIndicator={false}
-      >
-        <View className="w-full max-w-[360px]">
-          <Text className="text-[30px] font-caprasimo text-[#D0EE30] text-center mb-12">
-            Who’s watching?
-          </Text>
+      <View className="w-full max-w-[360px] items-center px-6">
+        <Text className="text-[30px] font-caprasimo text-[#D0EE30] text-center mb-8">
+          Who’s watching?
+        </Text>
 
-          {/* Grid of Profiles */}
+        <View className="h-[300px] w-full mb-6">
           {loading ? (
             <ActivityIndicator color="#D0EE30" size="large" />
           ) : (
@@ -118,8 +110,8 @@ export default function ChooseProfile() {
                 { id: "new", fullName: "Add Profile", avatar: null },
               ]}
               numColumns={3}
-              scrollEnabled={false}
               keyExtractor={(item) => item.id}
+              showsVerticalScrollIndicator={true}
               contentContainerStyle={{ gap: 20 }}
               columnWrapperStyle={{
                 justifyContent: "space-evenly",
@@ -131,7 +123,7 @@ export default function ChooseProfile() {
                     onPress={() => router.push("/create-child-profile")}
                     className="items-center w-[100px] self-center"
                   >
-                    <View className="w-[100px] h-[100px] rounded-full bg-[#60178b] justify-center items-center mb-2 border-[#D0EE30] border-solid border-[1px]">
+                    <View className="w-[100px] h-[100px] rounded-full bg-[#60178b] justify-center items-center mb-2 border-[#D0EE30] border-[1px]">
                       <Text className="text-[#D0EE30] text-5xl">+</Text>
                     </View>
                     <Text className="text-white font-poppins text-[14px] text-center">
@@ -144,43 +136,39 @@ export default function ChooseProfile() {
               }
             />
           )}
-          <View className="items-center">
-            {/* Continue Button */}
-            <TouchableOpacity
-              disabled={!selectedId}
-              onPress={handleContinue}
-              className={`py-3 px-10 rounded-xl w-full mt-6 ${
-                selectedId ? "bg-[#D0EE30]" : "bg-[#D0EE30]/40"
-              }`}
-            >
-              <Text
-                className={`font-poppinsBold text-[18px] text-center ${
-                  selectedId ? "text-[#60178b]" : "text-[#60178b]/50"
-                }`}
-              >
-                Continue
-              </Text>
-            </TouchableOpacity>
-
-            {/* Manage profiles button  */}
-            <TouchableOpacity
-              onPress={() => router.push("/(screens)/account/manage-profiles")}
-              className="py-3 px-8 rounded-xl w-[50vw] justify-center mt-6 bg-[#60178b] border-white border-[1px] border-solid"
-            >
-              <Text className="font-poppins text-[13px] text-center text-white">
-                Manage Profiles
-              </Text>
-            </TouchableOpacity>
-
-            {/* Continue as Parent */}
-            <TouchableOpacity onPress={() => router.replace("/(tabs)")}>
-              <Text className="text-white font-poppins text-sm text-center underline mt-6">
-                Continue with parent account instead
-              </Text>
-            </TouchableOpacity>
-          </View>
         </View>
-      </ScrollView>
+
+        <TouchableOpacity
+          disabled={!selectedId}
+          onPress={handleContinue}
+          className={`py-3 px-10 rounded-xl w-full ${
+            selectedId ? "bg-[#D0EE30]" : "bg-[#D0EE30]/40"
+          }`}
+        >
+          <Text
+            className={`font-poppinsBold text-[18px] text-center ${
+              selectedId ? "text-[#60178b]" : "text-[#60178b]/50"
+            }`}
+          >
+            Continue
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={() => router.push("/(screens)/account/manage-profiles")}
+          className="py-3 px-8 rounded-xl w-[50vw] justify-center mt-4 bg-[#60178b] border-white border-[1px] border-solid"
+        >
+          <Text className="font-poppins text-[13px] text-center text-white">
+            Manage Profiles
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => router.replace("/(tabs)")}>
+          <Text className="text-white font-poppins text-sm text-center underline mt-4">
+            Continue with parent account instead
+          </Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
