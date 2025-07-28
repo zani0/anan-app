@@ -46,7 +46,7 @@ export default function ParentAccount() {
 
   const confirmLogout = () => {
     setShowLogoutConfirm(false);
-    router.back();
+    router.push("/choose-profile");
   };
 
   const renderTopPicks = (childName: string) => {

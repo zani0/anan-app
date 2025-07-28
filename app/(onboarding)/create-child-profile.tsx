@@ -156,7 +156,7 @@ export default function CreateChildProfile() {
   //   if (step < 5) {
   //     setStep(step + 1);
   //   } else {
-  //     // 🚨 TEMPORARILY SKIPPING API
+  //     // TEMPORARILY SKIPPING API
   //     router.replace("/(onboarding)/preferences/index");
   //   }
   // };
